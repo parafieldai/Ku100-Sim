@@ -82,7 +82,7 @@ def main():
                 paths=[chosen]+[i for i in entries if Path(i.filename).stem==stem and any('/'+k+'/' in i.filename for k in ['force','accel','position','audio'])]
                 for info in paths:
                     if info.file_size>8*1024*1024:continue
-                    raw=z.read(info);loc=args.out/'cluster-sample'/info.filename;loc.parent.mkdir(parents=True,exist_ok=True);loc.write_bytes(raw)
+                    raw=z.read(info);name=hashlib.sha256(info.filename.encode('utf-8')).hexdigest()[:16]+'-'+Path(info.filename).name;loc=args.out/'cluster-sample'/name;loc.parent.mkdir(parents=True,exist_ok=True);loc.write_bytes(raw)
                     item={'path':info.filename,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
                     if info.filename.endswith('.wav'):
                         import soundfile as sf

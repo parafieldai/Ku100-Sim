@@ -1,84 +1,77 @@
-name: Publish private viewer
-
-# Configure Settings > Pages manually first: GitHub Actions source and private
-# visibility. This workflow neither enables Pages nor changes its visibility.
+name: Publish viewer
 on:
+  workflow_run:
+    workflows: [Validate native renderer and viewer]
+    types: [completed]
   workflow_dispatch:
-
+    inputs:
+      run_id:
+        description: Successful main-branch native CI run ID
+        required: true
 permissions:
   contents: read
-
+  actions: read
+  pages: read
 concurrency:
   group: pages
   cancel-in-progress: false
-
 jobs:
-  build:
-    if: github.ref == 'refs/heads/main'
+  prepare:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == github.repository)
     runs-on: ubuntu-latest
-    timeout-minutes: 20
-    permissions:
-      contents: read
-      pages: read
+    outputs:
+      ready: ${{ steps.site.outputs.ready }}
     steps:
-      - uses: actions/checkout@v6
-      - name: Require an already configured private Pages site
+      - name: Verify the source run and Pages availability
+        id: site
         env:
           GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ github.event.workflow_run.id || inputs.run_id }}
         shell: bash
         run: |
           set -euo pipefail
-          visibility="$(gh api "repos/${GITHUB_REPOSITORY}/pages" --jq '.public')"
-          if [[ "$visibility" != 'false' ]]; then
-            echo 'Configure GitHub Actions publishing and private visibility in Settings > Pages before deploying.' >&2
-            exit 1
+          [[ "$RUN_ID" =~ ^[0-9]+$ ]]
+          gh api "repos/${GITHUB_REPOSITORY}/actions/runs/$RUN_ID" > run.json
+          jq -e --arg repo "$GITHUB_REPOSITORY" '.conclusion == "success" and .head_branch == "main" and .path == ".github/workflows/ci.yml" and .head_repository.full_name == $repo' run.json
+          sha=$(jq -r '.head_sha' run.json)
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+          echo "run=$RUN_ID" >> "$GITHUB_OUTPUT"
+          if gh api "repos/${GITHUB_REPOSITORY}/pages" > pages.json 2> pages-error.txt; then
+            if jq -e '.build_type == "workflow"' pages.json; then
+              echo 'ready=true' >> "$GITHUB_OUTPUT"
+            else
+              echo 'ready=false' >> "$GITHUB_OUTPUT"
+              echo 'Configure Settings > Pages > GitHub Actions. The downloadable preview remains in the successful CI artifact.' >> "$GITHUB_STEP_SUMMARY"
+            fi
+          else
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+            echo 'Pages is not enabled or not accessible to this workflow. No live site is claimed. Open the native CI artifact for the offline HTML and WAVs.' >> "$GITHUB_STEP_SUMMARY"
           fi
+      - uses: actions/download-artifact@v4
+        if: steps.site.outputs.ready == 'true'
+        with:
+          name: ku100-verified-${{ steps.site.outputs.sha }}
+          github-token: ${{ github.token }}
+          run-id: ${{ steps.site.outputs.run }}
+          path: tested
       - uses: actions/configure-pages@v5
+        if: steps.site.outputs.ready == 'true'
+      - uses: actions/upload-pages-artifact@v4
+        if: steps.site.outputs.ready == 'true'
         with:
-          enablement: false
-      - uses: actions/setup-python@v6
+          path: tested/dist
+      - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          python-version: '3.12'
-          cache: pip
-      - uses: actions/setup-node@v6
-        with:
-          node-version: '22'
-          cache: npm
-          cache-dependency-path: web/package-lock.json
-      - name: Install pinned browser test dependency
-        run: npm ci --prefix web
-      - name: Install browser for end-to-end validation
-        run: npx --prefix web playwright install --with-deps chromium
-      - name: Install numerical dependencies
-        run: python -m pip install -r requirements.txt
-      - name: Build native renderer
-        run: python scripts/build_native.py
-      - name: Verify source bank
-        run: python scripts/prepare_ku100.py --download
-      - name: Test native model and export contracts
-        run: python -m unittest discover -s tests -v
-      - name: Test viewer contracts
-        run: npm --prefix web test
-      - name: Verify physical refinement and regime checks
-        run: python scripts/validate_physics.py --out validation/local/physics-convergence.json
-      - name: Generate deterministic demonstration exports
-        run: python scripts/generate_examples.py
-      - name: Verify generated bundles against the browser contract
-        run: npm --prefix web run check:examples
-      - name: Validate publication allowlist and build static site
-        run: python scripts/build_site.py
-      - name: Exercise real rendered audio and import in Chromium
-        run: node scripts/browser_e2e.mjs
-      - name: Upload only the generated static site
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: dist
-
+          name: pages-availability-${{ github.run_id }}
+          path: |
+            pages.json
+            pages-error.txt
+            run.json
   deploy:
-    needs: build
-    if: github.ref == 'refs/heads/main'
+    needs: prepare
+    if: needs.prepare.outputs.ready == 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     permissions:
       pages: write
       id-token: write
@@ -86,6 +79,5 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy verified viewer
+      - uses: actions/deploy-pages@v4
         id: deployment
-        uses: actions/deploy-pages@v4

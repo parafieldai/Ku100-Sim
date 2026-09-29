@@ -15,9 +15,11 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
@@ -43,6 +45,10 @@ jobs:
         run: npm --prefix web test
       - name: Verify physical refinement and regime checks
         run: python scripts/validate_physics.py --out validation/local/physics-convergence.json
+      - name: Validate analytical unsteady tube impedance
+        run: python scripts/validate_viscous.py
+      - name: Assess per-ear and per-band convergence without hiding weak bands
+        run: python scripts/quality_gate.py
       - name: Generate deterministic demonstration exports
         run: python scripts/generate_examples.py
       - name: Verify generated bundles against the browser contract
@@ -51,14 +57,20 @@ jobs:
         run: python scripts/build_site.py
       - name: Exercise real rendered audio and import in Chromium
         run: node scripts/browser_e2e.mjs
+      - name: Package server-free preview and original WAV downloads
+        run: python scripts/package_preview.py --out outputs/review
+      - name: Exercise the offline preview in Chromium
+        run: node scripts/browser_offline.mjs
       - name: Retain tested native examples and verification evidence
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: ku100-verified-${{ github.sha }}
           retention-days: 14
           if-no-files-found: error
           path: |
             dist/
+            outputs/review/
             validation/local/
             validation/physics-convergence.json
             build/ku100-native.build.json
