@@ -1,0 +1,28 @@
+{
+  "main_commit": "27f685172a19ab5cd8829da93195e91a01f6b09b",
+  "run_id": 36617778812,
+  "ci_conclusion": "success",
+  "artifact_id": 11056976007,
+  "artifact_sha256": "c6199581e4933c867468c0c689caf946df8d8061fcf65bcc2498f4d2170a527d",
+  "zip_crc_verified": true,
+  "preview_member_hashes_verified": true,
+  "seven_wavs_identical_to_initial_cloud_test": true,
+  "pages_run_id": 36618108584,
+  "pages_deploy_conclusion": "skipped",
+  "live_pages_url": null,
+  "preview_html_sha256": "b17be26ae2d2ab2dcf2c21369eaa47b0c54a7d326299a90ae2412ebc0fd7a69f",
+  "qualified_preview_comparisons": [
+    [
+      "viscous256",
+      "viscous512"
+    ],
+    [
+      "fine512",
+      "fine1024"
+    ],
+    [
+      "fine512",
+      "fine512-r384"
+    ]
+  ]
+}

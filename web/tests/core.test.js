@@ -149,3 +149,27 @@ test('an undersampled spatial texture is rejected rather than rendered with hidd
   scene.physics = {texture_min_wavelength_m: 1e-6, speed_m_s: 0.035, sample_rate: 192000};
   assert.throws(() => validateScene(JSON.stringify(scene)), /16 integration samples/);
 });
+
+test('partial geometry overrides are validated against omitted native defaults', () => {
+  for (const physics of [{contact_radius_m: 0.04}, {plate_width_m: 0.9}, {plate_height_m: 0.001}, {plate_width_m: 0.025}]) {
+    const value = bundle().scene; value.physics = physics;
+    assert.throws(() => validateScene(JSON.stringify(value)), /aspect ratio|footprint/);
+  }
+  for (const physics of [{}, {plate_width_m: 0.03}, {contact_radius_m: 0.002},
+                         {plate_width_m: 0.025, contact_radius_m: 0.001}]) {
+    const value = bundle().scene; value.physics = physics;
+    assert.deepEqual(validateScene(JSON.stringify(value)).physics, physics);
+  }
+});
+
+
+test('exported integration rates stay within the native decimator range', () => {
+  for (const rate of [48000, 96000, 192000, 384000, 768000]) {
+    const value = bundle().scene; value.physics = {sample_rate: rate};
+    assert.equal(validateScene(JSON.stringify(value)).physics.sample_rate, rate);
+  }
+  for (const rate of [1536000, 800000, 8000, 96000.5]) {
+    const value = bundle().scene; value.physics = {sample_rate: rate};
+    assert.throws(() => validateScene(JSON.stringify(value)), /sample_rate|Integration rate/);
+  }
+});

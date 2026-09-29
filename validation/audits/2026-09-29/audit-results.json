@@ -1,0 +1,87 @@
+{
+  "schema": "document-code-audit/1",
+  "date": "2026-09-29",
+  "basis_commit": "7d3b7fe5762de10ebd63afe76cb14978e774032f",
+  "reviewer": "Single assistant plus automated independently assembled reference implementations; no new LLM subagents",
+  "branch_ancestry_at_start": {
+    "native-physics-audit": {
+      "sha": "318602a368be33f440704e3fd1d32f20a3d9bd29",
+      "unmerged_commits": 0
+    },
+    "research-audio-quality": {
+      "sha": "b83ae11d9b71474b62cbeefbd3020cc91ba42b98",
+      "unmerged_commits": 0
+    }
+  },
+  "native_sources_unchanged": true,
+  "native_source_sha256": {
+    "native/main.cpp": "61c570490b289e2570ee274342892030ba4b79ef6d86688862cc89ef99c2869f",
+    "native/physics.cpp": "233f1f1ef9222cf1c0e4611a300e9fc355e35616c6395a078b79e2f242c0cf28",
+    "native/physics.hpp": "cb6e7d33f46ea596f45adc59115f63f22e55fd97ef6f224b5a0396abd0cc10e9",
+    "native/receiver.cpp": "a5526aee4b79386272fa3ec05236d8a5228c3f48ebfbccfc5f27e9559f17eceb",
+    "native/receiver.hpp": "04a3535d5784c0bc1422486f081e735622e154c8d84bcf5340c3dc8fe53beb1f",
+    "native/viscous.hpp": "96b48915e9484998f396bc58a34cb4ab8ab7562f093fcb9cdb3a63630201442d"
+  },
+  "local_verification": {
+    "python": "3.13.5",
+    "baseline_native_python_tests": 69,
+    "baseline_frontend_tests": 17,
+    "post_fix_native_python_tests": 75,
+    "post_fix_frontend_tests": 19,
+    "original_physics_scenarios": 15,
+    "quality_probe_trajectories": 11,
+    "analytical_radii": 4,
+    "benchmark_acceptance_checks": 67,
+    "logs": {
+      "baseline-tests": {
+        "exit_code": 0,
+        "log_sha256": "b4543e91a6085557e69ba51405dc459b47fa65b40368d06c7b3abef50faf0564",
+        "bytes": 11141
+      },
+      "frontend-tests": {
+        "exit_code": 0,
+        "log_sha256": "a1fe19f82b20aedd0995775b40b153fddd65f4958bb88d9d307c1fa042a77fae",
+        "bytes": 3621
+      },
+      "post-fix-tests": {
+        "exit_code": 0,
+        "log_sha256": "face649ed88bb9d8e267c980a326b3493b15d6889142b348c5489d318d990060",
+        "bytes": 12151
+      },
+      "post-fix-quality": {
+        "exit_code": 0,
+        "log_sha256": "a0604b3245a9408bc884ca3f0ceb2ee68c62566d4edbb4b73582f97e13a12fbf",
+        "bytes": 182
+      },
+      "post-fix-physics": {
+        "exit_code": 0,
+        "log_sha256": "7f13c16ff9b5743dcd2464bef8aaa08d3e0f151d88739bed1a936b1ccd761339",
+        "bytes": 119
+      },
+      "benchmark-tests": {
+        "exit_code": 0,
+        "log_sha256": "65a6df686d88915fd97da5852f74b776789f44bc27c9d9a77ffa3ca25b22fc62",
+        "bytes": 4242
+      },
+      "viscous-validation": {
+        "exit_code": 0,
+        "log_sha256": "5f48c637bd8f5048d6ac53eeda6885de4ba1d42090e451c3643bb2bd7fe99ba6",
+        "bytes": 2815
+      }
+    }
+  },
+  "findings_fixed": [
+    "Malformed zero-depth RIFF reached modulo by zero",
+    "Huge JSON integer overflowed reusable numeric predicate",
+    "Sparse browser geometry bypassed coupled native-default bounds",
+    "Viewer and scene rate range exceeded exported native decimator limit",
+    "Physics and Pages documentation omitted newer behavior"
+  ],
+  "limits": [
+    "No target device/contact calibration",
+    "No new human listening assessment",
+    "No full-band structural convergence claim",
+    "No newly spawned subagent review",
+    "Local tests are not a new cloud-run receipt"
+  ]
+}

@@ -75,7 +75,7 @@ C_j dp_j/dt = Q_in - Q_out
 L_e dQ_e/dt = p_left - p_right - R_e Q_e
 ```
 
-The two edges joining the end chambers to the first/last duct cell use half-cell length. The default uses 32 cells over 0.18 m. Finite-volume dispersion must be checked by increasing the cell count; midpoint stability does not eliminate it. This is a one-dimensional plane-wave model with a simple quasi-steady wall resistance. It does not reproduce high-frequency viscothermal boundary layers or transverse duct modes. A lumped end chamber also eventually ceases to represent a spatially uniform pressure field.
+The two edges joining the end chambers to the first/last duct cell use half-cell length. The default uses 32 cells over 0.18 m. Finite-volume dispersion must be checked by increasing the cell count; midpoint stability does not eliminate it. These equations describe the legacy option `unsteady_viscous_losses=0`. The optional `unsteady_viscous_losses=1` replaces each duct/vent resistance-inertance element with the passive frequency-dependent viscous memory model in [VISCOUS_LOSSES.md](VISCOUS_LOSSES.md). Both options remain one-dimensional plane-wave models: neither resolves transverse duct modes or thermal wall losses. A lumped end chamber also eventually ceases to represent a spatially uniform pressure field.
 
 Each vent has its declared air inertance and Poiseuille resistance, followed by an equivalent pulsating-sphere radiation impedance. With sphere radius equal to vent radius,
 
@@ -98,7 +98,7 @@ For a full step the code checks the original states, not an energy-clamped surro
 stored_energy + accumulated_dissipation - accumulated_tool_work
 ```
 
-Stored energy includes every modal kinetic/elastic term, contact potential, all pressure compliances, duct/vent inertances and radiation storage. Dissipation includes structural damping, contact damping, slip/film work, duct/vent resistance and radiation. Tool work is `F_n Delta y + F_t v_tool dt`. No correction rescales state to hide a residual.
+Stored energy includes every modal kinetic/elastic term, contact potential, all pressure compliances, duct/vent inertances and radiation storage. When unsteady losses are enabled it also includes every viscous memory term `R_j z_j^2/(2 lambda_j)` and the positive tail inertance. Dissipation includes structural damping, contact damping, slip/film work, duct/vent resistance and radiation, plus `R_j (Q-z_j)^2` for each enabled memory branch. These terms are part of the coupled midpoint step, not an output filter. Tool work is `F_n Delta y + F_t v_tool dt`. No correction rescales state to hide a residual.
 
 For fixed physical parameters the linear midpoint rule and discrete contact gradient make this work identity hold up to solve and floating-point error. This is a numerical accounting result; it does not establish accurate geometry, good bandwidth, a calibrated output level or realistic sound. Varying wetness/material stiffness during a render would require accounting for parameter work; the current API deliberately holds them fixed.
 
@@ -106,7 +106,7 @@ For fixed physical parameters the linear midpoint rule and discrete contact grad
 
 `stroke` and `press` use a smooth engagement envelope and release by 75% of the requested duration. `stroke` additionally slides a deterministic spatial texture at the requested speed. The final 25% is unforced decay; it need not contain the entire physical decay. `tap` uses one short smooth indentation pulse, followed by decay. `silence`, or exactly zero load, leaves the relaxed fixture at rest.
 
-`load_n` sets a nominal static preload through the declared contact spring and the reference static plate compliance. It is not a force servo and it does not cap transient forces. Texture is a fixed sum of spatial sinusoidal components with seed-controlled phases and metre-valued roughness. Its spectral shape is an explicit uncalibrated surface assumption. It drives the contact geometry; it is not added to the output as audio.
+`load_n` sets a nominal static preload through the declared contact spring and the reference static plate compliance. It is not a force servo and it does not cap transient forces. Texture is a fixed sum of spatial sinusoidal components with seed-controlled phases and metre-valued roughness. Its minimum/maximum wavelengths and amplitude exponent are explicit inputs; the default minimum wavelength is 120 micrometres. The stroke sampling guard requires at least 16 integration samples per shortest advected cycle (`speed/minimum_wavelength`). Its spectral shape is an explicit uncalibrated surface assumption. It drives the contact geometry; it is not added to the output as audio.
 
 The default nominal load is **0.01 N**, a gentle contact. A preliminary 0.6 N
 setting displaced this soft plate by over three thicknesses and produced high
@@ -123,17 +123,22 @@ calibration. The displacement bound may conservatively flag a case whose actual
 spatial maximum is smaller; the returned waveform is not altered to force a
 passing flag.
 
+The pure physics API permits integration rates up to 1,536 kHz for numerical probes. The export pipeline is narrower: its decimator supports integer multiples of 48 kHz from 48 to 768 kHz. Python scene intake and the viewer enforce the export limit; a higher-rate core simulation is not automatically an exportable scene.
+
 Each output sample observes the end-of-step state at `(index+1)/integration_rate`. Trace rows contain exact pressures at their own times. Output decimation and optional receiver processing are outside `physics.cpp`; no gain should be applied before raw pressure and energy diagnostics have been saved.
 
 ## Required validation before a device-fidelity claim
 
 Run `python scripts/validate_physics.py` from the repository to reproduce the
 native contact, mirror, silence, wet, tap, mode-count, integration-rate and duct
-refinement probes. The output is `validation/physics-convergence.json`, including
+refinement probes. The default output is `validation/physics-convergence.json` (CI supplies `--out validation/local/physics-convergence.json`), including
 the compiler, source hashes, unnormalized pressure metrics, energy residuals and
 band-power fractions. The probe is separate from microphone/receiver processing.
 Its pass/fail assertions concern this fixed test set; its high-band metrics must
-be read alongside the excitation fractions.
+be read alongside the excitation fractions. The additional `scripts/quality_gate.py`
+compares both ears and five bands, refuses to count weak excitation as a pass,
+and enforces a 0.5% tolerance only for the specified preview-presets' 20–500 Hz
+comparisons. Neither assessment establishes full-band device fidelity.
 
 1. Refine structural count, duct cells and integration rate separately, holding physical input trajectories fixed. Compare forces, contact mobility and both pressure spectra over a stated common band. Do not normalize away truncation changes.
 2. Check mirror symmetry of this symmetric fixture, exact silence, finite state, nonnegative accumulated loss and the energy/work residual. These detect numerical regressions but do not calibrate the device.

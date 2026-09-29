@@ -1,0 +1,34 @@
+{
+  "scope": "Historical 27f6851 quality-update evidence; not results of the current audit",
+  "files": {
+    "quality-assessment.json": {
+      "sha256": "8f0fbe1a29bfc037626f3826428db274473a31be7881d69d06800ba536099303",
+      "bytes": 23593
+    },
+    "viscous-validation.json": {
+      "sha256": "8b4b128f6f4193e5816203b40abc922bc3f318f72477e49a903b41643dc35401",
+      "bytes": 2815
+    },
+    "dataset-paired-trial.json": {
+      "sha256": "b62ea3a9cd073dea319233c4bb3ccdbac861943622d9ccd8d0cbe831e03fe894",
+      "bytes": 4544
+    },
+    "PUBLICATION.json": {
+      "sha256": "557399df4faeff2c3df7f599095fcd1747f4df930ca1288a70e6cf96840e2bac",
+      "bytes": 743
+    },
+    "e2e.json": {
+      "sha256": "fe45657582caca5a8ad044cda53c1d0822d5f10d3a3384ce2b7a0363ed316d9d",
+      "bytes": 1057
+    },
+    "example-summary.json": {
+      "sha256": "1471688a03febc324d1a33e884863beca36775bac2929dbc5be090aa5da2a687",
+      "bytes": 8170
+    },
+    "delivered_markdown_source": {
+      "sha256": "bcdbfb790cf2f7655a0dca47efbf996357fc664ffa6867f4125ef14e1c19c288",
+      "bytes": 10614,
+      "copy": "docs/reports/main-quality-update-2026-09-29.md"
+    }
+  }
+}

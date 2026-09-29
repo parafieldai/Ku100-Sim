@@ -63,8 +63,13 @@ def canonical_scene(raw: dict, physics_defaults: dict) -> dict:
     integer_fields = {"sample_rate", "modes_per_plate", "trace_stride", "duct_cells", "unsteady_viscous_losses"}
     for key, default in defaults.items():
         complete[key] = finite_number(physics.get(key, default), "physics." + key, integer=key in integer_fields)
+    # The pure physics core supports higher-rate probes, but exported scenes
+    # must use the receiver/decimator's supported integration-rate range.
+    rate = complete["sample_rate"]
+    if not 48000 <= rate <= 768000 or rate % 48000:
+        raise ValueError("Scene integration rate must be a multiple of 48 kHz up to 768 kHz")
     if "trace_stride" not in physics:
-        complete["trace_stride"] = max(1, round(complete["sample_rate"] / 200))
+        complete["trace_stride"] = max(1, round(rate / 200))
     receiver = raw.get("receiver", {})
     if not isinstance(receiver, dict) or set(receiver) - {"mode", "azimuth_deg", "distance_m"}:
         raise ValueError("Unknown or malformed receiver parameters")

@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "browser": "151.0.7922.34",
+  "checks": [
+    "initial real native bundle, browser decoding and exact stereo samples",
+    "actual audio playback advances and pauses",
+    "seek, trace, common playback attenuation and geometry controls",
+    "WAV download preserves original file bytes and stereo gain",
+    "scene edit/export retains loaded audio until a native rerender",
+    "all seven real native examples decode and retain file identity",
+    "local import, invalid-regime display and corrupted-audio rejection",
+    "desktop and mobile layouts have no horizontal overflow",
+    "project subpath resolves all assets and playback data"
+  ],
+  "checks_passed": 9,
+  "browser_errors": [],
+  "examples": [
+    "stroke-left",
+    "wet-stroke-left",
+    "tap-right",
+    "airborne-left",
+    "press-left",
+    "unsteady-stroke-left",
+    "fine-texture-left"
+  ],
+  "human_listening_performed": false,
+  "note": "Playback and decoded samples were verified by automation; this is not a human listening or perceptual fidelity assessment."
+}

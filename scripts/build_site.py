@@ -71,7 +71,12 @@ def _json(data: bytes, label: str) -> dict:
 
 
 def _number(value: object) -> bool:
-    return type(value) in (int, float) and math.isfinite(value)
+    # json.loads can produce arbitrarily large integers. Reject them through
+    # the same validation contract instead of leaking math.isfinite overflow.
+    try:
+        return type(value) in (int, float) and math.isfinite(value)
+    except OverflowError:
+        return False
 
 
 def _validate_audio(audio: object, sample_rate: int, duration: float, label: str) -> None:

@@ -155,7 +155,7 @@ export function validateScene(text) {
   assert(object(scene.physics) && object(scene.receiver), 'Scene must contain physics and receiver objects.');
   const positive = new Set(['contact_radius_m', 'plate_width_m', 'plate_height_m', 'plate_thickness_m', 'young_modulus_pa', 'density_kg_m3', 'cavity_volume_m3', 'duct_length_m', 'duct_radius_m', 'vent_length_m', 'vent_radius_m', 'contact_stiffness_n_m15', 'friction_velocity_m_s', 'film_thickness_m', 'film_viscosity_pa_s', 'air_density_kg_m3', 'sound_speed_m_s', 'air_viscosity_pa_s', 'texture_min_wavelength_m', 'texture_max_wavelength_m']);
   const nonnegative = new Set(['load_n', 'speed_m_s', 'roughness_rms_m', 'modal_loss_ratio', 'contact_damping_n_s_m', 'friction_coefficient']);
-  const integerRanges = {sample_rate: [48000, 1536000], modes_per_plate: [1, 1024], trace_stride: [1, 4294967295], duct_cells: [1, 256], unsteady_viscous_losses: [0, 1]};
+  const integerRanges = {sample_rate: [48000, 768000], modes_per_plate: [1, 1024], trace_stride: [1, 4294967295], duct_cells: [1, 256], unsteady_viscous_losses: [0, 1]};
   for (const [key, value] of Object.entries(scene.physics)) {
     assert(finite(value), `physics.${key} must be a finite number.`);
     if (positive.has(key)) assert(value > 0, `physics.${key} must be positive.`);
@@ -172,11 +172,14 @@ export function validateScene(text) {
   assert(minWave >= 1e-6 && maxWave <= 0.1 && minWave < maxWave, 'Texture wavelengths require 1 micrometre <= minimum < maximum <= 0.1 m.');
   if (scene.preset === 'stroke') assert((p.speed_m_s ?? 0.035) / minWave <= (p.sample_rate ?? 192000) / 16, 'Texture advection needs at least 16 integration samples per shortest wavelength.');
   if (p.sample_rate !== undefined) assert(p.sample_rate * scene.duration_s <= 24000000 && p.sample_rate % 48000 === 0, 'Integration rate must be a multiple of 48 kHz and total samples at most 24 million.');
-  if (p.plate_width_m !== undefined && p.plate_height_m !== undefined) {
-    const aspect = p.plate_width_m / p.plate_height_m;
-    assert(aspect >= 0.25 && aspect <= 4, 'Plate aspect ratio must be in 0.25–4.');
-    if (p.contact_radius_m !== undefined) assert(p.contact_radius_m <= 0.15 * Math.min(p.plate_width_m, p.plate_height_m), 'Contact footprint is too large for the plate.');
-  }
+  // Scenes may override just one field. Use the native defaults for omitted
+  // dimensions so an exported partial scene cannot bypass coupled bounds.
+  const width = p.plate_width_m ?? 0.060;
+  const height = p.plate_height_m ?? 0.085;
+  const radius = p.contact_radius_m ?? 0.004;
+  const aspect = width / height;
+  assert(aspect >= 0.25 && aspect <= 4, 'Plate aspect ratio must be in 0.25–4.');
+  assert(radius <= 0.15 * Math.min(width, height), 'Contact footprint is too large for the plate.');
   const receiver = scene.receiver;
   assert(Object.keys(receiver).every(key => ['mode', 'azimuth_deg', 'distance_m'].includes(key)) && ['contact', 'airborne'].includes(receiver.mode), 'Receiver must be generic contact or measured KU100 airborne.');
   assert(receiver.azimuth_deg === undefined || finite(receiver.azimuth_deg), 'Receiver azimuth must be finite.');

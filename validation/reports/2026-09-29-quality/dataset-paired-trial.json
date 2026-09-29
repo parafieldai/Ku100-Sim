@@ -1,0 +1,150 @@
+{
+  "schema": "paired-trial-summary/1",
+  "source_doi": "10.6084/m9.figshare.29438288.v5",
+  "license": {
+    "value": 1,
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "archive": {
+    "id": 61118716,
+    "name": "cluster_haptic_texture_dataset.zip",
+    "size": 15220748922,
+    "computed_md5": "4bc91dacaaf5afc33ec0a1fbf0122284"
+  },
+  "calibrates_ku100": false,
+  "used_for_runtime_excitation": false,
+  "channel_definition": "raw 0: contact + machine noise; raw 1: machine reference; processed: noise-cancelled mono",
+  "sensor_bandwidth_warning": "Observed logging intervals are not independent force acquisition bandwidth. The paper describes an 80 Hz force converter.",
+  "members": [
+    {
+      "archive_path": "cluster_haptic_texture_dataset/sensor_data/position/0/0_0_20_1000_0.csv",
+      "local_name": "position-0_0_20_1000_0.csv",
+      "bytes": 9383,
+      "sha256": "34d943cbaf4a364145315e92aa160bd166b2e0ab0d33090d5dbd11cad51d1fa7",
+      "columns": [
+        "time",
+        "X",
+        "Y"
+      ],
+      "rows": 493,
+      "first_time_s": 0.000966,
+      "last_time_s": 4.920868,
+      "median_logging_interval_s": 0.010000000000000009,
+      "nominal_rows_per_second_from_median_interval": 99.99999999999991
+    },
+    {
+      "archive_path": "cluster_haptic_texture_dataset/sensor_data/raw_audio/0/0_0_20_1000_0.wav",
+      "local_name": "raw_audio-0_0_20_1000_0.wav",
+      "bytes": 865624,
+      "sha256": "0bc991b0609c7c0b6dc31a1a5d826156511c6659a308a2e485cdbb2556d823cb",
+      "rate": 44100,
+      "frames": 216395,
+      "channels": 2,
+      "peak_absolute": [
+        0.015228271484375,
+        0.01544189453125
+      ],
+      "rms": [
+        0.002957710711612083,
+        0.002519657647508868
+      ],
+      "pcm16_endpoint_samples": [
+        0,
+        0
+      ],
+      "audible_band_power_fractions": {
+        "20-250": [
+          0.9745869227982304,
+          0.9893650060257465
+        ],
+        "250-500": [
+          0.008497239261457346,
+          0.003934353333099523
+        ],
+        "500-2000": [
+          0.01387313846828657,
+          0.005626579576841456
+        ],
+        "2000-8000": [
+          0.0016455501795015312,
+          0.0004145745420771022
+        ],
+        "8000-20000": [
+          0.0013971492925243343,
+          0.0006594865222348438
+        ]
+      }
+    },
+    {
+      "archive_path": "cluster_haptic_texture_dataset/sensor_data/audio/0/0_0_20_1000_0.wav",
+      "local_name": "audio-0_0_20_1000_0.wav",
+      "bytes": 432834,
+      "sha256": "4a0ce9cd6580d480014e8146ca0758a9d367cf15abcea0bc5467f5a860a81ae1",
+      "rate": 44100,
+      "frames": 216395,
+      "channels": 1,
+      "peak_absolute": [
+        0.004608154296875
+      ],
+      "rms": [
+        0.00017533703147386935
+      ],
+      "pcm16_endpoint_samples": [
+        0
+      ],
+      "audible_band_power_fractions": {
+        "20-250": [
+          0.01375995455250511
+        ],
+        "250-500": [
+          0.006435669294378324
+        ],
+        "500-2000": [
+          0.05595079725576207
+        ],
+        "2000-8000": [
+          0.16139930499042746
+        ],
+        "8000-20000": [
+          0.7624542739069271
+        ]
+      }
+    },
+    {
+      "archive_path": "cluster_haptic_texture_dataset/sensor_data/accel/0/0_0_20_1000_0.csv",
+      "local_name": "accel-0_0_20_1000_0.csv",
+      "bytes": 1594160,
+      "sha256": "19402cbc76cefdde50f2b9fad29160f97dca0bd92381a10c0d63bafda10ce1b0",
+      "columns": [
+        "time",
+        "X",
+        "Y",
+        "Z"
+      ],
+      "rows": 42500,
+      "first_time_s": 7.82003584541835e-05,
+      "last_time_s": 4.9243802003584545,
+      "median_logging_interval_s": 0.00011099999999952814,
+      "nominal_rows_per_second_from_median_interval": 9009.009009047306
+    },
+    {
+      "archive_path": "cluster_haptic_texture_dataset/sensor_data/force/0/0_0_20_1000_0.csv",
+      "local_name": "force-0_0_20_1000_0.csv",
+      "bytes": 1049161,
+      "sha256": "ee440e029057e24f5b6dd7f0a5313085cb476a4270fadc57cbdd5155b01247f8",
+      "columns": [
+        "time",
+        "force"
+      ],
+      "rows": 42500,
+      "first_time_s": 7.82003584541835e-05,
+      "last_time_s": 4.9243802003584545,
+      "median_logging_interval_s": 0.00011099999999952814,
+      "nominal_rows_per_second_from_median_interval": 9009.009009047306,
+      "force_mean_n": 1.0473797411764705,
+      "identical_adjacent_force_fraction": 0.9992470411068496,
+      "observed_value_changes_per_second": 6.498382918025743
+    }
+  ]
+}

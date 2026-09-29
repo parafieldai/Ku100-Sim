@@ -1,0 +1,67 @@
+{
+  "schema": "viscous-tube-validation/1",
+  "generated_utc": "2026-09-29T19:15:47.715480+00:00",
+  "source_sha256": {
+    "native/viscous.hpp": "96b48915e9484998f396bc58a34cb4ab8ab7562f093fcb9cdb3a63630201442d",
+    "tests/test_viscous.py": "82250b528b0257323145a6c10babb529cb6df24988fc5785b8ae55d63f48884c",
+    "scripts/validate_viscous.py": "adc9e00d58bed61a74ab1693c3f2b2bb0cd4266729af18089fc6245db74ecb22"
+  },
+  "reference": "Z(s) = rho*length/A * s * I0(radius*sqrt(s/nu))/I2(radius*sqrt(s/nu))",
+  "grid": {
+    "frequency_hz": [
+      20,
+      20000
+    ],
+    "points_per_radius": 1001,
+    "density_kg_m3": 1.204,
+    "viscosity_pa_s": 1.81e-05,
+    "length_m": 0.18
+  },
+  "rows": [
+    {
+      "radius_m": 0.0005,
+      "max_complex_relative_error": 0.00015645971062964035,
+      "max_resistance_relative_error": 0.0012917067211395436,
+      "legacy_max_resistance_relative_error": 0.8818443502122647,
+      "legacy_max_complex_relative_error": 0.21306207760079549,
+      "low_frequency_inertance_ratio": 1.333333333333333,
+      "discrete_relative_work_residual": 4.452838631167486e-14
+    },
+    {
+      "radius_m": 0.001,
+      "max_complex_relative_error": 0.00015646022401718442,
+      "max_resistance_relative_error": 0.00279830166722432,
+      "legacy_max_resistance_relative_error": 0.9395439891890831,
+      "legacy_max_complex_relative_error": 0.21306210235255438,
+      "low_frequency_inertance_ratio": 1.333333333333333,
+      "discrete_relative_work_residual": 3.94148703152886e-13
+    },
+    {
+      "radius_m": 0.003,
+      "max_complex_relative_error": 0.00015646015881112056,
+      "max_resistance_relative_error": 0.0034195206716290936,
+      "legacy_max_resistance_relative_error": 0.9795346969850787,
+      "legacy_max_complex_relative_error": 0.1594083943778293,
+      "low_frequency_inertance_ratio": 1.333333333333333,
+      "discrete_relative_work_residual": 3.3759213362074475e-12
+    },
+    {
+      "radius_m": 0.01,
+      "max_complex_relative_error": 0.00015645999847558947,
+      "max_resistance_relative_error": 0.0034212392278706633,
+      "legacy_max_resistance_relative_error": 0.993827108523767,
+      "legacy_max_complex_relative_error": 0.06196378215354413,
+      "low_frequency_inertance_ratio": 1.3333333333333328,
+      "discrete_relative_work_residual": 1.178179835179188e-13
+    }
+  ],
+  "passed": true,
+  "thermal_losses_modeled": false,
+  "ku100_or_wet_contact_calibrated": false,
+  "limits": [
+    "Circular, rigid, laminar no-slip tube model; not a KU100 geometry claim",
+    "Continuous rational impedance error excludes timestep and mesh error",
+    "Coefficient approximation verified only over declared radii and frequency grid",
+    "Time-varying geometry, thermal admittance, turbulent flow and liquid free surfaces remain outside this model"
+  ]
+}

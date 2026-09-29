@@ -42,8 +42,13 @@ def read_wav(path: Path | str) -> tuple[int, np.ndarray]:
     encoding, channels, rate, byte_rate, align, bits = fmt
     if channels not in (1, 2) or not 8000 <= rate <= 768000:
         raise ValueError("Only mono/stereo WAVE at supported rates is accepted")
+    # Check encoding and bit depth before frame arithmetic: malformed zero-bit
+    # input must raise ValueError, not divide by zero while checking alignment.
+    if not ((encoding == 3 and bits in (32, 64))
+            or (encoding == 1 and bits in (16, 24, 32))):
+        raise ValueError(f"Unsupported WAVE encoding={encoding}, bits={bits}")
     bytes_per_sample = bits // 8
-    if align != channels * bytes_per_sample or byte_rate != rate * align or len(payload) % align:
+    if align <= 0 or align != channels * bytes_per_sample or byte_rate != rate * align or len(payload) % align:
         raise ValueError("WAVE frame layout is inconsistent")
     if encoding == 3 and bits in (32, 64):
         samples = np.frombuffer(payload, dtype="<f4" if bits == 32 else "<f8").astype(np.float64)

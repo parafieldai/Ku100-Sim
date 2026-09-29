@@ -132,11 +132,13 @@ The implementation uses energy-accounting methods discussed by [Bilbao, Torin an
 
 The [Arend–Neidhardt–Pörschmann measurements](https://zenodo.org/records/4297951) supply 1,800 horizontal direction/distance pairs, two ears and all 128 published taps. Corrected radius gains are applied once to both ears. No second inverse-distance gain, extra ear canal or duplicate head-shadow filter is added. The authors used analytical low-frequency extension around 200 Hz; those frequencies are not independent measured evidence for contact realism. Absolute pressure and absolute time origin remain uncalibrated.
 
-## GitHub Pages
+## GitHub Actions previews and Pages
 
-Public preview publication was authorized by the project owner. The `Publish viewer` workflow deploys only the tested `dist` artifact after successful main-branch native CI. It also supports manual dispatch. Repository visibility is not changed. Native computation runs in Actions or locally, not in Pages.
+Every successful main CI run retains the tested site, original WAVs, numerical evidence and a server-free `outputs/review/Ku100-Research-Preview.html` in its `ku100-verified-<commit>` artifact for 14 days. Open the run under **Actions → Validate native renderer and viewer**, download its artifact, and open that HTML locally.
 
-A site must first be configured in repository **Settings → Pages → GitHub Actions**. If Pages is unavailable or not enabled, the workflow records that condition and does not claim a URL; downloadable Actions previews remain available. A Pages deployment's actual URL and status are separate from a passing software test.
+The **Publish viewer** workflow uses only the exact artifact from a successful main-branch CI run in this repository. It supports an authorized public Pages website without making the private repository or user recordings public. It requires Pages to be configured with **GitHub Actions** as its source; unavailable Pages produces a recorded availability result and a skipped deployment, not a claimed live site. A manual run takes an existing successful main CI run ID. No live website is guaranteed by committing the workflow.
+
+[Research and evidence index](docs/RESEARCH_INDEX.md) collects the physics, microphone/data studies, historical reports and durable numerical evidence. [The document-to-implementation audit](docs/IMPLEMENTATION_AUDIT.md) records the latest review scope, corrected input-contract mismatches and remaining scientific limits. The separate `benchmarks/contact-coupon` remains a benchmark, not the application renderer.
 
 ## License and attribution
 

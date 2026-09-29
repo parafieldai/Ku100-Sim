@@ -43,6 +43,8 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Test viewer contracts
         run: npm --prefix web test
+      - name: Check research documentation and preserved evidence
+        run: python scripts/check_research_index.py
       - name: Verify physical refinement and regime checks
         run: python scripts/validate_physics.py --out validation/local/physics-convergence.json
       - name: Validate analytical unsteady tube impedance

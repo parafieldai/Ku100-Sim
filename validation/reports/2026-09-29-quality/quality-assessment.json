@@ -1,0 +1,925 @@
+{
+  "schema": "main-quality-assessment/1",
+  "generated_utc": "2026-09-29T19:16:03.723459+00:00",
+  "assessment_completed": true,
+  "physical_integrity_checks_passed": true,
+  "numerical_policy": {
+    "relative_l2_tolerance": 0.005,
+    "weak_reference_power_fraction": 1e-05,
+    "window": "Hann, fixed 0.12 to 0.55 s",
+    "per_ear": true,
+    "gain_fit": false,
+    "delay_fit": false,
+    "limits": "Finite trajectories only; an unexcited band is unassessed, never a pass"
+  },
+  "source_sha256": {
+    "tests/quality_probe.cpp": "b34786a210fbf8a0aa9137ac7a4d4d9caebdc4c1388b312800a487505b9b6dab",
+    "native/physics.cpp": "233f1f1ef9222cf1c0e4611a300e9fc355e35616c6395a078b79e2f242c0cf28",
+    "native/physics.hpp": "cb6e7d33f46ea596f45adc59115f63f22e55fd97ef6f224b5a0396abd0cc10e9",
+    "native/viscous.hpp": "96b48915e9484998f396bc58a34cb4ab8ab7562f093fcb9cdb3a63630201442d",
+    "scripts/quality_gate.py": "990a65a8d1a0d8e77f0c6e9acc44236e9e8be22a02724231009b7202b5335dcf"
+  },
+  "qualified_preview_presets_20_500_hz": [
+    [
+      "viscous256",
+      "viscous512"
+    ],
+    [
+      "fine512",
+      "fine1024"
+    ],
+    [
+      "fine512",
+      "fine512-r384"
+    ]
+  ],
+  "runs": [
+    {
+      "name": "legacy128",
+      "sample_rate": 192000,
+      "frames": 153600,
+      "modes_per_plate": 128,
+      "unsteady_viscous_losses": 0,
+      "texture_min_wavelength_m": 0.00012,
+      "texture_advection_hz": 291.6666666666667,
+      "highest_mode_hz": 1167.844017267513,
+      "work_j": 0.00010685787028119609,
+      "loss_j": 0.00010685564698840188,
+      "energy_j": 2.2232927952197085e-09,
+      "max_residual_j": 1.5449880957918438e-18,
+      "regime_valid": true,
+      "raw_pressure_sha256": "56e9ca4509f1887c9d8c5454d09fe727cb25ed84adba67b964deeeee4bcc83af"
+    },
+    {
+      "name": "viscous128",
+      "sample_rate": 192000,
+      "frames": 153600,
+      "modes_per_plate": 128,
+      "unsteady_viscous_losses": 1,
+      "texture_min_wavelength_m": 0.00012,
+      "texture_advection_hz": 291.6666666666667,
+      "highest_mode_hz": 1167.844017267513,
+      "work_j": 0.00010687388201461124,
+      "loss_j": 0.00010687277945045721,
+      "energy_j": 1.1025641551774174e-09,
+      "max_residual_j": 2.3174821436877657e-18,
+      "regime_valid": true,
+      "raw_pressure_sha256": "db622e231ea2c27b426277847ee34059df4e0577962f71e2180488d0cb41dbe2"
+    },
+    {
+      "name": "mirror",
+      "sample_rate": 192000,
+      "frames": 153600,
+      "modes_per_plate": 128,
+      "unsteady_viscous_losses": 1,
+      "texture_min_wavelength_m": 0.00012,
+      "texture_advection_hz": 291.6666666666667,
+      "highest_mode_hz": 1167.844017267513,
+      "work_j": 0.00010687388201461124,
+      "loss_j": 0.00010687277945045721,
+      "energy_j": 1.1025641551774211e-09,
+      "max_residual_j": 2.3174821436877657e-18,
+      "regime_valid": true,
+      "raw_pressure_sha256": "12a8129acf51b881e3b4ffffa4b4a9697fc239b4a731f215772dde197db7810e"
+    },
+    {
+      "name": "silence",
+      "sample_rate": 192000,
+      "frames": 153600,
+      "modes_per_plate": 128,
+      "unsteady_viscous_losses": 1,
+      "texture_min_wavelength_m": 0.00012,
+      "texture_advection_hz": 291.6666666666667,
+      "highest_mode_hz": 1167.844017267513,
+      "work_j": 0,
+      "loss_j": 0,
+      "energy_j": 0,
+      "max_residual_j": 0,
+      "regime_valid": true,
+      "raw_pressure_sha256": "54f980b5b3be8ce80cb6490c527e38d681deade50f239f2cb7d23cf9d0108c37"
+    },
+    {
+      "name": "viscous256",
+      "sample_rate": 192000,
+      "frames": 153600,
+      "modes_per_plate": 256,
+      "unsteady_viscous_losses": 1,
+      "texture_min_wavelength_m": 0.00012,
+      "texture_advection_hz": 291.6666666666667,
+      "highest_mode_hz": 1864.994415300267,
+      "work_j": 0.00010679926578773533,
+      "loss_j": 0.00010679816475939981,
+      "energy_j": 1.1010283364115943e-09,
+      "max_residual_j": 1.7042302898756523e-18,
+      "regime_valid": true,
+      "raw_pressure_sha256": "ba819ff141f4f35517ed605d177d137da5494cef790168476cf4995357509f16"
+    },
+    {
+      "name": "viscous512",
+      "sample_rate": 192000,
+      "frames": 153600,
+      "modes_per_plate": 512,
+      "unsteady_viscous_losses": 1,
+      "texture_min_wavelength_m": 0.00012,
+      "texture_advection_hz": 291.6666666666667,
+      "highest_mode_hz": 2869.396735699435,
+      "work_j": 0.00010678855025706502,
+      "loss_j": 0.00010678744945016368,
+      "energy_j": 1.1008069016116914e-09,
+      "max_residual_j": 2.066760391300493e-18,
+      "regime_valid": true,
+      "raw_pressure_sha256": "9ae6d53c9cf7fb26a0b5a42ff30df4f0c57e730f9fa9a77ba0b168b9b64ca1da"
+    },
+    {
+      "name": "fine256",
+      "sample_rate": 192000,
+      "frames": 153600,
+      "modes_per_plate": 256,
+      "unsteady_viscous_losses": 1,
+      "texture_min_wavelength_m": 1e-05,
+      "texture_advection_hz": 3500,
+      "highest_mode_hz": 1864.994415300267,
+      "work_j": 0.0001068280014071453,
+      "loss_j": 0.0001068268136647373,
+      "energy_j": 1.1877424122268158e-09,
+      "max_residual_j": 4.30970363562988e-18,
+      "regime_valid": true,
+      "raw_pressure_sha256": "8ad95ed8640b78e93e3fb0879e8f9e62047b1d592ff6e5ef36e987fb269798ce"
+    },
+    {
+      "name": "fine512",
+      "sample_rate": 192000,
+      "frames": 153600,
+      "modes_per_plate": 512,
+      "unsteady_viscous_losses": 1,
+      "texture_min_wavelength_m": 1e-05,
+      "texture_advection_hz": 3500,
+      "highest_mode_hz": 2869.396735699435,
+      "work_j": 0.00010681721072923315,
+      "loss_j": 0.00010681602321577583,
+      "energy_j": 1.1875134609063518e-09,
+      "max_residual_j": 4.1470733097570545e-18,
+      "regime_valid": true,
+      "raw_pressure_sha256": "438abf16bd6028bddacbaf00c6b1c1b2fd662c1e6af60d802a7e174b4b739a11"
+    },
+    {
+      "name": "fine1024",
+      "sample_rate": 192000,
+      "frames": 153600,
+      "modes_per_plate": 1024,
+      "unsteady_viscous_losses": 1,
+      "texture_min_wavelength_m": 1e-05,
+      "texture_advection_hz": 3500,
+      "highest_mode_hz": 3808.063970917781,
+      "work_j": 0.00010681619090938292,
+      "loss_j": 0.00010681500341758348,
+      "energy_j": 1.1874918017284424e-09,
+      "max_residual_j": 3.1577388273640317e-18,
+      "regime_valid": true,
+      "raw_pressure_sha256": "3a23c91695afcc0e8caca99689b4291defdf112b2aaa3254f6771774e21187ef"
+    },
+    {
+      "name": "fine512-r384",
+      "sample_rate": 384000,
+      "frames": 307200,
+      "modes_per_plate": 512,
+      "unsteady_viscous_losses": 1,
+      "texture_min_wavelength_m": 1e-05,
+      "texture_advection_hz": 3500,
+      "highest_mode_hz": 2869.396735699435,
+      "work_j": 0.00010681722870439703,
+      "loss_j": 0.00010681604119075108,
+      "energy_j": 1.1875136474308065e-09,
+      "max_residual_j": 1.8295911660692887e-18,
+      "regime_valid": true,
+      "raw_pressure_sha256": "a5fb597cb38f59214f34652d9b8d7c58425f8252cefbd6d5ba5294d0a4d908a4"
+    },
+    {
+      "name": "viscous128-r384",
+      "sample_rate": 384000,
+      "frames": 307200,
+      "modes_per_plate": 128,
+      "unsteady_viscous_losses": 1,
+      "texture_min_wavelength_m": 0.00012,
+      "texture_advection_hz": 291.6666666666667,
+      "highest_mode_hz": 1167.844017267513,
+      "work_j": 0.00010687387677350942,
+      "loss_j": 0.0001068727742094639,
+      "energy_j": 1.1025640467664168e-09,
+      "max_residual_j": 2.371692252312041e-18,
+      "regime_valid": true,
+      "raw_pressure_sha256": "247ea06469ffeaba9eea56edb04522b2495aa88bc39e16c5a5fcc70433f82327"
+    }
+  ],
+  "mirror_max_error_pa": 6.039613253960852e-14,
+  "comparisons": [
+    {
+      "coarse": "viscous128",
+      "fine": "viscous256",
+      "whole_waveform_relative_l2": [
+        0.0020612223222056295,
+        0.001117648614564632
+      ],
+      "bands": [
+        {
+          "hz": [
+            20,
+            250
+          ],
+          "relative_l2": [
+            0.003150630131409856,
+            0.005186995193468124
+          ],
+          "reference_power_fraction": [
+            0.6971762707224104,
+            0.27493969910028565
+          ],
+          "status": [
+            "pass",
+            "fail"
+          ]
+        },
+        {
+          "hz": [
+            250,
+            500
+          ],
+          "relative_l2": [
+            0.008340500021299576,
+            0.011234213701096346
+          ],
+          "reference_power_fraction": [
+            0.302821114309736,
+            0.7250602705294035
+          ],
+          "status": [
+            "fail",
+            "fail"
+          ]
+        },
+        {
+          "hz": [
+            500,
+            2000
+          ],
+          "relative_l2": [
+            0.011093539392253422,
+            0.010540526176858186
+          ],
+          "reference_power_fraction": [
+            2.614948440311684e-06,
+            3.037028505260005e-08
+          ],
+          "status": [
+            "unassessed-weak-excitation",
+            "unassessed-weak-excitation"
+          ]
+        },
+        {
+          "hz": [
+            2000,
+            8000
+          ],
+          "relative_l2": [
+            0.04063208013703513,
+            0.039533633929670554
+          ],
+          "reference_power_fraction": [
+            1.942794437775241e-11,
+            3.437890853981057e-14
+          ],
+          "status": [
+            "unassessed-weak-excitation",
+            "unassessed-weak-excitation"
+          ]
+        },
+        {
+          "hz": [
+            8000,
+            20000
+          ],
+          "relative_l2": [
+            0.15519904840841298,
+            0.026603543953203305
+          ],
+          "reference_power_fraction": [
+            1.1403267799947059e-15,
+            8.900338228029292e-18
+          ],
+          "status": [
+            "unassessed-weak-excitation",
+            "unassessed-weak-excitation"
+          ]
+        }
+      ],
+      "all_bands_verified": false
+    },
+    {
+      "coarse": "viscous256",
+      "fine": "viscous512",
+      "whole_waveform_relative_l2": [
+        0.0003235267618005323,
+        0.00024467336666609765
+      ],
+      "bands": [
+        {
+          "hz": [
+            20,
+            250
+          ],
+          "relative_l2": [
+            0.0006988899601650674,
+            0.001920778229364355
+          ],
+          "reference_power_fraction": [
+            0.6974057293315513,
+            0.2761839067270834
+          ],
+          "status": [
+            "pass",
+            "pass"
+          ]
+        },
+        {
+          "hz": [
+            250,
+            500
+          ],
+          "relative_l2": [
+            0.0023637237512947663,
+            0.0032680016757904175
+          ],
+          "reference_power_fraction": [
+            0.30259165814891076,
+            0.7238160629062272
+          ],
+          "status": [
+            "pass",
+            "pass"
+          ]
+        },
+        {
+          "hz": [
+            500,
+            2000
+          ],
+          "relative_l2": [
+            0.0014601378950020243,
+            0.0015942543505388285
+          ],
+          "reference_power_fraction": [
+            2.612500746788654e-06,
+            3.0366664066807376e-08
+          ],
+          "status": [
+            "unassessed-weak-excitation",
+            "unassessed-weak-excitation"
+          ]
+        },
+        {
+          "hz": [
+            2000,
+            8000
+          ],
+          "relative_l2": [
+            0.1430450855175718,
+            0.11017539324763038
+          ],
+          "reference_power_fraction": [
+            1.8803866559771972e-11,
+            3.502260982855186e-14
+          ],
+          "status": [
+            "unassessed-weak-excitation",
+            "unassessed-weak-excitation"
+          ]
+        },
+        {
+          "hz": [
+            8000,
+            20000
+          ],
+          "relative_l2": [
+            0.024021861706266343,
+            0.003976933418106276
+          ],
+          "reference_power_fraction": [
+            1.131350387161484e-15,
+            8.914169794605456e-18
+          ],
+          "status": [
+            "unassessed-weak-excitation",
+            "unassessed-weak-excitation"
+          ]
+        }
+      ],
+      "all_bands_verified": false
+    },
+    {
+      "coarse": "fine256",
+      "fine": "fine512",
+      "whole_waveform_relative_l2": [
+        0.0003185033432896235,
+        0.00021589994688747725
+      ],
+      "bands": [
+        {
+          "hz": [
+            20,
+            250
+          ],
+          "relative_l2": [
+            0.0005339280612152695,
+            0.0026353081102736425
+          ],
+          "reference_power_fraction": [
+            0.6281935802995292,
+            0.0896313347339659
+          ],
+          "status": [
+            "pass",
+            "pass"
+          ]
+        },
+        {
+          "hz": [
+            250,
+            500
+          ],
+          "relative_l2": [
+            0.002012517391272515,
+            0.0029230983784092274
+          ],
+          "reference_power_fraction": [
+            0.3716175523367686,
+            0.9103634693600888
+          ],
+          "status": [
+            "pass",
+            "pass"
+          ]
+        },
+        {
+          "hz": [
+            500,
+            2000
+          ],
+          "relative_l2": [
+            0.0015651377989672392,
+            0.00165740748453202
+          ],
+          "reference_power_fraction": [
+            0.0001883511493904284,
+            5.194070880844592e-06
+          ],
+          "status": [
+            "pass",
+            "unassessed-weak-excitation"
+          ]
+        },
+        {
+          "hz": [
+            2000,
+            8000
+          ],
+          "relative_l2": [
+            0.12194686084874132,
+            0.12281513695324038
+          ],
+          "reference_power_fraction": [
+            5.162008830092666e-07,
+            1.8350744434647846e-09
+          ],
+          "status": [
+            "unassessed-weak-excitation",
+            "unassessed-weak-excitation"
+          ]
+        },
+        {
+          "hz": [
+            8000,
+            20000
+          ],
+          "relative_l2": [
+            0.01009375893083634,
+            0.0095540798150462
+          ],
+          "reference_power_fraction": [
+            1.3456042137876913e-11,
+            5.5041003204503374e-15
+          ],
+          "status": [
+            "unassessed-weak-excitation",
+            "unassessed-weak-excitation"
+          ]
+        }
+      ],
+      "all_bands_verified": false
+    },
+    {
+      "coarse": "fine512",
+      "fine": "fine1024",
+      "whole_waveform_relative_l2": [
+        6.193810530991216e-05,
+        7.491886834049195e-05
+      ],
+      "bands": [
+        {
+          "hz": [
+            20,
+            250
+          ],
+          "relative_l2": [
+            0.00013723910851108775,
+            0.001038328041065662
+          ],
+          "reference_power_fraction": [
+            0.6283933072586113,
+            0.08978096883910872
+          ],
+          "status": [
+            "pass",
+            "pass"
+          ]
+        },
+        {
+          "hz": [
+            250,
+            500
+          ],
+          "relative_l2": [
+            0.0008019558334313653,
+            0.0012257756189408525
+          ],
+          "reference_power_fraction": [
+            0.3714178986920074,
+            0.9102138341307731
+          ],
+          "status": [
+            "pass",
+            "pass"
+          ]
+        },
+        {
+          "hz": [
+            500,
+            2000
+          ],
+          "relative_l2": [
+            0.0004160635955533306,
+            0.000767684314457632
+          ],
+          "reference_power_fraction": [
+            0.0001882978687797461,
+            5.195201184902466e-06
+          ],
+          "status": [
+            "pass",
+            "unassessed-weak-excitation"
+          ]
+        },
+        {
+          "hz": [
+            2000,
+            8000
+          ],
+          "relative_l2": [
+            0.1265313740066255,
+            0.05224858363887581
+          ],
+          "reference_power_fraction": [
+            4.961668475543322e-07,
+            1.8289447176211953e-09
+          ],
+          "status": [
+            "unassessed-weak-excitation",
+            "unassessed-weak-excitation"
+          ]
+        },
+        {
+          "hz": [
+            8000,
+            20000
+          ],
+          "relative_l2": [
+            0.01186626346661641,
+            0.01217057162965141
+          ],
+          "reference_power_fraction": [
+            1.3783057197411405e-11,
+            5.647945830441252e-15
+          ],
+          "status": [
+            "unassessed-weak-excitation",
+            "unassessed-weak-excitation"
+          ]
+        }
+      ],
+      "all_bands_verified": false
+    },
+    {
+      "coarse": "viscous128",
+      "fine": "viscous128-r384",
+      "whole_waveform_relative_l2": [
+        5.140319572895608e-05,
+        5.8082173682729735e-05
+      ],
+      "bands": [
+        {
+          "hz": [
+            20,
+            250
+          ],
+          "relative_l2": [
+            5.388515230596397e-05,
+            0.00014508219493198553
+          ],
+          "reference_power_fraction": [
+            0.6964481931975243,
+            0.27118735228671587
+          ],
+          "status": [
+            "pass",
+            "pass"
+          ]
+        },
+        {
+          "hz": [
+            250,
+            500
+          ],
+          "relative_l2": [
+            0.0002242495640597392,
+            0.00027290750025006633
+          ],
+          "reference_power_fraction": [
+            0.30354917585136165,
+            0.7288126172368871
+          ],
+          "status": [
+            "pass",
+            "pass"
+          ]
+        },
+        {
+          "hz": [
+            500,
+            2000
+          ],
+          "relative_l2": [
+            0.00022115476428904445,
+            0.0005863566688148361
+          ],
+          "reference_power_fraction": [
+            2.6309319868459096e-06,
+            3.047637193738752e-08
+          ],
+          "status": [
+            "unassessed-weak-excitation",
+            "unassessed-weak-excitation"
+          ]
+        },
+        {
+          "hz": [
+            2000,
+            8000
+          ],
+          "relative_l2": [
+            0.0008137419810812154,
+            0.03555172794951506
+          ],
+          "reference_power_fraction": [
+            1.914162999054807e-11,
+            3.389533539674149e-14
+          ],
+          "status": [
+            "unassessed-weak-excitation",
+            "unassessed-weak-excitation"
+          ]
+        },
+        {
+          "hz": [
+            8000,
+            20000
+          ],
+          "relative_l2": [
+            0.007693351715649923,
+            0.14053453073591315
+          ],
+          "reference_power_fraction": [
+            1.1670849910355583e-15,
+            8.825484930551308e-18
+          ],
+          "status": [
+            "unassessed-weak-excitation",
+            "unassessed-weak-excitation"
+          ]
+        }
+      ],
+      "all_bands_verified": false
+    },
+    {
+      "coarse": "fine512",
+      "fine": "fine512-r384",
+      "whole_waveform_relative_l2": [
+        5.413451618773404e-05,
+        6.0680754281392874e-05
+      ],
+      "bands": [
+        {
+          "hz": [
+            20,
+            250
+          ],
+          "relative_l2": [
+            4.020505498517654e-05,
+            0.00024642261762221525
+          ],
+          "reference_power_fraction": [
+            0.6281412614201475,
+            0.0895980436237374
+          ],
+          "status": [
+            "pass",
+            "pass"
+          ]
+        },
+        {
+          "hz": [
+            250,
+            500
+          ],
+          "relative_l2": [
+            0.00019493100687516596,
+            0.0002467998471241106
+          ],
+          "reference_power_fraction": [
+            0.37166983180327523,
+            0.9103967498732
+          ],
+          "status": [
+            "pass",
+            "pass"
+          ]
+        },
+        {
+          "hz": [
+            500,
+            2000
+          ],
+          "relative_l2": [
+            0.0005409855355549077,
+            0.002393099951335934
+          ],
+          "reference_power_fraction": [
+            0.00018839031012614902,
+            5.204649868110328e-06
+          ],
+          "status": [
+            "pass",
+            "unassessed-weak-excitation"
+          ]
+        },
+        {
+          "hz": [
+            2000,
+            8000
+          ],
+          "relative_l2": [
+            0.001607041880572967,
+            0.026479196117156344
+          ],
+          "reference_power_fraction": [
+            5.164529400688147e-07,
+            1.8532050203429346e-09
+          ],
+          "status": [
+            "unassessed-weak-excitation",
+            "unassessed-weak-excitation"
+          ]
+        },
+        {
+          "hz": [
+            8000,
+            20000
+          ],
+          "relative_l2": [
+            0.007880508215057713,
+            0.7876897157268203
+          ],
+          "reference_power_fraction": [
+            1.3547331612812314e-11,
+            5.918959892775716e-15
+          ],
+          "status": [
+            "unassessed-weak-excitation",
+            "unassessed-weak-excitation"
+          ]
+        }
+      ],
+      "all_bands_verified": false
+    }
+  ],
+  "unsteady_loss_sensitivity": {
+    "whole_waveform_relative_l2": [
+      0.2503609391989897,
+      0.15189025260128472
+    ],
+    "bands": [
+      {
+        "hz": [
+          20,
+          250
+        ],
+        "relative_l2": [
+          0.06356416513417154,
+          0.1625552222827496
+        ],
+        "reference_power_fraction": [
+          0.6964696851295108,
+          0.2712883749299343
+        ],
+        "status": [
+          "fail",
+          "fail"
+        ]
+      },
+      {
+        "hz": [
+          250,
+          500
+        ],
+        "relative_l2": [
+          0.29206567586416915,
+          0.3980693576433297
+        ],
+        "reference_power_fraction": [
+          0.30352768433547994,
+          0.7287115945953855
+        ],
+        "status": [
+          "fail",
+          "fail"
+        ]
+      },
+      {
+        "hz": [
+          500,
+          2000
+        ],
+        "relative_l2": [
+          0.31183200916516995,
+          1.1452015453827031
+        ],
+        "reference_power_fraction": [
+          2.6305158869120185e-06,
+          3.0474654466579055e-08
+        ],
+        "status": [
+          "unassessed-weak-excitation",
+          "unassessed-weak-excitation"
+        ]
+      },
+      {
+        "hz": [
+          2000,
+          8000
+        ],
+        "relative_l2": [
+          0.9851304648779398,
+          17.008164203004895
+        ],
+        "reference_power_fraction": [
+          1.913632755179201e-11,
+          3.375715465006361e-14
+        ],
+        "status": [
+          "unassessed-weak-excitation",
+          "unassessed-weak-excitation"
+        ]
+      },
+      {
+        "hz": [
+          8000,
+          20000
+        ],
+        "relative_l2": [
+          1.53643346917999,
+          18.653388115317423
+        ],
+        "reference_power_fraction": [
+          1.1639724734152922e-15,
+          8.836492496033278e-18
+        ],
+        "status": [
+          "unassessed-weak-excitation",
+          "unassessed-weak-excitation"
+        ]
+      }
+    ],
+    "all_bands_verified": false,
+    "meaning": "Change of physical loss model, NOT a discretization error or fidelity score"
+  },
+  "full_band_contact_fidelity_established": false,
+  "human_listening_assessment": "not performed"
+}
