@@ -1,0 +1,1087 @@
+{
+  "version": "native-physics-convergence/1",
+  "generated_utc": "2026-09-29T05:26:11.097366+00:00",
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+  "flags": [
+    "-std=c++17",
+    "-O3",
+    "-Wall",
+    "-Wextra",
+    "-I/workspace/scratch/a79ca5e8c5e1/Ku100-Sim/native"
+  ],
+  "source_sha256": {
+    "tests/physics_convergence_probe.cpp": "0a78be367888ec1fe0dfa6185c79f74e285d6e6f4dc39978664931647d4b868d",
+    "native/physics.cpp": "ac154b7743d680ea064614d456fe6822cc836716478a8596c6cf31fb5509e961",
+    "native/physics.hpp": "db508ba431c32b9e648b358e373ce2f13b98d6892adb180f6a8a2ddad957b49f",
+    "scripts/validate_physics.py": "513650354c25e6592da2e339d8cfd7b8b8d6af00ef9c1be2590655162518a038"
+  },
+  "trajectory": {
+    "duration_s": 0.8,
+    "nominal_load_n": 0.01,
+    "spectral_interval_s": [
+      0.12,
+      0.55
+    ],
+    "spectral_window_s": 0.08,
+    "window": "Hann",
+    "overlap": "50%",
+    "gain_or_normalization_applied": false
+  },
+  "mechanics_runs": [
+    {
+      "name": "base",
+      "rate": 192000,
+      "load_n": 0.01,
+      "modes_per_plate": 128,
+      "duct_cells": 32,
+      "wetness": 0,
+      "action": "stroke",
+      "side": "left",
+      "seed": 1,
+      "frames": 153600,
+      "energy_residual_j": 1.5856456772600502e-18,
+      "work_j": 0.00010685787028119606,
+      "loss_j": 0.00010685564698840189,
+      "remaining_energy_j": 2.223292795219709e-09,
+      "max_force_n": 0.01475786214214038,
+      "force_residual_n": 3.336773132106563e-14,
+      "max_iterations": 2,
+      "min_mode_hz": 20.769064761105714,
+      "max_mode_hz": 1167.844017267513,
+      "displacement_thickness_ratio": 0.06212188963059228,
+      "vent_mach": 0.003096418048094923,
+      "vent_reynolds": 141.29656952020517,
+      "duct_mach": 0.0008488749067029639,
+      "duct_reynolds": 116.20825457600101,
+      "regime_valid": true
+    },
+    {
+      "name": "mirror",
+      "rate": 192000,
+      "load_n": 0.01,
+      "modes_per_plate": 128,
+      "duct_cells": 32,
+      "wetness": 0,
+      "action": "stroke",
+      "side": "right",
+      "seed": 1,
+      "frames": 153600,
+      "energy_residual_j": 1.5720931501039814e-18,
+      "work_j": 0.0001068578702811961,
+      "loss_j": 0.00010685564698840192,
+      "remaining_energy_j": 2.2232927952197255e-09,
+      "max_force_n": 0.014757862142140404,
+      "force_residual_n": 3.336773132106563e-14,
+      "max_iterations": 2,
+      "min_mode_hz": 20.769064761105714,
+      "max_mode_hz": 1167.844017267513,
+      "displacement_thickness_ratio": 0.06212188963059231,
+      "vent_mach": 0.0030964180480949517,
+      "vent_reynolds": 141.29656952020645,
+      "duct_mach": 0.000848874906702966,
+      "duct_reynolds": 116.2082545760013,
+      "regime_valid": true
+    },
+    {
+      "name": "silence",
+      "rate": 192000,
+      "load_n": 0.01,
+      "modes_per_plate": 128,
+      "duct_cells": 32,
+      "wetness": 0,
+      "action": "silence",
+      "side": "left",
+      "seed": 1,
+      "frames": 153600,
+      "energy_residual_j": 0,
+      "work_j": 0,
+      "loss_j": 0,
+      "remaining_energy_j": 0,
+      "max_force_n": 0,
+      "force_residual_n": 0,
+      "max_iterations": 0,
+      "min_mode_hz": 20.769064761105714,
+      "max_mode_hz": 1167.844017267513,
+      "displacement_thickness_ratio": 0,
+      "vent_mach": 0,
+      "vent_reynolds": 0,
+      "duct_mach": 0,
+      "duct_reynolds": 0,
+      "regime_valid": true
+    },
+    {
+      "name": "zero-load",
+      "rate": 192000,
+      "load_n": 0,
+      "modes_per_plate": 128,
+      "duct_cells": 32,
+      "wetness": 0,
+      "action": "stroke",
+      "side": "left",
+      "seed": 1,
+      "frames": 153600,
+      "energy_residual_j": 0,
+      "work_j": 0,
+      "loss_j": 0,
+      "remaining_energy_j": 0,
+      "max_force_n": 0,
+      "force_residual_n": 0,
+      "max_iterations": 0,
+      "min_mode_hz": 20.769064761105714,
+      "max_mode_hz": 1167.844017267513,
+      "displacement_thickness_ratio": 0,
+      "vent_mach": 0,
+      "vent_reynolds": 0,
+      "duct_mach": 0,
+      "duct_reynolds": 0,
+      "regime_valid": true
+    },
+    {
+      "name": "m64",
+      "rate": 192000,
+      "load_n": 0.01,
+      "modes_per_plate": 64,
+      "duct_cells": 32,
+      "wetness": 0,
+      "action": "stroke",
+      "side": "left",
+      "seed": 1,
+      "frames": 153600,
+      "energy_residual_j": 1.4094628242311558e-18,
+      "work_j": 0.00010709847063290619,
+      "loss_j": 0.00010709623708314471,
+      "remaining_energy_j": 2.233549761732951e-09,
+      "max_force_n": 0.01482441026618861,
+      "force_residual_n": 1.599805357632711e-14,
+      "max_iterations": 2,
+      "min_mode_hz": 20.769064761105714,
+      "max_mode_hz": 710.1342388539892,
+      "displacement_thickness_ratio": 0.06196363713564633,
+      "vent_mach": 0.0031086406799013225,
+      "vent_reynolds": 141.85431589615567,
+      "duct_mach": 0.0008519563553628843,
+      "duct_reynolds": 116.63009502328875,
+      "regime_valid": true
+    },
+    {
+      "name": "m256",
+      "rate": 192000,
+      "load_n": 0.01,
+      "modes_per_plate": 256,
+      "duct_cells": 32,
+      "wetness": 0,
+      "action": "stroke",
+      "side": "left",
+      "seed": 1,
+      "frames": 153600,
+      "energy_residual_j": 1.748276003132876e-18,
+      "work_j": 0.00010678338016897837,
+      "loss_j": 0.00010678116004889489,
+      "remaining_energy_j": 2.2201200851730526e-09,
+      "max_force_n": 0.014737283321925573,
+      "force_residual_n": 5.138684616712297e-14,
+      "max_iterations": 2,
+      "min_mode_hz": 20.769064761105714,
+      "max_mode_hz": 1864.994415300267,
+      "displacement_thickness_ratio": 0.062207335610608705,
+      "vent_mach": 0.0030926384539528198,
+      "vent_reynolds": 141.12409807798937,
+      "duct_mach": 0.0008479227342327977,
+      "duct_reynolds": 116.07790521599566,
+      "regime_valid": true
+    },
+    {
+      "name": "m512",
+      "rate": 192000,
+      "load_n": 0.01,
+      "modes_per_plate": 512,
+      "duct_cells": 32,
+      "wetness": 0,
+      "action": "stroke",
+      "side": "left",
+      "seed": 1,
+      "frames": 153600,
+      "energy_residual_j": 2.3987973066241786e-18,
+      "work_j": 0.00010677268329038857,
+      "loss_j": 0.00010677046362841975,
+      "remaining_energy_j": 2.2196619692748174e-09,
+      "max_force_n": 0.014734321708437628,
+      "force_residual_n": 1.5490824353714037e-12,
+      "max_iterations": 3,
+      "min_mode_hz": 20.769064761105714,
+      "max_mode_hz": 2869.396735699435,
+      "displacement_thickness_ratio": 0.062244683527711356,
+      "vent_mach": 0.003092092115440164,
+      "vent_reynolds": 141.09916741409452,
+      "duct_mach": 0.0008477856159222183,
+      "duct_reynolds": 116.05913415866199,
+      "regime_valid": true
+    },
+    {
+      "name": "m1024",
+      "rate": 192000,
+      "load_n": 0.01,
+      "modes_per_plate": 1024,
+      "duct_cells": 32,
+      "wetness": 0,
+      "action": "stroke",
+      "side": "left",
+      "seed": 1,
+      "frames": 153600,
+      "energy_residual_j": 2.0735366548785272e-18,
+      "work_j": 0.00010677168747846192,
+      "loss_j": 0.0001067694678599476,
+      "remaining_energy_j": 2.2196185161067473e-09,
+      "max_force_n": 0.014734042921063306,
+      "force_residual_n": 5.996624637821801e-14,
+      "max_iterations": 3,
+      "min_mode_hz": 20.769064761105714,
+      "max_mode_hz": 3808.063970917781,
+      "displacement_thickness_ratio": 0.06225212509995919,
+      "vent_mach": 0.0030920397614663414,
+      "vent_reynolds": 141.0967783836771,
+      "duct_mach": 0.0008477725939767889,
+      "duct_reynolds": 116.05735149606046,
+      "regime_valid": true
+    },
+    {
+      "name": "r96",
+      "rate": 96000,
+      "load_n": 0.01,
+      "modes_per_plate": 128,
+      "duct_cells": 32,
+      "wetness": 0,
+      "action": "stroke",
+      "side": "left",
+      "seed": 1,
+      "frames": 76800,
+      "energy_residual_j": 1.328147661294743e-18,
+      "work_j": 0.00010685787063574397,
+      "loss_j": 0.00010685564734230249,
+      "remaining_energy_j": 2.2232934417253624e-09,
+      "max_force_n": 0.01475786346171811,
+      "force_residual_n": 2.9901027400608404e-13,
+      "max_iterations": 2,
+      "min_mode_hz": 20.769064761105714,
+      "max_mode_hz": 1167.844017267513,
+      "displacement_thickness_ratio": 0.06212190471491809,
+      "vent_mach": 0.003096418044531236,
+      "vent_reynolds": 141.29656935758604,
+      "duct_mach": 0.0008488764500524176,
+      "duct_reynolds": 116.20846585559568,
+      "regime_valid": true
+    },
+    {
+      "name": "r384",
+      "rate": 384000,
+      "load_n": 0.01,
+      "modes_per_plate": 128,
+      "duct_cells": 32,
+      "wetness": 0,
+      "action": "stroke",
+      "side": "left",
+      "seed": 1,
+      "frames": 307200,
+      "energy_residual_j": 2.15485181781494e-18,
+      "work_j": 0.00010685786477999094,
+      "loss_j": 0.0001068556414873116,
+      "remaining_energy_j": 2.2232926791798823e-09,
+      "max_force_n": 0.014757862920512637,
+      "force_residual_n": 2.3351546390992794e-15,
+      "max_iterations": 2,
+      "min_mode_hz": 20.769064761105714,
+      "max_mode_hz": 1167.844017267513,
+      "displacement_thickness_ratio": 0.062121903421243053,
+      "vent_mach": 0.003096427014352554,
+      "vent_reynolds": 141.29697867085116,
+      "duct_mach": 0.0008488796805062144,
+      "duct_reynolds": 116.20890809436874,
+      "regime_valid": true
+    },
+    {
+      "name": "d16",
+      "rate": 192000,
+      "load_n": 0.01,
+      "modes_per_plate": 128,
+      "duct_cells": 16,
+      "wetness": 0,
+      "action": "stroke",
+      "side": "left",
+      "seed": 1,
+      "frames": 153600,
+      "energy_residual_j": 1.1248597539537109e-18,
+      "work_j": 0.0001068578699311409,
+      "loss_j": 0.00010685564663744646,
+      "remaining_energy_j": 2.2232936935007754e-09,
+      "max_force_n": 0.014757863120552607,
+      "force_residual_n": 6.309832565187189e-14,
+      "max_iterations": 2,
+      "min_mode_hz": 20.769064761105714,
+      "max_mode_hz": 1167.844017267513,
+      "displacement_thickness_ratio": 0.06212189117227145,
+      "vent_mach": 0.0030964175963333006,
+      "vent_reynolds": 141.29654890529898,
+      "duct_mach": 0.0008488870337973515,
+      "duct_reynolds": 116.20991473636238,
+      "regime_valid": true
+    },
+    {
+      "name": "d64",
+      "rate": 192000,
+      "load_n": 0.01,
+      "modes_per_plate": 128,
+      "duct_cells": 64,
+      "wetness": 0,
+      "action": "stroke",
+      "side": "left",
+      "seed": 1,
+      "frames": 153600,
+      "energy_residual_j": 1.1248597539537109e-18,
+      "work_j": 0.00010685787036872067,
+      "loss_j": 0.00010685564707614999,
+      "remaining_energy_j": 2.2232925711200916e-09,
+      "max_force_n": 0.01475786191085252,
+      "force_residual_n": 3.335645561847178e-14,
+      "max_iterations": 2,
+      "min_mode_hz": 20.769064761105714,
+      "max_mode_hz": 1167.844017267513,
+      "displacement_thickness_ratio": 0.062121889243232024,
+      "vent_mach": 0.003096418158059682,
+      "vent_reynolds": 141.2965745381462,
+      "duct_mach": 0.0008488753586844126,
+      "duct_reynolds": 116.20831645081299,
+      "regime_valid": true
+    },
+    {
+      "name": "d128",
+      "rate": 192000,
+      "load_n": 0.01,
+      "modes_per_plate": 128,
+      "duct_cells": 128,
+      "wetness": 0,
+      "action": "stroke",
+      "side": "left",
+      "seed": 1,
+      "frames": 153600,
+      "energy_residual_j": 7.860465750519907e-19,
+      "work_j": 0.00010685787039062292,
+      "loss_j": 0.00010685564709810765,
+      "remaining_energy_j": 2.2232925150862437e-09,
+      "max_force_n": 0.014757861853553197,
+      "force_residual_n": 3.334452939457444e-14,
+      "max_iterations": 2,
+      "min_mode_hz": 20.769064761105714,
+      "max_mode_hz": 1167.844017267513,
+      "displacement_thickness_ratio": 0.06212188914596806,
+      "vent_mach": 0.0030964181797546045,
+      "vent_reynolds": 141.29657552813464,
+      "duct_mach": 0.0008488756266639361,
+      "duct_reynolds": 116.20835313635106,
+      "regime_valid": true
+    },
+    {
+      "name": "wet",
+      "rate": 192000,
+      "load_n": 0.01,
+      "modes_per_plate": 128,
+      "duct_cells": 32,
+      "wetness": 1,
+      "action": "stroke",
+      "side": "left",
+      "seed": 1,
+      "frames": 153600,
+      "energy_residual_j": 2.032879073410321e-18,
+      "work_j": 0.00010892886072795518,
+      "loss_j": 0.0001089265386578127,
+      "remaining_energy_j": 2.3220701439805302e-09,
+      "max_force_n": 0.019138637457088863,
+      "force_residual_n": 3.917699498146021e-14,
+      "max_iterations": 3,
+      "min_mode_hz": 20.769064761105714,
+      "max_mode_hz": 1167.844017267513,
+      "displacement_thickness_ratio": 0.06309432840065228,
+      "vent_mach": 0.0031328893402427986,
+      "vent_reynolds": 142.96083719544188,
+      "duct_mach": 0.0008378484723392574,
+      "duct_reynolds": 114.69877104493519,
+      "regime_valid": true
+    },
+    {
+      "name": "tap",
+      "rate": 192000,
+      "load_n": 0.01,
+      "modes_per_plate": 128,
+      "duct_cells": 32,
+      "wetness": 0,
+      "action": "tap",
+      "side": "left",
+      "seed": 1,
+      "frames": 153600,
+      "energy_residual_j": 3.443188930588731e-19,
+      "work_j": 1.928253546959181e-06,
+      "loss_j": 1.928251137911619e-06,
+      "remaining_energy_j": 2.409047289803422e-12,
+      "max_force_n": 0.02079113034671351,
+      "force_residual_n": 9.639012678308578e-14,
+      "max_iterations": 2,
+      "min_mode_hz": 20.769064761105714,
+      "max_mode_hz": 1167.844017267513,
+      "displacement_thickness_ratio": 0.05581852152688966,
+      "vent_mach": 0.004395272309870252,
+      "vent_reynolds": 200.566231641076,
+      "duct_mach": 0.0011553091783867231,
+      "duct_reynolds": 158.15812442543265,
+      "regime_valid": true
+    }
+  ],
+  "base_rms_pa": [
+    1.1007967281265383,
+    0.7658472604428809
+  ],
+  "mirror_max_abs_error_pa": 8.79296635503124e-14,
+  "silence_max_abs_pa": 0.0,
+  "zero_load_max_abs_pa": 0.0,
+  "comparisons": [
+    {
+      "coarse": "m64",
+      "fine": "base",
+      "pressure_relative_l2": [
+        0.007333909312509598,
+        0.0048484498296389785
+      ],
+      "bands": [
+        {
+          "hz": [
+            20,
+            250
+          ],
+          "relative_psd_l1": [
+            0.01076032917821695,
+            0.009414888896080977
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            0.886684737472893,
+            0.3083583267927294
+          ],
+          "reference_band_is_weak": false
+        },
+        {
+          "hz": [
+            250,
+            500
+          ],
+          "relative_psd_l1": [
+            0.00593673947366184,
+            0.02718667419983404
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            0.11331437102053528,
+            0.6916416307482353
+          ],
+          "reference_band_is_weak": false
+        },
+        {
+          "hz": [
+            500,
+            2000
+          ],
+          "relative_psd_l1": [
+            0.05633453277500744,
+            0.9257625625361108
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            8.914999064840993e-07,
+            4.2449432805147205e-08
+          ],
+          "reference_band_is_weak": true
+        },
+        {
+          "hz": [
+            2000,
+            4000
+          ],
+          "relative_psd_l1": [
+            0.049186875403672815,
+            0.04323286419830801
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            6.664876833912163e-12,
+            9.603724310252282e-12
+          ],
+          "reference_band_is_weak": true
+        }
+      ]
+    },
+    {
+      "coarse": "base",
+      "fine": "m256",
+      "pressure_relative_l2": [
+        0.002204433000620598,
+        0.0012715980944678763
+      ],
+      "bands": [
+        {
+          "hz": [
+            20,
+            250
+          ],
+          "relative_psd_l1": [
+            0.0032666003306690374,
+            0.0021110927033591645
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            0.8866273598360833,
+            0.3102610026850865
+          ],
+          "reference_band_is_weak": false
+        },
+        {
+          "hz": [
+            250,
+            500
+          ],
+          "relative_psd_l1": [
+            0.0025523430031505227,
+            0.007166052622222101
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            0.1133717542125486,
+            0.6897389546729105
+          ],
+          "reference_band_is_weak": false
+        },
+        {
+          "hz": [
+            500,
+            2000
+          ],
+          "relative_psd_l1": [
+            0.009518182930575401,
+            0.008687710185891801
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            8.859446817756673e-07,
+            4.263242725761305e-08
+          ],
+          "reference_band_is_weak": true
+        },
+        {
+          "hz": [
+            2000,
+            4000
+          ],
+          "relative_psd_l1": [
+            0.018634327570689214,
+            0.007467485842033551
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            6.686897191914348e-12,
+            9.576500743984026e-12
+          ],
+          "reference_band_is_weak": true
+        }
+      ]
+    },
+    {
+      "coarse": "m256",
+      "fine": "m512",
+      "pressure_relative_l2": [
+        0.00035983767003828994,
+        0.000306847156469514
+      ],
+      "bands": [
+        {
+          "hz": [
+            20,
+            250
+          ],
+          "relative_psd_l1": [
+            0.0005098834262887332,
+            0.0008701369494444811
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            0.886579356647413,
+            0.31076468404019947
+          ],
+          "reference_band_is_weak": false
+        },
+        {
+          "hz": [
+            250,
+            500
+          ],
+          "relative_psd_l1": [
+            0.0005505024458121989,
+            0.0015788121387524693
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            0.11341975810989703,
+            0.6892352732682863
+          ],
+          "reference_band_is_weak": false
+        },
+        {
+          "hz": [
+            500,
+            2000
+          ],
+          "relative_psd_l1": [
+            0.0011756798766508062,
+            0.003092611220603742
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            8.852362667348792e-07,
+            4.268234487083015e-08
+          ],
+          "reference_band_is_weak": true
+        },
+        {
+          "hz": [
+            2000,
+            4000
+          ],
+          "relative_psd_l1": [
+            0.1311461291341778,
+            0.045592910268383496
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            6.423507387165103e-12,
+            9.170453816169923e-12
+          ],
+          "reference_band_is_weak": true
+        }
+      ]
+    },
+    {
+      "coarse": "m512",
+      "fine": "m1024",
+      "pressure_relative_l2": [
+        9.320382757944046e-05,
+        0.00013061368205501887
+      ],
+      "bands": [
+        {
+          "hz": [
+            20,
+            250
+          ],
+          "relative_psd_l1": [
+            7.992520697019175e-05,
+            0.00045851229548111576
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            0.8865547427202368,
+            0.3109787252801951
+          ],
+          "reference_band_is_weak": false
+        },
+        {
+          "hz": [
+            250,
+            500
+          ],
+          "relative_psd_l1": [
+            0.00041747134358242606,
+            0.0006604817090520627
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            0.11344437238141768,
+            0.6890212320707996
+          ],
+          "reference_band_is_weak": false
+        },
+        {
+          "hz": [
+            500,
+            2000
+          ],
+          "relative_psd_l1": [
+            0.00036242468934882897,
+            0.0012348898411918407
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            8.84891897188798e-07,
+            4.2639547293630616e-08
+          ],
+          "reference_band_is_weak": true
+        },
+        {
+          "hz": [
+            2000,
+            4000
+          ],
+          "relative_psd_l1": [
+            0.02190666214842626,
+            0.030340200632016187
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            6.449008240023958e-12,
+            9.459298761961038e-12
+          ],
+          "reference_band_is_weak": true
+        }
+      ]
+    },
+    {
+      "coarse": "d16",
+      "fine": "base",
+      "pressure_relative_l2": [
+        3.2398959602177156e-05,
+        4.173173472372175e-05
+      ],
+      "bands": [
+        {
+          "hz": [
+            20,
+            250
+          ],
+          "relative_psd_l1": [
+            5.0315633338868716e-06,
+            9.316420752670177e-05
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            0.886684737472893,
+            0.3083583267927294
+          ],
+          "reference_band_is_weak": false
+        },
+        {
+          "hz": [
+            250,
+            500
+          ],
+          "relative_psd_l1": [
+            0.0002532978302244692,
+            0.00019336251121193645
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            0.11331437102053528,
+            0.6916416307482353
+          ],
+          "reference_band_is_weak": false
+        },
+        {
+          "hz": [
+            500,
+            2000
+          ],
+          "relative_psd_l1": [
+            0.0005067488880922334,
+            0.052331270327762074
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            8.914999064840993e-07,
+            4.2449432805147205e-08
+          ],
+          "reference_band_is_weak": true
+        },
+        {
+          "hz": [
+            2000,
+            4000
+          ],
+          "relative_psd_l1": [
+            0.346048462088348,
+            1.8446791783689511
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            6.664876833912163e-12,
+            9.603724310252282e-12
+          ],
+          "reference_band_is_weak": true
+        }
+      ]
+    },
+    {
+      "coarse": "base",
+      "fine": "d64",
+      "pressure_relative_l2": [
+        8.371940494501178e-06,
+        1.0869069167951723e-05
+      ],
+      "bands": [
+        {
+          "hz": [
+            20,
+            250
+          ],
+          "relative_psd_l1": [
+            1.2570482565274986e-06,
+            2.327636509812122e-05
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            0.8866789863038629,
+            0.308363683691128
+          ],
+          "reference_band_is_weak": false
+        },
+        {
+          "hz": [
+            250,
+            500
+          ],
+          "relative_psd_l1": [
+            6.323910194727017e-05,
+            4.8393123883980726e-05
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            0.11332012235555933,
+            0.6916362749082928
+          ],
+          "reference_band_is_weak": false
+        },
+        {
+          "hz": [
+            500,
+            2000
+          ],
+          "relative_psd_l1": [
+            0.00027226123316545346,
+            0.02669962025172767
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            8.91333953790259e-07,
+            4.139069146106183e-08
+          ],
+          "reference_band_is_weak": true
+        },
+        {
+          "hz": [
+            2000,
+            4000
+          ],
+          "relative_psd_l1": [
+            0.1575980109221853,
+            0.838476343775647
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            6.6249448006840576e-12,
+            9.887574767131823e-12
+          ],
+          "reference_band_is_weak": true
+        }
+      ]
+    },
+    {
+      "coarse": "d64",
+      "fine": "d128",
+      "pressure_relative_l2": [
+        2.151222159379358e-06,
+        2.8097606181705135e-06
+      ],
+      "bands": [
+        {
+          "hz": [
+            20,
+            250
+          ],
+          "relative_psd_l1": [
+            3.142625533708079e-07,
+            5.818458039294292e-06
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            0.8866775491517458,
+            0.3083650241062279
+          ],
+          "reference_band_is_weak": false
+        },
+        {
+          "hz": [
+            250,
+            500
+          ],
+          "relative_psd_l1": [
+            1.5803233170005887e-05,
+            1.210293804692345e-05
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            0.1133215595527246,
+            0.6916349348167209
+          ],
+          "reference_band_is_weak": false
+        },
+        {
+          "hz": [
+            500,
+            2000
+          ],
+          "relative_psd_l1": [
+            7.188312539418595e-05,
+            0.008104453882049866
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            8.912891421745807e-07,
+            4.1068692712666407e-08
+          ],
+          "reference_band_is_weak": true
+        },
+        {
+          "hz": [
+            2000,
+            4000
+          ],
+          "relative_psd_l1": [
+            0.058323855845487,
+            0.28459866032809716
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            6.387839889869382e-12,
+            8.359148426789068e-12
+          ],
+          "reference_band_is_weak": true
+        }
+      ]
+    },
+    {
+      "coarse": "r96",
+      "fine": "base",
+      "pressure_relative_l2": [
+        7.384826917683588e-05,
+        9.769722842585471e-05
+      ],
+      "bands": [
+        {
+          "hz": [
+            20,
+            250
+          ],
+          "relative_psd_l1": [
+            3.163043656166676e-05,
+            0.00026328866407390695
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            0.8866712960403814,
+            0.3083570807369676
+          ],
+          "reference_band_is_weak": false
+        },
+        {
+          "hz": [
+            250,
+            500
+          ],
+          "relative_psd_l1": [
+            0.00023092859204918695,
+            0.0006301095408470056
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            0.11332781242645965,
+            0.6916428768041252
+          ],
+          "reference_band_is_weak": false
+        },
+        {
+          "hz": [
+            500,
+            2000
+          ],
+          "relative_psd_l1": [
+            0.0008550146703082827,
+            0.01871905961187303
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            8.9152649271424e-07,
+            4.244930528160807e-08
+          ],
+          "reference_band_is_weak": true
+        },
+        {
+          "hz": [
+            2000,
+            4000
+          ],
+          "relative_psd_l1": [
+            0.13888034864764243,
+            0.6939320387819878
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            6.666660323313948e-12,
+            9.603611958607382e-12
+          ],
+          "reference_band_is_weak": true
+        }
+      ]
+    },
+    {
+      "coarse": "base",
+      "fine": "r384",
+      "pressure_relative_l2": [
+        5.623552524142021e-05,
+        6.61168182389922e-05
+      ],
+      "bands": [
+        {
+          "hz": [
+            20,
+            250
+          ],
+          "relative_psd_l1": [
+            1.611750520119695e-05,
+            8.047519702193755e-05
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            0.8866888181107745,
+            0.308313391110652
+          ],
+          "reference_band_is_weak": false
+        },
+        {
+          "hz": [
+            250,
+            500
+          ],
+          "relative_psd_l1": [
+            7.679685136687849e-05,
+            0.00015888891288265414
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            0.11331029027416241,
+            0.691686566545858
+          ],
+          "reference_band_is_weak": false
+        },
+        {
+          "hz": [
+            500,
+            2000
+          ],
+          "relative_psd_l1": [
+            0.0002029769901569376,
+            0.004497910541840599
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            8.916085475931744e-07,
+            4.2333757067983095e-08
+          ],
+          "reference_band_is_weak": true
+        },
+        {
+          "hz": [
+            2000,
+            4000
+          ],
+          "relative_psd_l1": [
+            0.041578077482500926,
+            0.1398629269205779
+          ],
+          "reference_fraction_of_20_4000hz_power": [
+            6.516124428795759e-12,
+            9.73300526159465e-12
+          ],
+          "reference_band_is_weak": true
+        }
+      ]
+    }
+  ],
+  "numerical_checks_passed": true,
+  "device_calibration_established": false,
+  "wet_contact_realism_established": false,
+  "broadband_fidelity_established": false,
+  "limitations": [
+    "Generic paired plate/chamber/duct fixture, not measured KU100 internals",
+    "Default source is strongly dominated by power below 500 Hz",
+    "Weak high-band excitation cannot prove high-band convergence or realism",
+    "Raw chamber pressure is not calibrated pressure at a real microphone capsule",
+    "Only these finite-duration trajectories and declared parameter values were assessed"
+  ]
+}

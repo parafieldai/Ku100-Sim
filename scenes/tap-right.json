@@ -1,0 +1,10 @@
+{
+  "version": "ku100-scene/1",
+  "name": "Tap · right contact fixture",
+  "preset": "tap",
+  "side": "right",
+  "duration_s": 2,
+  "seed": 1,
+  "physics": {"load_n": 0.01, "modes_per_plate": 128},
+  "receiver": {"mode": "contact"}
+}

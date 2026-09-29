@@ -1,0 +1,676 @@
+{
+  "version": 1,
+  "meaning": "Actual generated demonstrations; objective signal/numerical measurements are not perceptual or target-device calibration",
+  "examples": [
+    {
+      "id": "airborne-left",
+      "scene": {
+        "version": "ku100-scene/1",
+        "name": "Generated vent source · measured KU100 at 0.5 m left",
+        "preset": "tap",
+        "side": "left",
+        "duration_s": 2.0,
+        "seed": 1,
+        "physics": {
+          "load_n": 0.01,
+          "speed_m_s": 0.035,
+          "wetness": 0.0,
+          "contact_radius_m": 0.004,
+          "roughness_rms_m": 2e-06,
+          "plate_width_m": 0.06,
+          "plate_height_m": 0.085,
+          "plate_thickness_m": 0.003,
+          "young_modulus_pa": 1200000.0,
+          "poisson_ratio": 0.45,
+          "density_kg_m3": 1100.0,
+          "modal_loss_ratio": 0.025,
+          "cavity_volume_m3": 8e-05,
+          "duct_length_m": 0.18,
+          "duct_radius_m": 0.003,
+          "vent_length_m": 0.025,
+          "vent_radius_m": 0.001,
+          "contact_stiffness_n_m15": 18000.0,
+          "contact_damping_n_s_m": 0.08,
+          "friction_coefficient": 0.6,
+          "friction_velocity_m_s": 0.002,
+          "film_thickness_m": 8e-05,
+          "film_viscosity_pa_s": 0.001,
+          "air_density_kg_m3": 1.204,
+          "sound_speed_m_s": 343.0,
+          "air_viscosity_pa_s": 1.81e-05,
+          "sample_rate": 192000,
+          "modes_per_plate": 128,
+          "trace_stride": 960,
+          "duct_cells": 32
+        },
+        "receiver": {
+          "mode": "airborne",
+          "azimuth_deg": 90.0,
+          "distance_m": 0.5
+        },
+        "capture": {
+          "sensitivity_mv_pa": 20.0,
+          "preamp_gain_db": 90.0,
+          "adc_full_scale_v": 2.0
+        }
+      },
+      "metrics": {
+        "frames": 96386,
+        "sample_rate_hz": 48000,
+        "channels": 2,
+        "duration_s": 2.0080416666666667,
+        "rms_dbfs": [
+          -51.01943918978455,
+          -56.40088651688231
+        ],
+        "peak_dbfs": [
+          -30.516331218390068,
+          -35.899317002036504
+        ],
+        "left_minus_right_db": 5.381447327097758,
+        "channel_correlation": 0.9925842803990955,
+        "band_energy_fractions": {
+          "0_200_hz": [
+            0.9987375636017414,
+            0.9987223763151848
+          ],
+          "0_250_hz": [
+            0.9996977654913218,
+            0.9997004789629299
+          ],
+          "200_500_hz": [
+            0.0012613616371669827,
+            0.0012770030981033695
+          ],
+          "500_2000_hz": [
+            1.074567954932672e-06,
+            6.205270108385435e-07
+          ],
+          "2000_8000_hz": [
+            1.9314562284895288e-10,
+            5.975649426130413e-11
+          ],
+          "8000_20000_hz": [
+            3.082999414947601e-13,
+            2.433483512927795e-15
+          ]
+        },
+        "samples_above_full_scale": 0,
+        "silent": false,
+        "decoded_float64_sha256": "695912d603840ecee30d8ad9d700643543c56c65d9354a69fb73629dbfe3a63b",
+        "meaning": "Unweighted digital descriptors. No listening or device-equivalence conclusion.",
+        "physics": {
+          "initial_energy_j": 0,
+          "final_energy_j": 1.1816151634369322e-19,
+          "actuator_work_j": 1.928253546959181e-06,
+          "dissipated_energy_j": 1.9282535469567543e-06,
+          "max_energy_residual_j": 2.3085882977415956e-18,
+          "max_contact_solve_residual_n": 9.639012678308578e-14,
+          "max_normal_force_n": 0.02079113034671351,
+          "max_indentation_m": 0.00011002905217084254,
+          "max_contact_point_displacement_m": 0.0001410670376858897,
+          "max_plate_displacement_bound_m": 0.00016745556458066897,
+          "max_displacement_thickness_ratio": 0.05581852152688966,
+          "max_vent_mach": 0.004395272309870252,
+          "max_vent_reynolds": 200.566231641076,
+          "max_duct_mach": 0.0011553091783867231,
+          "max_duct_reynolds": 158.15812442543265,
+          "min_mode_hz": 20.769064761105714,
+          "max_mode_hz": 1167.844017267513,
+          "max_solver_iterations": 2,
+          "retained_modes_per_plate": 128,
+          "finite": true,
+          "regime_valid": true,
+          "regime_warnings": []
+        },
+        "render_wall_seconds": 0.8310229039998376,
+        "digital_gain_per_pa": 316.2277660168379
+      },
+      "audio_sha256": "ee79488f156219d54425a6de6e189824c29b28a461d1c456da163d298d3851e9",
+      "native_source_sha256": {
+        "native/main.cpp": "7a36b00635e5a22ca9160a62e73730e32e46ef8f9f55c5c93f4ecd2cc2cddd32",
+        "native/physics.cpp": "ac154b7743d680ea064614d456fe6822cc836716478a8596c6cf31fb5509e961",
+        "native/physics.hpp": "db508ba431c32b9e648b358e373ce2f13b98d6892adb180f6a8a2ddad957b49f",
+        "native/receiver.cpp": "a5526aee4b79386272fa3ec05236d8a5228c3f48ebfbccfc5f27e9559f17eceb",
+        "native/receiver.hpp": "04a3535d5784c0bc1422486f081e735622e154c8d84bcf5340c3dc8fe53beb1f"
+      },
+      "native_source_digest": "c88477ee6c14478ac77cd0ad769e69088808263776a770f9da62cd0374be0b59"
+    },
+    {
+      "id": "press-left",
+      "scene": {
+        "version": "ku100-scene/1",
+        "name": "Press and release · left contact fixture",
+        "preset": "press",
+        "side": "left",
+        "duration_s": 4.0,
+        "seed": 1,
+        "physics": {
+          "load_n": 0.01,
+          "speed_m_s": 0.0,
+          "wetness": 0.0,
+          "contact_radius_m": 0.004,
+          "roughness_rms_m": 2e-06,
+          "plate_width_m": 0.06,
+          "plate_height_m": 0.085,
+          "plate_thickness_m": 0.003,
+          "young_modulus_pa": 1200000.0,
+          "poisson_ratio": 0.45,
+          "density_kg_m3": 1100.0,
+          "modal_loss_ratio": 0.025,
+          "cavity_volume_m3": 8e-05,
+          "duct_length_m": 0.18,
+          "duct_radius_m": 0.003,
+          "vent_length_m": 0.025,
+          "vent_radius_m": 0.001,
+          "contact_stiffness_n_m15": 18000.0,
+          "contact_damping_n_s_m": 0.08,
+          "friction_coefficient": 0.6,
+          "friction_velocity_m_s": 0.002,
+          "film_thickness_m": 8e-05,
+          "film_viscosity_pa_s": 0.001,
+          "air_density_kg_m3": 1.204,
+          "sound_speed_m_s": 343.0,
+          "air_viscosity_pa_s": 1.81e-05,
+          "sample_rate": 192000,
+          "modes_per_plate": 128,
+          "trace_stride": 960,
+          "duct_cells": 32
+        },
+        "receiver": {
+          "mode": "contact",
+          "azimuth_deg": 90.0,
+          "distance_m": 0.25
+        },
+        "capture": {
+          "sensitivity_mv_pa": 20.0,
+          "preamp_gain_db": 20.0,
+          "adc_full_scale_v": 2.0
+        }
+      },
+      "metrics": {
+        "frames": 192128,
+        "sample_rate_hz": 48000,
+        "channels": 2,
+        "duration_s": 4.002666666666666,
+        "rms_dbfs": [
+          -26.335818874825353,
+          -29.31056943839141
+        ],
+        "peak_dbfs": [
+          -6.732765676167808,
+          -11.696597592448272
+        ],
+        "left_minus_right_db": 2.9747505635660536,
+        "channel_correlation": 0.27329388996897913,
+        "band_energy_fractions": {
+          "0_200_hz": [
+            0.9999163654258243,
+            0.999855005428913
+          ],
+          "0_250_hz": [
+            0.9999679694622909,
+            0.999931250980336
+          ],
+          "200_500_hz": [
+            8.355390269998264e-05,
+            0.00014499349308875993
+          ],
+          "500_2000_hz": [
+            8.064286713258804e-08,
+            1.0778258287511018e-09
+          ],
+          "2000_8000_hz": [
+            2.8835074457932784e-11,
+            2.703498637495932e-13
+          ],
+          "8000_20000_hz": [
+            2.9547397984554885e-14,
+            5.024697554309985e-15
+          ]
+        },
+        "samples_above_full_scale": 0,
+        "silent": false,
+        "decoded_float64_sha256": "04759ac682b2e87e36ad295a423994d605fc374328b5e5609086a30c829cd3ce",
+        "meaning": "Unweighted digital descriptors. No listening or device-equivalence conclusion.",
+        "physics": {
+          "initial_energy_j": 0,
+          "final_energy_j": 5.39965229741888e-16,
+          "actuator_work_j": 1.48931937065948e-06,
+          "dissipated_energy_j": 1.4893193701188523e-06,
+          "max_energy_residual_j": 6.685207536204565e-19,
+          "max_contact_solve_residual_n": 1.0100048156243052e-11,
+          "max_normal_force_n": 0.014666394866094277,
+          "max_indentation_m": 8.723067654539569e-05,
+          "max_contact_point_displacement_m": 0.00016697425402946586,
+          "max_plate_displacement_bound_m": 0.00018510467519558383,
+          "max_displacement_thickness_ratio": 0.06170155839852794,
+          "max_vent_mach": 0.003077048075616352,
+          "max_vent_reynolds": 140.4126737992747,
+          "max_duct_mach": 0.0008488215716899231,
+          "max_duct_reynolds": 116.2009531836235,
+          "min_mode_hz": 20.769064761105714,
+          "max_mode_hz": 1167.844017267513,
+          "max_solver_iterations": 2,
+          "retained_modes_per_plate": 128,
+          "finite": true,
+          "regime_valid": true,
+          "regime_warnings": []
+        },
+        "render_wall_seconds": 1.7992994569995062,
+        "digital_gain_per_pa": 0.1
+      },
+      "audio_sha256": "64d0ee12c1edc0e2c91ff36f9fb36fbdd16958a03337fc7b55a13c03dd869b6d",
+      "native_source_sha256": {
+        "native/main.cpp": "7a36b00635e5a22ca9160a62e73730e32e46ef8f9f55c5c93f4ecd2cc2cddd32",
+        "native/physics.cpp": "ac154b7743d680ea064614d456fe6822cc836716478a8596c6cf31fb5509e961",
+        "native/physics.hpp": "db508ba431c32b9e648b358e373ce2f13b98d6892adb180f6a8a2ddad957b49f",
+        "native/receiver.cpp": "a5526aee4b79386272fa3ec05236d8a5228c3f48ebfbccfc5f27e9559f17eceb",
+        "native/receiver.hpp": "04a3535d5784c0bc1422486f081e735622e154c8d84bcf5340c3dc8fe53beb1f"
+      },
+      "native_source_digest": "c88477ee6c14478ac77cd0ad769e69088808263776a770f9da62cd0374be0b59"
+    },
+    {
+      "id": "stroke-left",
+      "scene": {
+        "version": "ku100-scene/1",
+        "name": "Dry stroke · left contact fixture",
+        "preset": "stroke",
+        "side": "left",
+        "duration_s": 4.0,
+        "seed": 1,
+        "physics": {
+          "load_n": 0.01,
+          "speed_m_s": 0.035,
+          "wetness": 0.0,
+          "contact_radius_m": 0.004,
+          "roughness_rms_m": 2e-06,
+          "plate_width_m": 0.06,
+          "plate_height_m": 0.085,
+          "plate_thickness_m": 0.003,
+          "young_modulus_pa": 1200000.0,
+          "poisson_ratio": 0.45,
+          "density_kg_m3": 1100.0,
+          "modal_loss_ratio": 0.025,
+          "cavity_volume_m3": 8e-05,
+          "duct_length_m": 0.18,
+          "duct_radius_m": 0.003,
+          "vent_length_m": 0.025,
+          "vent_radius_m": 0.001,
+          "contact_stiffness_n_m15": 18000.0,
+          "contact_damping_n_s_m": 0.08,
+          "friction_coefficient": 0.6,
+          "friction_velocity_m_s": 0.002,
+          "film_thickness_m": 8e-05,
+          "film_viscosity_pa_s": 0.001,
+          "air_density_kg_m3": 1.204,
+          "sound_speed_m_s": 343.0,
+          "air_viscosity_pa_s": 1.81e-05,
+          "sample_rate": 192000,
+          "modes_per_plate": 128,
+          "trace_stride": 960,
+          "duct_cells": 32
+        },
+        "receiver": {
+          "mode": "contact",
+          "azimuth_deg": 90.0,
+          "distance_m": 0.25
+        },
+        "capture": {
+          "sensitivity_mv_pa": 20.0,
+          "preamp_gain_db": 20.0,
+          "adc_full_scale_v": 2.0
+        }
+      },
+      "metrics": {
+        "frames": 192128,
+        "sample_rate_hz": 48000,
+        "channels": 2,
+        "duration_s": 4.002666666666666,
+        "rms_dbfs": [
+          -25.553918528217782,
+          -29.030142662051276
+        ],
+        "peak_dbfs": [
+          -6.490294311283797,
+          -11.459818110565898
+        ],
+        "left_minus_right_db": 3.4762241338334903,
+        "channel_correlation": 0.1894302183620008,
+        "band_energy_fractions": {
+          "0_200_hz": [
+            0.9690632638529562,
+            0.9605988024775736
+          ],
+          "0_250_hz": [
+            0.9771996326285252,
+            0.9659874942407479
+          ],
+          "200_500_hz": [
+            0.030936535531190888,
+            0.0394011957719793
+          ],
+          "500_2000_hz": [
+            2.0059173663288777e-07,
+            1.7502727912549507e-09
+          ],
+          "2000_8000_hz": [
+            2.4321532431956726e-11,
+            2.5908624898833197e-13
+          ],
+          "8000_20000_hz": [
+            2.4318688984232277e-14,
+            5.7134585614332386e-15
+          ]
+        },
+        "samples_above_full_scale": 0,
+        "silent": false,
+        "decoded_float64_sha256": "af1281d63a8ae25457ec22c96dcb0f504f5444eb17c1f975a95fe946cb58268a",
+        "meaning": "Unweighted digital descriptors. No listening or device-equivalence conclusion.",
+        "physics": {
+          "initial_energy_j": 0,
+          "final_energy_j": 5.480992500989051e-16,
+          "actuator_work_j": 0.0006141422865801955,
+          "dissipated_energy_j": 0.0006141422865797224,
+          "max_energy_residual_j": 7.502679033599691e-17,
+          "max_contact_solve_residual_n": 2.4169560930399864e-12,
+          "max_normal_force_n": 0.01475786214214038,
+          "max_indentation_m": 8.752578148508694e-05,
+          "max_contact_point_displacement_m": 0.00016796865286259192,
+          "max_plate_displacement_bound_m": 0.00018636566889177684,
+          "max_displacement_thickness_ratio": 0.06212188963059228,
+          "max_vent_mach": 0.003096418048094923,
+          "max_vent_reynolds": 141.29656952020517,
+          "max_duct_mach": 0.0008488749067029639,
+          "max_duct_reynolds": 116.20825457600101,
+          "min_mode_hz": 20.769064761105714,
+          "max_mode_hz": 1167.844017267513,
+          "max_solver_iterations": 2,
+          "retained_modes_per_plate": 128,
+          "finite": true,
+          "regime_valid": true,
+          "regime_warnings": []
+        },
+        "render_wall_seconds": 2.3196285020003415,
+        "digital_gain_per_pa": 0.1
+      },
+      "audio_sha256": "42dcb996ef6af10f02a0e31e0ad7f9313dee551ddb4c23b4d406898813f9c011",
+      "native_source_sha256": {
+        "native/main.cpp": "7a36b00635e5a22ca9160a62e73730e32e46ef8f9f55c5c93f4ecd2cc2cddd32",
+        "native/physics.cpp": "ac154b7743d680ea064614d456fe6822cc836716478a8596c6cf31fb5509e961",
+        "native/physics.hpp": "db508ba431c32b9e648b358e373ce2f13b98d6892adb180f6a8a2ddad957b49f",
+        "native/receiver.cpp": "a5526aee4b79386272fa3ec05236d8a5228c3f48ebfbccfc5f27e9559f17eceb",
+        "native/receiver.hpp": "04a3535d5784c0bc1422486f081e735622e154c8d84bcf5340c3dc8fe53beb1f"
+      },
+      "native_source_digest": "c88477ee6c14478ac77cd0ad769e69088808263776a770f9da62cd0374be0b59"
+    },
+    {
+      "id": "tap-right",
+      "scene": {
+        "version": "ku100-scene/1",
+        "name": "Tap · right contact fixture",
+        "preset": "tap",
+        "side": "right",
+        "duration_s": 2.0,
+        "seed": 1,
+        "physics": {
+          "load_n": 0.01,
+          "speed_m_s": 0.035,
+          "wetness": 0.0,
+          "contact_radius_m": 0.004,
+          "roughness_rms_m": 2e-06,
+          "plate_width_m": 0.06,
+          "plate_height_m": 0.085,
+          "plate_thickness_m": 0.003,
+          "young_modulus_pa": 1200000.0,
+          "poisson_ratio": 0.45,
+          "density_kg_m3": 1100.0,
+          "modal_loss_ratio": 0.025,
+          "cavity_volume_m3": 8e-05,
+          "duct_length_m": 0.18,
+          "duct_radius_m": 0.003,
+          "vent_length_m": 0.025,
+          "vent_radius_m": 0.001,
+          "contact_stiffness_n_m15": 18000.0,
+          "contact_damping_n_s_m": 0.08,
+          "friction_coefficient": 0.6,
+          "friction_velocity_m_s": 0.002,
+          "film_thickness_m": 8e-05,
+          "film_viscosity_pa_s": 0.001,
+          "air_density_kg_m3": 1.204,
+          "sound_speed_m_s": 343.0,
+          "air_viscosity_pa_s": 1.81e-05,
+          "sample_rate": 192000,
+          "modes_per_plate": 128,
+          "trace_stride": 960,
+          "duct_cells": 32
+        },
+        "receiver": {
+          "mode": "contact",
+          "azimuth_deg": 270.0,
+          "distance_m": 0.25
+        },
+        "capture": {
+          "sensitivity_mv_pa": 20.0,
+          "preamp_gain_db": 20.0,
+          "adc_full_scale_v": 2.0
+        }
+      },
+      "metrics": {
+        "frames": 96128,
+        "sample_rate_hz": 48000,
+        "channels": 2,
+        "duration_s": 2.002666666666667,
+        "rms_dbfs": [
+          -26.94080141943916,
+          -22.111908979381635
+        ],
+        "peak_dbfs": [
+          -11.71498676182309,
+          -2.681240491907503
+        ],
+        "left_minus_right_db": -4.828892440057528,
+        "channel_correlation": -0.30732687267748704,
+        "band_energy_fractions": {
+          "0_200_hz": [
+            0.9989750917335278,
+            0.9995266407707049
+          ],
+          "0_250_hz": [
+            0.9997951858304723,
+            0.9998882376251109
+          ],
+          "200_500_hz": [
+            0.0010249030588804857,
+            0.00047312243889346137
+          ],
+          "500_2000_hz": [
+            5.206498195841168e-09,
+            2.3670413275304416e-07
+          ],
+          "2000_8000_hz": [
+            1.1438927676472338e-12,
+            8.631685328930849e-11
+          ],
+          "8000_20000_hz": [
+            7.01302988794402e-16,
+            8.193526186724667e-14
+          ]
+        },
+        "samples_above_full_scale": 0,
+        "silent": false,
+        "decoded_float64_sha256": "edf57be7112012595105d7b569bf1867af7b1d198fad91335fc24ac9e1dbb961",
+        "meaning": "Unweighted digital descriptors. No listening or device-equivalence conclusion.",
+        "physics": {
+          "initial_energy_j": 0,
+          "final_energy_j": 1.1816151634369813e-19,
+          "actuator_work_j": 1.928253546959181e-06,
+          "dissipated_energy_j": 1.928253546956759e-06,
+          "max_energy_residual_j": 2.303929616531697e-18,
+          "max_contact_solve_residual_n": 9.639012678308578e-14,
+          "max_normal_force_n": 0.02079113034671355,
+          "max_indentation_m": 0.00011002905217084266,
+          "max_contact_point_displacement_m": 0.00014106703768588993,
+          "max_plate_displacement_bound_m": 0.00016745556458066884,
+          "max_displacement_thickness_ratio": 0.05581852152688961,
+          "max_vent_mach": 0.004395272309870254,
+          "max_vent_reynolds": 200.56623164107612,
+          "max_duct_mach": 0.001155309178386744,
+          "max_duct_reynolds": 158.15812442543552,
+          "min_mode_hz": 20.769064761105714,
+          "max_mode_hz": 1167.844017267513,
+          "max_solver_iterations": 2,
+          "retained_modes_per_plate": 128,
+          "finite": true,
+          "regime_valid": true,
+          "regime_warnings": []
+        },
+        "render_wall_seconds": 0.8173053470000013,
+        "digital_gain_per_pa": 0.1
+      },
+      "audio_sha256": "870e68bc98142c67c89b991eed489b1a1038bb9f685d1ad68d30fee01b8685fa",
+      "native_source_sha256": {
+        "native/main.cpp": "7a36b00635e5a22ca9160a62e73730e32e46ef8f9f55c5c93f4ecd2cc2cddd32",
+        "native/physics.cpp": "ac154b7743d680ea064614d456fe6822cc836716478a8596c6cf31fb5509e961",
+        "native/physics.hpp": "db508ba431c32b9e648b358e373ce2f13b98d6892adb180f6a8a2ddad957b49f",
+        "native/receiver.cpp": "a5526aee4b79386272fa3ec05236d8a5228c3f48ebfbccfc5f27e9559f17eceb",
+        "native/receiver.hpp": "04a3535d5784c0bc1422486f081e735622e154c8d84bcf5340c3dc8fe53beb1f"
+      },
+      "native_source_digest": "c88477ee6c14478ac77cd0ad769e69088808263776a770f9da62cd0374be0b59"
+    },
+    {
+      "id": "wet-stroke-left",
+      "scene": {
+        "version": "ku100-scene/1",
+        "name": "Viscous film · left contact fixture",
+        "preset": "stroke",
+        "side": "left",
+        "duration_s": 4.0,
+        "seed": 1,
+        "physics": {
+          "load_n": 0.01,
+          "speed_m_s": 0.035,
+          "wetness": 1.0,
+          "contact_radius_m": 0.004,
+          "roughness_rms_m": 2e-06,
+          "plate_width_m": 0.06,
+          "plate_height_m": 0.085,
+          "plate_thickness_m": 0.003,
+          "young_modulus_pa": 1200000.0,
+          "poisson_ratio": 0.45,
+          "density_kg_m3": 1100.0,
+          "modal_loss_ratio": 0.025,
+          "cavity_volume_m3": 8e-05,
+          "duct_length_m": 0.18,
+          "duct_radius_m": 0.003,
+          "vent_length_m": 0.025,
+          "vent_radius_m": 0.001,
+          "contact_stiffness_n_m15": 18000.0,
+          "contact_damping_n_s_m": 0.08,
+          "friction_coefficient": 0.6,
+          "friction_velocity_m_s": 0.002,
+          "film_thickness_m": 8e-05,
+          "film_viscosity_pa_s": 0.001,
+          "air_density_kg_m3": 1.204,
+          "sound_speed_m_s": 343.0,
+          "air_viscosity_pa_s": 1.81e-05,
+          "sample_rate": 192000,
+          "modes_per_plate": 128,
+          "trace_stride": 960,
+          "duct_cells": 32
+        },
+        "receiver": {
+          "mode": "contact",
+          "azimuth_deg": 90.0,
+          "distance_m": 0.25
+        },
+        "capture": {
+          "sensitivity_mv_pa": 20.0,
+          "preamp_gain_db": 20.0,
+          "adc_full_scale_v": 2.0
+        }
+      },
+      "metrics": {
+        "frames": 192128,
+        "sample_rate_hz": 48000,
+        "channels": 2,
+        "duration_s": 4.002666666666666,
+        "rms_dbfs": [
+          -25.230480127963546,
+          -28.390339025147977
+        ],
+        "peak_dbfs": [
+          -5.420389658457116,
+          -10.727745951334121
+        ],
+        "left_minus_right_db": 3.159858897184434,
+        "channel_correlation": 0.24849398334199244,
+        "band_energy_fractions": {
+          "0_200_hz": [
+            0.8340946231249403,
+            0.8286734627875024
+          ],
+          "0_250_hz": [
+            0.9263654685394969,
+            0.9018522020419201
+          ],
+          "200_500_hz": [
+            0.16588876922131443,
+            0.17132638939616093
+          ],
+          "500_2000_hz": [
+            1.6594468354652157e-05,
+            1.476842691265206e-07
+          ],
+          "2000_8000_hz": [
+            1.316756452556398e-08,
+            1.3215981064080908e-10
+          ],
+          "8000_20000_hz": [
+            1.8213868635204233e-11,
+            6.350413878505142e-14
+          ]
+        },
+        "samples_above_full_scale": 0,
+        "silent": false,
+        "decoded_float64_sha256": "590c65642f0206ae9a969d92a3346aa3216712c2184fabac82fde30dbc395659",
+        "meaning": "Unweighted digital descriptors. No listening or device-equivalence conclusion.",
+        "physics": {
+          "initial_energy_j": 0,
+          "final_energy_j": 5.523792410735913e-16,
+          "actuator_work_j": 0.0006216370338700719,
+          "dissipated_energy_j": 0.0006216370338696882,
+          "max_energy_residual_j": 1.687018580387445e-16,
+          "max_contact_solve_residual_n": 5.071494258314713e-12,
+          "max_normal_force_n": 0.019138637457088863,
+          "max_indentation_m": 8.094743303439398e-05,
+          "max_contact_point_displacement_m": 0.00016539926857166883,
+          "max_plate_displacement_bound_m": 0.00018928298520195686,
+          "max_displacement_thickness_ratio": 0.06309432840065228,
+          "max_vent_mach": 0.0031328893402427986,
+          "max_vent_reynolds": 142.96083719544188,
+          "max_duct_mach": 0.0008378484723392574,
+          "max_duct_reynolds": 114.69877104493519,
+          "min_mode_hz": 20.769064761105714,
+          "max_mode_hz": 1167.844017267513,
+          "max_solver_iterations": 4,
+          "retained_modes_per_plate": 128,
+          "finite": true,
+          "regime_valid": true,
+          "regime_warnings": []
+        },
+        "render_wall_seconds": 2.3101607880016672,
+        "digital_gain_per_pa": 0.1
+      },
+      "audio_sha256": "46d8ee11e563788983858b78312b769a7ebf7ffdae03f372d20fdfd5939d060f",
+      "native_source_sha256": {
+        "native/main.cpp": "7a36b00635e5a22ca9160a62e73730e32e46ef8f9f55c5c93f4ecd2cc2cddd32",
+        "native/physics.cpp": "ac154b7743d680ea064614d456fe6822cc836716478a8596c6cf31fb5509e961",
+        "native/physics.hpp": "db508ba431c32b9e648b358e373ce2f13b98d6892adb180f6a8a2ddad957b49f",
+        "native/receiver.cpp": "a5526aee4b79386272fa3ec05236d8a5228c3f48ebfbccfc5f27e9559f17eceb",
+        "native/receiver.hpp": "04a3535d5784c0bc1422486f081e735622e154c8d84bcf5340c3dc8fe53beb1f"
+      },
+      "native_source_digest": "c88477ee6c14478ac77cd0ad769e69088808263776a770f9da62cd0374be0b59"
+    }
+  ]
+}

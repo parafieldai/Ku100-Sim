@@ -1,0 +1,80 @@
+{
+  "kind": "independent KU100 session comparison, not an equivalence or contact certification",
+  "source_record": "https://zenodo.org/records/12092466",
+  "source_doi": "10.5281/zenodo.12092466",
+  "archive_url": "https://zenodo.org/api/records/12092466/files/D1_HRIR_SOFA.zip/content",
+  "archive_sha256": "366321fa78f211bacc0ec6bea96701625b196a5db54ec16748b0eab0b9705f75",
+  "sofa_file": "D1_48K_24bit_256tap_FIR_SOFA.sofa",
+  "sofa_sha256": "9af7cb19531e52fb7ae8ec92621e6ab62b1d5fe584b3742be36699a0ddb0ccd4",
+  "source_metadata": {
+    "License": "Copyright 2018, University of York, Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+    "Comment": "8802 source positions. KU100 subject. Measurement utlized Genelec 8010 Loudspeakers and 24s overlapped swept sine technique. Reciever microphones were KU100 built in mics via RME Fireface 400 Preamps. Filters were low frequency extended, diffuse field equalized and windowed. (approx.) Linear phase HRIRs.",
+    "History": "Measurement, Low Frequency Extension, Diffuse Field Equalization, Windowing, Diffuse Field Equalization",
+    "References": "https://doi.org/10.3390/app8112029",
+    "DateModified": "2024-02-08 11:16:46"
+  },
+  "bank_sha256": "8b781cf38083c47ee4264ca9594289a35dda53b893bd794cba8803d471515712",
+  "sample_rate": 48000,
+  "direction_count": 360,
+  "reference_radius_m": 1.2,
+  "native_interpolation": "time-domain coefficient interpolation between1.0/1.5m using log-radius weight",
+  "native_interpolation_weight": 0.44966028678679143,
+  "reference_taps": 256,
+  "bank_taps": 128,
+  "orientation_sign_checks_pass": true,
+  "common_gain_db_applied_to_thk_for_spectral_comparison_only": 16.328781169405744,
+  "spectral_rms_disagreement_db_after_one_common_gain": {
+    "median": 2.716270283353659,
+    "p95": 6.161402041488489,
+    "max": 8.37888341347884
+  },
+  "frequency_dependent_ild_rms_disagreement_db": {
+    "median": 4.169752734513997,
+    "p95": 7.09904065309085,
+    "max": 8.84605799556996
+  },
+  "xcorr_itd_absolute_disagreement_us": {
+    "median": 7.8125,
+    "p95": 55.078125000000085,
+    "max": 231.77083333333337
+  },
+  "cardinals": [
+    {
+      "azimuth_deg": 0,
+      "thk_ild_db": -0.7529597866160922,
+      "sadie_ild_db": -1.1059011150214029,
+      "thk_xcorr_itd_us": 2.6041666666666665,
+      "sadie_xcorr_itd_us": 0.0
+    },
+    {
+      "azimuth_deg": 90,
+      "thk_ild_db": 13.146426574665558,
+      "sadie_ild_db": 15.705911046062834,
+      "thk_xcorr_itd_us": 791.6666666666666,
+      "sadie_xcorr_itd_us": 809.8958333333334
+    },
+    {
+      "azimuth_deg": 180,
+      "thk_ild_db": 0.2385650328329385,
+      "sadie_ild_db": 0.4661081322451091,
+      "thk_xcorr_itd_us": 10.416666666666666,
+      "sadie_xcorr_itd_us": 23.4375
+    },
+    {
+      "azimuth_deg": 270,
+      "thk_ild_db": -13.768876577713103,
+      "sadie_ild_db": -16.127230092178596,
+      "thk_xcorr_itd_us": -765.625,
+      "sadie_xcorr_itd_us": -799.4791666666666
+    }
+  ],
+  "metric": "4096-point DFT,200–16000Hz,global -100dB magnitude floor; all directions and both ears share one fitted dB offset; ITD is8x-resampled xcorr(R,L) lag",
+  "limits": [
+    "The datasets use different source hardware, preamps, equalization, timing and possibly individual KU100 units.",
+    "SADIE metadata explicitly declares low-frequency extension and diffuse-field equalization; this is not raw unprocessed ground truth.",
+    "The THK1.2m response is interpolated, introducing its own error.",
+    "Broadband correlation can select different peaks across spectral/coloration differences.",
+    "No spectral equalizer, independent ear gain or timing shift is fitted; discrepancy is retained.",
+    "No assertion that simulated contact matches measured hardware follows from these numbers."
+  ]
+}

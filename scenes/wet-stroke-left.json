@@ -1,0 +1,10 @@
+{
+  "version": "ku100-scene/1",
+  "name": "Viscous film · left contact fixture",
+  "preset": "stroke",
+  "side": "left",
+  "duration_s": 4,
+  "seed": 1,
+  "physics": {"load_n": 0.01, "speed_m_s": 0.035, "wetness": 1, "film_thickness_m": 0.00008, "film_viscosity_pa_s": 0.001, "modes_per_plate": 128},
+  "receiver": {"mode": "contact"}
+}

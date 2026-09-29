@@ -1,0 +1,537 @@
+{
+  "version": 1,
+  "reference_audit_sha256": "7e3eb86433bcd5a00e46aaa745cf807e386973b7fb7ab89bf4390ba75565d7a7",
+  "reference_total_duration_s": 929.0,
+  "reference_source_provenance": "User-supplied files; filenames and export tags do not confirm original URL, device, source codec, source offsets, or equivalence to archived YouTube reference.",
+  "method": "Whole-file RMS and mean-removed zero-lag sample correlation. Spectra use Hann8192/hop4096 at44.1kHz, constant detrend, mean PSD, final partial window zero-padded. Native data are resampled only for analysis.",
+  "limits": [
+    "Reference device, original source, calibration and gain are unverified.",
+    "Reference performances and simulations have different actions, durations and force histories.",
+    "No fit, waveform alignment, per-ear gain or runtime replay is used.",
+    "These descriptive differences are not a perceptual or physical-equivalence score."
+  ],
+  "references": [
+    {
+      "chapter": 2,
+      "filename_label": null,
+      "file_sha256": "aed75744f42997fc54fee53ed94d0fd06b66f3d9042bce5a77dee2fe485819b2",
+      "pcm_sha256": "ea3529733c091797ead6d6531c84ea37ffbce98b3ce5fd5c32069ee178fb22c2",
+      "duration_s": 382.0,
+      "rate_hz": 44100,
+      "rms_dbfs": [
+        -25.807316136181377,
+        -26.568494729088385
+      ],
+      "left_minus_right_db": 0.7611785929070082,
+      "correlation": 0.007658666880055506,
+      "bands": [
+        {
+          "low_hz": 0,
+          "high_hz": 80,
+          "L_power_percent": 63.409013571389174,
+          "R_power_percent": 72.65034099693456
+        },
+        {
+          "low_hz": 80,
+          "high_hz": 250,
+          "L_power_percent": 33.595291266167344,
+          "R_power_percent": 22.839642221605157
+        },
+        {
+          "low_hz": 250,
+          "high_hz": 1000,
+          "L_power_percent": 2.5388957807136134,
+          "R_power_percent": 3.3602924275037
+        },
+        {
+          "low_hz": 1000,
+          "high_hz": 4000,
+          "L_power_percent": 0.3230731401979596,
+          "R_power_percent": 0.6846993991197408
+        },
+        {
+          "low_hz": 4000,
+          "high_hz": 10000,
+          "L_power_percent": 0.11576457111245567,
+          "R_power_percent": 0.39604554113926776
+        },
+        {
+          "low_hz": 10000,
+          "high_hz": 22050.0,
+          "L_power_percent": 0.01796167041944471,
+          "R_power_percent": 0.06897941369757837
+        }
+      ]
+    },
+    {
+      "chapter": 3,
+      "filename_label": "R",
+      "file_sha256": "8fd947838376589e9906378b4bbabc4ff629e3ae2e226566edbfc9cfe0c06997",
+      "pcm_sha256": "700334d2e87c9f4925eccc6c6a6892dec10fb76cfe44af0d8d3af023d6d12e93",
+      "duration_s": 120.0,
+      "rate_hz": 44100,
+      "rms_dbfs": [
+        -53.50761131422046,
+        -18.698688272429283
+      ],
+      "left_minus_right_db": -34.80892304179117,
+      "correlation": 0.22621403776012938,
+      "bands": [
+        {
+          "low_hz": 0,
+          "high_hz": 80,
+          "L_power_percent": 39.36209636664972,
+          "R_power_percent": 45.65453678576844
+        },
+        {
+          "low_hz": 80,
+          "high_hz": 250,
+          "L_power_percent": 28.978491738457564,
+          "R_power_percent": 42.037900675870695
+        },
+        {
+          "low_hz": 250,
+          "high_hz": 1000,
+          "L_power_percent": 12.20317744208193,
+          "R_power_percent": 8.502134277336248
+        },
+        {
+          "low_hz": 1000,
+          "high_hz": 4000,
+          "L_power_percent": 18.854429517462272,
+          "R_power_percent": 3.6517835843956146
+        },
+        {
+          "low_hz": 4000,
+          "high_hz": 10000,
+          "L_power_percent": 0.415661007535116,
+          "R_power_percent": 0.13303112427408315
+        },
+        {
+          "low_hz": 10000,
+          "high_hz": 22050.0,
+          "L_power_percent": 0.18614392781339112,
+          "R_power_percent": 0.020613552354905525
+        }
+      ]
+    },
+    {
+      "chapter": 4,
+      "filename_label": "L",
+      "file_sha256": "5bde0407c892ca5b1188aed43ee3dedf90754c332d70708a8d0ebaf53d1698ca",
+      "pcm_sha256": "d1670aa5b8e94b4b340510ff8d8c8df62a914c97069f3a85fcca15e595f3bb2d",
+      "duration_s": 184.0,
+      "rate_hz": 44100,
+      "rms_dbfs": [
+        -18.663998507024015,
+        -43.1000365557673
+      ],
+      "left_minus_right_db": 24.43603804874329,
+      "correlation": 0.06801307856978508,
+      "bands": [
+        {
+          "low_hz": 0,
+          "high_hz": 80,
+          "L_power_percent": 56.13484333939969,
+          "R_power_percent": 45.73954104017744
+        },
+        {
+          "low_hz": 80,
+          "high_hz": 250,
+          "L_power_percent": 36.69197151889657,
+          "R_power_percent": 41.32882946939445
+        },
+        {
+          "low_hz": 250,
+          "high_hz": 1000,
+          "L_power_percent": 4.732549177907635,
+          "R_power_percent": 4.307746046484744
+        },
+        {
+          "low_hz": 1000,
+          "high_hz": 4000,
+          "L_power_percent": 2.3549994433896715,
+          "R_power_percent": 8.136238012915005
+        },
+        {
+          "low_hz": 4000,
+          "high_hz": 10000,
+          "L_power_percent": 0.07738467260571524,
+          "R_power_percent": 0.4761147436039891
+        },
+        {
+          "low_hz": 10000,
+          "high_hz": 22050.0,
+          "L_power_percent": 0.008251847800723392,
+          "R_power_percent": 0.011530687424391346
+        }
+      ]
+    },
+    {
+      "chapter": 5,
+      "filename_label": "R",
+      "file_sha256": "775fa4cc85ee7f2b48a8b29ceeeb565efaa5530e29084b47cb768b3150f73845",
+      "pcm_sha256": "42b0fa1b118d8bdfaecf45b1aa9e1e362c33a2fb944bbd0873f643723b88103e",
+      "duration_s": 134.0,
+      "rate_hz": 44100,
+      "rms_dbfs": [
+        -45.86585035446259,
+        -17.359577692234406
+      ],
+      "left_minus_right_db": -28.506272662228177,
+      "correlation": 0.10775340396897327,
+      "bands": [
+        {
+          "low_hz": 0,
+          "high_hz": 80,
+          "L_power_percent": 19.35653381923414,
+          "R_power_percent": 69.42518703867741
+        },
+        {
+          "low_hz": 80,
+          "high_hz": 250,
+          "L_power_percent": 44.26785453278873,
+          "R_power_percent": 25.162219926747603
+        },
+        {
+          "low_hz": 250,
+          "high_hz": 1000,
+          "L_power_percent": 7.71610131148955,
+          "R_power_percent": 3.415686326462787
+        },
+        {
+          "low_hz": 1000,
+          "high_hz": 4000,
+          "L_power_percent": 27.615089480807818,
+          "R_power_percent": 1.904959413171423
+        },
+        {
+          "low_hz": 4000,
+          "high_hz": 10000,
+          "L_power_percent": 0.9661529635799363,
+          "R_power_percent": 0.07878317081877718
+        },
+        {
+          "low_hz": 10000,
+          "high_hz": 22050.0,
+          "L_power_percent": 0.0782678920998375,
+          "R_power_percent": 0.013164124121999316
+        }
+      ]
+    },
+    {
+      "chapter": 6,
+      "filename_label": "L",
+      "file_sha256": "6de13ac41b4f0001815d43413d7749e0783ab2846d6fb8ac4e8e0ef6f6cfd6ee",
+      "pcm_sha256": "8a3e5023662a9737d57de3f0f6d73198ca31d093fc099b8d629429cb0f9b641b",
+      "duration_s": 109.0,
+      "rate_hz": 44100,
+      "rms_dbfs": [
+        -18.3467095683745,
+        -55.848649768913184
+      ],
+      "left_minus_right_db": 37.50194020053869,
+      "correlation": 0.3077434971712713,
+      "bands": [
+        {
+          "low_hz": 0,
+          "high_hz": 80,
+          "L_power_percent": 52.88293202019514,
+          "R_power_percent": 8.253562720726732
+        },
+        {
+          "low_hz": 80,
+          "high_hz": 250,
+          "L_power_percent": 40.12204942254221,
+          "R_power_percent": 7.044830962019585
+        },
+        {
+          "low_hz": 250,
+          "high_hz": 1000,
+          "L_power_percent": 5.394104120788163,
+          "R_power_percent": 25.529919626833024
+        },
+        {
+          "low_hz": 1000,
+          "high_hz": 4000,
+          "L_power_percent": 1.4731942322709366,
+          "R_power_percent": 39.71372451343164
+        },
+        {
+          "low_hz": 4000,
+          "high_hz": 10000,
+          "L_power_percent": 0.10752767947542136,
+          "R_power_percent": 14.302549002326353
+        },
+        {
+          "low_hz": 10000,
+          "high_hz": 22050.0,
+          "L_power_percent": 0.020192524728112955,
+          "R_power_percent": 5.155413174662656
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "example": "airborne-left",
+      "mode": "airborne",
+      "duration_s": 2.0080416666666667,
+      "rate_hz": 48000,
+      "audio_sha256": "ee79488f156219d54425a6de6e189824c29b28a461d1c456da163d298d3851e9",
+      "native_source_digest": "c88477ee6c14478ac77cd0ad769e69088808263776a770f9da62cd0374be0b59",
+      "rms_dbfs": [
+        -51.01943918978455,
+        -56.40088651688231
+      ],
+      "left_minus_right_db": 5.38144732709776,
+      "correlation": 0.9925842803990951,
+      "bands": [
+        {
+          "low_hz": 0,
+          "high_hz": 80,
+          "L_power_percent": 99.47097116491716,
+          "R_power_percent": 99.46112690939395
+        },
+        {
+          "low_hz": 80,
+          "high_hz": 250,
+          "L_power_percent": 0.5004959004519234,
+          "R_power_percent": 0.5105881989376823
+        },
+        {
+          "low_hz": 250,
+          "high_hz": 1000,
+          "L_power_percent": 0.028530950696106137,
+          "R_power_percent": 0.028283466750940525
+        },
+        {
+          "low_hz": 1000,
+          "high_hz": 4000,
+          "L_power_percent": 1.9163956482784852e-06,
+          "R_power_percent": 1.357965937720569e-06
+        },
+        {
+          "low_hz": 4000,
+          "high_hz": 10000,
+          "L_power_percent": 1.0642665977800123e-08,
+          "R_power_percent": 1.0143868523662581e-08
+        },
+        {
+          "low_hz": 10000,
+          "high_hz": 22050,
+          "L_power_percent": 5.689647832763809e-08,
+          "R_power_percent": 5.6807587012482346e-08
+        }
+      ]
+    },
+    {
+      "example": "press-left",
+      "mode": "contact",
+      "duration_s": 4.002666666666666,
+      "rate_hz": 48000,
+      "audio_sha256": "64d0ee12c1edc0e2c91ff36f9fb36fbdd16958a03337fc7b55a13c03dd869b6d",
+      "native_source_digest": "c88477ee6c14478ac77cd0ad769e69088808263776a770f9da62cd0374be0b59",
+      "rms_dbfs": [
+        -26.335818874825353,
+        -29.31056943839141
+      ],
+      "left_minus_right_db": 2.974750563566058,
+      "correlation": 0.2732938899689797,
+      "bands": [
+        {
+          "low_hz": 0,
+          "high_hz": 80,
+          "L_power_percent": 99.97700129901358,
+          "R_power_percent": 99.97673215061576
+        },
+        {
+          "low_hz": 80,
+          "high_hz": 250,
+          "L_power_percent": 0.019922719295643997,
+          "R_power_percent": 0.013349246708127937
+        },
+        {
+          "low_hz": 250,
+          "high_hz": 1000,
+          "L_power_percent": 0.003074587210452846,
+          "R_power_percent": 0.009916438600032527
+        },
+        {
+          "low_hz": 1000,
+          "high_hz": 4000,
+          "L_power_percent": 1.3126794876595689e-06,
+          "R_power_percent": 2.0342552673838662e-06
+        },
+        {
+          "low_hz": 4000,
+          "high_hz": 10000,
+          "L_power_percent": 5.65958866303424e-09,
+          "R_power_percent": 8.79355442141465e-09
+        },
+        {
+          "low_hz": 10000,
+          "high_hz": 22050,
+          "L_power_percent": 7.614119835932257e-08,
+          "R_power_percent": 1.2102725935666776e-07
+        }
+      ]
+    },
+    {
+      "example": "stroke-left",
+      "mode": "contact",
+      "duration_s": 4.002666666666666,
+      "rate_hz": 48000,
+      "audio_sha256": "42dcb996ef6af10f02a0e31e0ad7f9313dee551ddb4c23b4d406898813f9c011",
+      "native_source_digest": "c88477ee6c14478ac77cd0ad769e69088808263776a770f9da62cd0374be0b59",
+      "rms_dbfs": [
+        -25.553918528217782,
+        -29.030142662051276
+      ],
+      "left_minus_right_db": 3.476224133833494,
+      "correlation": 0.18943021836200083,
+      "bands": [
+        {
+          "low_hz": 0,
+          "high_hz": 80,
+          "L_power_percent": 93.43025394195826,
+          "R_power_percent": 93.0976333062644
+        },
+        {
+          "low_hz": 80,
+          "high_hz": 250,
+          "L_power_percent": 3.3530279778284737,
+          "R_power_percent": 1.0143158382353923
+        },
+        {
+          "low_hz": 250,
+          "high_hz": 1000,
+          "L_power_percent": 3.2167167104641132,
+          "R_power_percent": 5.8880487774709875
+        },
+        {
+          "low_hz": 1000,
+          "high_hz": 4000,
+          "L_power_percent": 1.191265228770707e-06,
+          "R_power_percent": 1.833899968723585e-06
+        },
+        {
+          "low_hz": 4000,
+          "high_hz": 10000,
+          "L_power_percent": 1.0711496681560289e-07,
+          "R_power_percent": 1.3127015184675502e-07
+        },
+        {
+          "low_hz": 10000,
+          "high_hz": 22050,
+          "L_power_percent": 7.13689319977392e-08,
+          "R_power_percent": 1.1285911026316582e-07
+        }
+      ]
+    },
+    {
+      "example": "tap-right",
+      "mode": "contact",
+      "duration_s": 2.002666666666667,
+      "rate_hz": 48000,
+      "audio_sha256": "870e68bc98142c67c89b991eed489b1a1038bb9f685d1ad68d30fee01b8685fa",
+      "native_source_digest": "c88477ee6c14478ac77cd0ad769e69088808263776a770f9da62cd0374be0b59",
+      "rms_dbfs": [
+        -26.94080141943916,
+        -22.111908979381635
+      ],
+      "left_minus_right_db": -4.828892440057526,
+      "correlation": -0.30732687267748715,
+      "bands": [
+        {
+          "low_hz": 0,
+          "high_hz": 80,
+          "L_power_percent": 99.87380696746624,
+          "R_power_percent": 99.79038058635639
+        },
+        {
+          "low_hz": 80,
+          "high_hz": 250,
+          "L_power_percent": 0.10388896605517953,
+          "R_power_percent": 0.19875950071049064
+        },
+        {
+          "low_hz": 250,
+          "high_hz": 1000,
+          "L_power_percent": 0.02230303706576863,
+          "R_power_percent": 0.010858721860391218
+        },
+        {
+          "low_hz": 1000,
+          "high_hz": 4000,
+          "L_power_percent": 9.660840582580752e-07,
+          "R_power_percent": 1.1280744240385822e-06
+        },
+        {
+          "low_hz": 4000,
+          "high_hz": 10000,
+          "L_power_percent": 6.044939474792144e-09,
+          "R_power_percent": 6.633377297142377e-09
+        },
+        {
+          "low_hz": 10000,
+          "high_hz": 22050,
+          "L_power_percent": 5.728378594104702e-08,
+          "R_power_percent": 5.636492601968481e-08
+        }
+      ]
+    },
+    {
+      "example": "wet-stroke-left",
+      "mode": "contact",
+      "duration_s": 4.002666666666666,
+      "rate_hz": 48000,
+      "audio_sha256": "46d8ee11e563788983858b78312b769a7ebf7ffdae03f372d20fdfd5939d060f",
+      "native_source_digest": "c88477ee6c14478ac77cd0ad769e69088808263776a770f9da62cd0374be0b59",
+      "rms_dbfs": [
+        -25.230480127963546,
+        -28.390339025147977
+      ],
+      "left_minus_right_db": 3.1598588971844315,
+      "correlation": 0.2484939833419928,
+      "bands": [
+        {
+          "low_hz": 0,
+          "high_hz": 80,
+          "L_power_percent": 69.04640898890815,
+          "R_power_percent": 72.13400441324714
+        },
+        {
+          "low_hz": 80,
+          "high_hz": 250,
+          "L_power_percent": 20.117903596890326,
+          "R_power_percent": 11.528130234293341
+        },
+        {
+          "low_hz": 250,
+          "high_hz": 1000,
+          "L_power_percent": 10.835679494476153,
+          "R_power_percent": 16.337862941918946
+        },
+        {
+          "low_hz": 1000,
+          "high_hz": 4000,
+          "L_power_percent": 7.32548493989034e-06,
+          "R_power_percent": 1.8124576045263852e-06
+        },
+        {
+          "low_hz": 4000,
+          "high_hz": 10000,
+          "L_power_percent": 5.235586543412008e-07,
+          "R_power_percent": 4.959666942757209e-07
+        },
+        {
+          "low_hz": 10000,
+          "high_hz": 22050,
+          "L_power_percent": 7.068180306982214e-08,
+          "R_power_percent": 1.0211624794021955e-07
+        }
+      ]
+    }
+  ]
+}

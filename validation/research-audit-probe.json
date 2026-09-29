@@ -1,0 +1,269 @@
+{
+  "source_sha256": {
+    "native/physics.cpp": "ac154b7743d680ea064614d456fe6822cc836716478a8596c6cf31fb5509e961",
+    "native/physics.hpp": "db508ba431c32b9e648b358e373ce2f13b98d6892adb180f6a8a2ddad957b49f",
+    "native/receiver.cpp": "a5526aee4b79386272fa3ec05236d8a5228c3f48ebfbccfc5f27e9559f17eceb",
+    "native/main.cpp": "7a36b00635e5a22ca9160a62e73730e32e46ef8f9f55c5c93f4ecd2cc2cddd32",
+    "docs/PHYSICS.md": "140b5edfe823c20c11c1650b2699d748a71d8d4027ff0eb0eb847981cd03d6f9",
+    "data/manifest.json": "7fb2582c0072225eebf5b16c5376b66f0b2d8c4944612885a30868ac23199251"
+  },
+  "bank_sha256": "8b781cf38083c47ee4264ca9594289a35dda53b893bd794cba8803d471515712",
+  "front_bank_measurements": [
+    {
+      "radius_m": 0.25,
+      "front_dc_gain_l_r": [
+        0.8023202735535051,
+        0.8174600008414927
+      ],
+      "front_1khz_magnitude_l_r": [
+        0.654884666129049,
+        0.6812560123338042
+      ],
+      "front_1khz_group_delay_us_l_r": [
+        546.0148899845831,
+        538.1510991628938
+      ],
+      "front_peak_sample_indices_l_r": [
+        31,
+        31
+      ],
+      "modeled_flight_time_ms": 0.7288629737609329
+    },
+    {
+      "radius_m": 0.5,
+      "front_dc_gain_l_r": [
+        0.331136644357116,
+        0.33279479756623687
+      ],
+      "front_1khz_magnitude_l_r": [
+        0.3172482704925958,
+        0.3300845401078232
+      ],
+      "front_1khz_group_delay_us_l_r": [
+        627.0980055856211,
+        624.8809551563241
+      ],
+      "front_peak_sample_indices_l_r": [
+        30,
+        30
+      ],
+      "modeled_flight_time_ms": 1.4577259475218658
+    },
+    {
+      "radius_m": 0.75,
+      "front_dc_gain_l_r": [
+        0.24874747230859384,
+        0.2518513409861498
+      ],
+      "front_1khz_magnitude_l_r": [
+        0.2438308751053405,
+        0.256906153091077
+      ],
+      "front_1khz_group_delay_us_l_r": [
+        594.9318059241244,
+        596.9784260253231
+      ],
+      "front_peak_sample_indices_l_r": [
+        29,
+        29
+      ],
+      "modeled_flight_time_ms": 2.186588921282799
+    },
+    {
+      "radius_m": 1,
+      "front_dc_gain_l_r": [
+        0.15894754519911203,
+        0.16136896895679342
+      ],
+      "front_1khz_magnitude_l_r": [
+        0.16671641550806143,
+        0.17622175764428819
+      ],
+      "front_1khz_group_delay_us_l_r": [
+        635.3815316985632,
+        635.7595920491895
+      ],
+      "front_peak_sample_indices_l_r": [
+        29,
+        29
+      ],
+      "modeled_flight_time_ms": 2.9154518950437316
+    },
+    {
+      "radius_m": 1.5,
+      "front_dc_gain_l_r": [
+        0.09544043135045399,
+        0.09498501646751834
+      ],
+      "front_1khz_magnitude_l_r": [
+        0.09996733550454649,
+        0.10490772060684667
+      ],
+      "front_1khz_group_delay_us_l_r": [
+        624.1896175250897,
+        628.6646213284779
+      ],
+      "front_peak_sample_indices_l_r": [
+        29,
+        29
+      ],
+      "modeled_flight_time_ms": 4.373177842565598
+    }
+  ],
+  "nominal_capture_digital_units_per_model_pa": 0.1,
+  "decimator_delay_ms": 1.3333333333333333,
+  "fractional_interpolator_nominal_delay_ms": 0.6458333333333334,
+  "source_endstep_origin_ms": 0.005208333333333333,
+  "finite_sphere_surface_to_center_origin_difference_us": 2.915451895043732,
+  "notes": [
+    "Current0.01N measurements are taken from the authoritative physics-convergence report; historical0.6N spectra are explicitly segregated as invalid-regime.",
+    "Band lower boundary20Hz; excludes DC and frequencies below20Hz.",
+    "Group delay is frequency-dependent; this table is not physical flight time or a common removable processing delay.",
+    "Nominal transducer scale does not calibrate a model cavity or normalized airborne HRIR to an actual microphone."
+  ],
+  "historical_invalid_regime_0p6n": {
+    "physics_probe_raw_file_sha256": "f0a98c7a45e209d289643488d0f6529d5f469ff101acb7686378434b0c473f8e",
+    "physics_probe_window": {
+      "run_duration_s": 0.8,
+      "segment_s": [
+        0.12,
+        0.55
+      ],
+      "welch_window_s": 0.08,
+      "window": "hann",
+      "reference_band_hz": [
+        20,
+        4000
+      ]
+    },
+    "fraction_of_chamber_power_below_hz": {
+      "200": [
+        0.9987839952941114,
+        0.9613777835139651
+      ],
+      "250": [
+        0.9991064940041504,
+        0.967743855207977
+      ]
+    },
+    "nominal_load_n": 0.6,
+    "regime_valid": false,
+    "reason": "Superseded default; contact-point displacement 3.128 plate thicknesses, vent Mach0.171 and Reynolds7784. Historical spectra are not current model results."
+  },
+  "current_physics_probe": {
+    "nominal_load_n": 0.01,
+    "source_report": "validation/physics-convergence.json",
+    "report_sha256": "e3d1164d69547ae7385e86cf880fd63cb42f0d8f75d42f5b0e58e2421cccd04a",
+    "source_sha256": {
+      "tests/physics_convergence_probe.cpp": "0a78be367888ec1fe0dfa6185c79f74e285d6e6f4dc39978664931647d4b868d",
+      "native/physics.cpp": "ac154b7743d680ea064614d456fe6822cc836716478a8596c6cf31fb5509e961",
+      "native/physics.hpp": "db508ba431c32b9e648b358e373ce2f13b98d6892adb180f6a8a2ddad957b49f",
+      "scripts/validate_physics.py": "513650354c25e6592da2e339d8cfd7b8b8d6af00ef9c1be2590655162518a038"
+    },
+    "trajectory": {
+      "duration_s": 0.8,
+      "nominal_load_n": 0.01,
+      "spectral_interval_s": [
+        0.12,
+        0.55
+      ],
+      "spectral_window_s": 0.08,
+      "window": "Hann",
+      "overlap": "50%",
+      "gain_or_normalization_applied": false
+    },
+    "base_run": {
+      "name": "base",
+      "rate": 192000,
+      "load_n": 0.01,
+      "modes_per_plate": 128,
+      "duct_cells": 32,
+      "wetness": 0,
+      "action": "stroke",
+      "side": "left",
+      "seed": 1,
+      "frames": 153600,
+      "energy_residual_j": 1.5856456772600502e-18,
+      "work_j": 0.00010685787028119606,
+      "loss_j": 0.00010685564698840189,
+      "remaining_energy_j": 2.223292795219709e-09,
+      "max_force_n": 0.01475786214214038,
+      "force_residual_n": 3.336773132106563e-14,
+      "max_iterations": 2,
+      "min_mode_hz": 20.769064761105714,
+      "max_mode_hz": 1167.844017267513,
+      "displacement_thickness_ratio": 0.06212188963059228,
+      "vent_mach": 0.003096418048094923,
+      "vent_reynolds": 141.29656952020517,
+      "duct_mach": 0.0008488749067029639,
+      "duct_reynolds": 116.20825457600101,
+      "regime_valid": true
+    },
+    "base_rms_pa": [
+      1.1007967281265383,
+      0.7658472604428809
+    ],
+    "base_power_fractions": [
+      {
+        "hz": [
+          20,
+          250
+        ],
+        "reference_fraction_of_20_4000hz_power": [
+          0.886684737472893,
+          0.3083583267927294
+        ],
+        "reference_band_is_weak": false
+      },
+      {
+        "hz": [
+          250,
+          500
+        ],
+        "reference_fraction_of_20_4000hz_power": [
+          0.11331437102053528,
+          0.6916416307482353
+        ],
+        "reference_band_is_weak": false
+      },
+      {
+        "hz": [
+          500,
+          2000
+        ],
+        "reference_fraction_of_20_4000hz_power": [
+          8.914999064840993e-07,
+          4.2449432805147205e-08
+        ],
+        "reference_band_is_weak": true
+      },
+      {
+        "hz": [
+          2000,
+          4000
+        ],
+        "reference_fraction_of_20_4000hz_power": [
+          6.664876833912163e-12,
+          9.603724310252282e-12
+        ],
+        "reference_band_is_weak": true
+      }
+    ],
+    "128_to_256_pressure_relative_l2": [
+      0.002204433000620598,
+      0.0012715980944678763
+    ],
+    "128_to_256_500_2000_relative_psd_l1": [
+      0.009518182930575401,
+      0.008687710185891801
+    ],
+    "below_200hz_fraction": "Not recomputed for current default; do not substitute historical0.6N values."
+  },
+  "nominal_airborne_example_capture": {
+    "preamp_gain_db": 90,
+    "digital_units_per_model_pa": 316.2277660168379,
+    "microphone_electronics_noise_modeled": false,
+    "calibrated_device_output": false
+  },
+  "serialization_review": "Final native/main.cpp metadata serializes the already-audited max_plate_displacement_bound_m alongside max_displacement_thickness_ratio. This is an observation/export addition, with no physics or receiver changes; no physical benchmark rerun was required."
+}

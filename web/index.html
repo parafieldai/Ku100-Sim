@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Inspect native contact physics, binaural audio and measured receiver data in a local-first research viewer.">
+  <meta name="dcterms.rights" content="KU100-derived receiver data: CC BY-SA 3.0. Original measurements by J. M. Arend, A. Neidhardt and C. Pörschmann; modifications and source notices are linked on this page.">
+  <title>KU100 Contact Lab · Parafield</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="./" aria-label="Parafield contact lab home"><span class="brand-mark" aria-hidden="true">p<span>·</span></span><span>PARAFIELD<span class="brand-sub">RESEARCH SYSTEMS</span></span></a>
+    <div class="masthead-meta"><span class="status-dot"></span>NATIVE RENDER VIEWER<span class="header-divider"></span><a href="#research">Model &amp; evidence ↗</a></div>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div><p class="eyebrow">ACOUSTICS / EXPERIMENT 01</p><h1 id="page-title">KU100 <span>Contact Lab</span></h1><p class="intro-copy">Follow the motion. Inspect the pressure. Listen to the native render.</p></div>
+      <label class="import-button" for="bundle-file"><span aria-hidden="true">↥</span> Import render<span class="file-type">.ku100.json</span></label>
+      <input class="visually-hidden" id="bundle-file" type="file" accept=".json,.ku100.json,application/json">
+    </section>
+
+    <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+
+    <section class="experiment-bar" aria-label="Experiment selection">
+      <div class="experiment-select"><span class="eyebrow">LOADED EXPERIMENT</span><select id="example-select" aria-label="Choose an example render"><option value="">Loading examples…</option></select></div>
+      <p id="example-description">Native audio and simulation state are loaded together.</p>
+      <span id="render-badge" class="badge">WAITING FOR RENDER</span>
+    </section>
+
+    <aside id="regime-warning" class="regime-warning" role="alert" hidden><strong>Outside the model's validity limits</strong><p id="regime-warning-text"></p><span>The render remains available for inspection. It must not be interpreted as a validated physical prediction.</span></aside>
+
+    <div class="lab-grid">
+      <section class="panel geometry-panel" aria-labelledby="geometry-title">
+        <div class="panel-heading"><div><span class="panel-number">01</span><h2 id="geometry-title">Contact geometry</h2></div><div class="segmented" aria-label="Geometry view"><button id="view-full" class="active" type="button" aria-pressed="true">Fixture</button><button id="view-detail" type="button" aria-pressed="false">Contact</button></div></div>
+        <div class="geometry-stage">
+          <canvas id="geometry-canvas" tabindex="0" aria-label="Interactive generic contact fixture. Drag or use arrow keys to orbit; use plus and minus to zoom."></canvas>
+          <div class="geometry-caption"><span class="tiny-dot orange"></span><span id="geometry-state">No native state loaded</span></div>
+          <div class="geometry-key"><span><i class="tiny-dot cyan"></i>Receiver L</span><span><i class="tiny-dot violet"></i>Receiver R</span><span><i class="tiny-dot orange"></i>Actuator</span></div>
+          <div class="orbit-hint">DRAG TO ORBIT <span>·</span> SCROLL TO ZOOM <button id="reset-view" type="button">Reset ↺</button></div>
+        </div>
+        <div class="geometry-footer"><span class="outline-icon" aria-hidden="true">◇</span><p id="geometry-note">Generic bilateral contact fixture. This is not a measured KU100 head scan.</p><span class="unit-chip">METRES / SOFA AXES</span></div>
+      </section>
+
+      <section class="panel signals-panel" aria-labelledby="signals-title">
+        <div class="panel-heading"><div><span class="panel-number">02</span><h2 id="signals-title">Signal observatory</h2></div><span class="small-label">ACTUAL RENDER</span></div>
+        <div class="plot-block"><div class="plot-heading"><h3>Binaural waveform</h3><span id="wave-scale" class="plot-unit">WAV sample amplitude</span></div><canvas id="wave-canvas" class="plot-canvas" role="img" aria-label="Left and right rendered audio waveforms; click to seek"></canvas><div class="plot-legend"><span><i class="line-key cyan"></i>Left</span><span><i class="line-key violet"></i>Right</span><span class="plot-hint">Same scale · click to seek</span></div></div>
+        <div class="plot-block"><div class="plot-heading"><h3>Contact excitation</h3><span class="plot-unit">N</span></div><canvas id="force-canvas" class="plot-canvas" role="img" aria-label="Normal and friction forces from the native trace; click to seek"></canvas><div class="plot-legend"><span><i class="line-key orange"></i>Normal</span><span><i class="line-key muted"></i>Friction</span><span class="plot-hint">Solved contact force</span></div></div>
+        <div class="plot-block"><div class="plot-heading"><h3>Cavity pressure</h3><span class="plot-unit">Pa</span></div><canvas id="pressure-canvas" class="plot-canvas" role="img" aria-label="Left and right cavity pressure from the native trace; click to seek"></canvas><div class="plot-legend"><span><i class="line-key cyan"></i>Left</span><span><i class="line-key violet"></i>Right</span><span id="pressure-readout" class="plot-hint">—</span></div></div>
+        <div class="plot-block"><div class="plot-heading"><h3>Mechanical energy</h3><span class="plot-unit">J</span></div><canvas id="energy-canvas" class="plot-canvas" role="img" aria-label="Stored energy, accumulated work, and dissipation from the native trace; click to seek"></canvas><div class="plot-legend"><span><i class="line-key orange"></i>Stored</span><span><i class="line-key green"></i>Input</span><span><i class="line-key muted"></i>Dissipated</span></div></div>
+      </section>
+    </div>
+
+    <section class="transport panel" aria-label="Render playback">
+      <button id="play-button" class="play-button" type="button" disabled aria-label="Play render"><span id="play-icon" aria-hidden="true">▶</span></button>
+      <div class="transport-timeline"><div class="timeline-heading"><strong id="playback-name">Import a native render to begin</strong><span><b id="current-time">0.000</b> <span class="muted">/ <span id="total-time">0.000</span> s</span></span></div><input id="seek" type="range" min="0" max="1" step="0.001" value="0" disabled aria-label="Playback position"><div class="transport-meta"><span id="audio-info">Stereo WAV · no normalization</span><span id="state-info">Source state + receiver output</span></div></div>
+      <div class="listening-level"><label for="volume">LISTENING GAIN <output id="volume-output">−12 dB</output></label><input id="volume" type="range" min="-48" max="0" step="1" value="-12"><span>Both ears · playback only</span></div>
+      <button id="download-wav" class="icon-button" type="button" disabled title="Download original unnormalized WAV" aria-label="Download original WAV">↓<span>WAV</span></button>
+      <audio id="audio" preload="auto"></audio>
+    </section>
+
+    <section class="metrics-strip" aria-label="Render measurements">
+      <div><span>LEFT RMS</span><strong id="metric-left">—</strong><small>dBFS · original WAV</small></div><div><span>RIGHT RMS</span><strong id="metric-right">—</strong><small>dBFS · original WAV</small></div><div><span>PEAK AMPLITUDE</span><strong id="metric-peak">—</strong><small>Shared stereo scale</small></div><div><span>CONTACT FORCE</span><strong id="metric-force">—</strong><small>N · current native state</small></div><div><span>ENERGY BALANCE</span><strong id="metric-balance">—</strong><small>J · current residual</small></div>
+    </section>
+
+    <div class="details-grid">
+      <section class="panel scene-panel" aria-labelledby="scene-title">
+        <div class="panel-heading"><div><span class="panel-number">03</span><h2 id="scene-title">Define the next experiment</h2></div><span class="badge quiet">OFFLINE RENDER</span></div>
+        <p class="panel-copy">Edit the source scene, export it, then run the native solver. Import the resulting bundle here to hear and inspect the new result.</p>
+        <div class="scene-form"><label>Gesture<select id="scene-preset" disabled><option value="stroke">Stroke</option><option value="press">Press</option><option value="tap">Tap</option><option value="silence">Silence</option></select></label><label>Contact side<select id="scene-side" disabled><option value="left">Left</option><option value="right">Right</option></select></label><label>Source duration <span>s</span><input id="scene-duration" type="number" min="0.02" max="30" step="0.1" disabled></label></div>
+        <div class="editor-heading"><label for="scene-json">SCENE JSON</label><span id="edit-status">No scene loaded</span></div><textarea id="scene-json" spellcheck="false" disabled aria-describedby="scene-help" placeholder="Import a bundle to inspect and edit its native scene."></textarea>
+        <p id="scene-help" class="help-text">Edits never change the audio currently loaded. Native validation remains authoritative for physical parameter limits.</p>
+        <div class="scene-actions"><button id="download-scene" class="primary-button" type="button" disabled>Download scene ↓</button><button id="reset-scene" class="text-button" type="button" disabled>Reset edits</button></div>
+        <div class="command-box"><div><span>NATIVE RE-RENDER</span><button id="copy-command" type="button" aria-label="Copy native render command">Copy</button></div><code id="render-command">python scripts/render.py --scene scene.json --out outputs/experiment</code></div>
+      </section>
+
+      <section class="panel research-panel" id="research" aria-labelledby="research-title">
+        <div class="panel-heading"><div><span class="panel-number">04</span><h2 id="research-title">Know what is modeled</h2></div><span class="small-label">EVIDENCE &amp; LIMITS</span></div>
+        <div class="evidence-item"><span class="evidence-tag cyan">MEASURED</span><div><h3>KU100 airborne transfer shape</h3><p>The airborne mode uses measured directional transfer shape and relative distance scaling. Absolute airborne pressure is uncalibrated. This bank does not calibrate contact, materials, or internal head transmission.</p><a href="https://zenodo.org/records/4297951" target="_blank" rel="noopener noreferrer">Near-field KU100 dataset ↗</a></div></div>
+        <div class="evidence-item"><span class="evidence-tag orange">GENERIC</span><div><h3>Contact mechanics &amp; geometry</h3><p>The fixture and its contact patch are model geometry. Treat predicted local pressure and energy as solver outputs, with calibration and convergence limits described by each export.</p></div></div>
+        <div class="capture-note"><span>CAPTURE CHAIN</span><p id="capture-note">Load a render to inspect its declared sensitivity, electronic gain, and ADC scale.</p></div>
+        <div class="evidence-item"><span class="evidence-tag muted">COMPARE</span><div><h3>KU100 ≠ 3Dio</h3><p>KU100 uses a head enclosure; 3Dio uses an ear-and-disc assembly. A KU100 transfer bank cannot establish a 3Dio response. Comparison needs receiver-specific measurements and the same physical excitation.</p><a href="https://www.neumann.com/en-us/products/microphones/ku-100" target="_blank" rel="noopener noreferrer">KU100 ↗</a><span class="muted"> · </span><a href="https://3diosound.com/products/free-space-binaural-microphone" target="_blank" rel="noopener noreferrer">Free Space ↗</a><span class="muted"> · </span><a href="https://3diosound.com/products/free-space-pro-binaural-microphone" target="_blank" rel="noopener noreferrer">Pro II ↗</a></div></div>
+        <details class="provenance"><summary>Render provenance &amp; numerical metrics<span>+</span></summary><pre id="provenance-json">No native bundle loaded.</pre></details>
+        <div class="data-license"><span>DATA ATTRIBUTION</span><p>KU100 near-field receiver derivative: <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0</a>. Measurements by J. M. Arend, A. Neidhardt and C. Pörschmann. This project repackages the circular responses and applies the authors' relative-distance corrections; it does not supply device calibration.</p><div><a href="https://zenodo.org/records/4297951" target="_blank" rel="noopener noreferrer">Original dataset ↗</a><a href="https://audiogroup.web.th-koeln.de/FILES/NF_Datasets_Gains_infos.pdf" target="_blank" rel="noopener noreferrer">Author corrections ↗</a><a href="https://github.com/Parafield-Official/Ku100-Sim/blob/main/data/LICENSE_DATA.md" target="_blank" rel="noopener noreferrer">Data license &amp; notices ↗</a></div></div>
+        <p class="privacy-note"><span aria-hidden="true">◈</span> Imported bundles stay in this browser. No upload, server rendering, or external audio processing.</p>
+      </section>
+    </div>
+    <footer><span>PARAFIELD <b>/</b> KU100 CONTACT LAB</span><span>Native mechanics. Measured receiver. Visible assumptions.</span><a href="https://github.com/Parafield-Official/Ku100-Sim" target="_blank" rel="noopener noreferrer">Source code ↗</a></footer>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

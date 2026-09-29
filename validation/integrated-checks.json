@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "native_build": {
+    "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+    "flags": [
+      "-std=c++17",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-Werror=return-type",
+      "-O3",
+      "-DNDEBUG"
+    ],
+    "source_sha256": {
+      "native/main.cpp": "7a36b00635e5a22ca9160a62e73730e32e46ef8f9f55c5c93f4ecd2cc2cddd32",
+      "native/physics.cpp": "ac154b7743d680ea064614d456fe6822cc836716478a8596c6cf31fb5509e961",
+      "native/physics.hpp": "db508ba431c32b9e648b358e373ce2f13b98d6892adb180f6a8a2ddad957b49f",
+      "native/receiver.cpp": "a5526aee4b79386272fa3ec05236d8a5228c3f48ebfbccfc5f27e9559f17eceb",
+      "native/receiver.hpp": "04a3535d5784c0bc1422486f081e735622e154c8d84bcf5340c3dc8fe53beb1f"
+    },
+    "binary_sha256": "3dfc20ddc8dd2633e778e27d2ffe4cebd9596d59bd3c4154c7d9a7b7396919a6",
+    "sanitizers": false
+  },
+  "python_native_tests": {
+    "passed": 59,
+    "failed": 0,
+    "skipped": 0
+  },
+  "frontend_tests": {
+    "passed": 15,
+    "failed": 0
+  },
+  "browser": {
+    "version": 1,
+    "browser": "134.0.6998.35",
+    "checks": [
+      "initial real native bundle, browser decoding and exact stereo samples",
+      "actual audio playback advances and pauses",
+      "seek, trace, common playback attenuation and geometry controls",
+      "WAV download preserves original file bytes and stereo gain",
+      "scene edit/export retains loaded audio until a native rerender",
+      "all five real native examples decode and retain file identity",
+      "local import, invalid-regime display and corrupted-audio rejection",
+      "desktop and mobile layouts have no horizontal overflow",
+      "project subpath resolves all assets and playback data"
+    ],
+    "checks_passed": 9,
+    "browser_errors": [],
+    "examples": [
+      "stroke-left",
+      "wet-stroke-left",
+      "tap-right",
+      "airborne-left",
+      "press-left"
+    ],
+    "human_listening_performed": false,
+    "note": "Playback and decoded samples were verified by automation; this is not a human listening or perceptual fidelity assessment."
+  },
+  "sanitizers": {
+    "cases": [
+      {
+        "case": "contact",
+        "exit": 0,
+        "stderr": ""
+      },
+      {
+        "case": "wet",
+        "exit": 0,
+        "stderr": ""
+      },
+      {
+        "case": "airborne",
+        "exit": 0,
+        "stderr": ""
+      }
+    ],
+    "address_sanitizer": true,
+    "undefined_behavior_sanitizer": true,
+    "leak_sanitizer": false,
+    "leak_sanitizer_note": "LeakSanitizer is incompatible with this ptrace-managed execution environment; detect_leaks=0. No leak-clean claim."
+  },
+  "absolute_device_calibration": false,
+  "human_listening_performed": false,
+  "evidence_source_hashes": {
+    "scripts/build_native.py": "812bdc7b768f72762206fd34490adb0e37c0f699c705cbe1365b3479c57766dc",
+    "scripts/build_site.py": "6682e4979ce2e002cb89a68385dd2ceeb32ad894815cdf30fbd67060f0c0b2dd",
+    "scripts/generate_examples.py": "76ef91dae30902720a05c0b5611d4ac31ab4107951e84477d6a101a8eb8b2846",
+    "scripts/render.py": "d38e5ffcb565a5292ad14d867aa70b21608eae97fc155c4e2ec1d4619b592470"
+  }
+}

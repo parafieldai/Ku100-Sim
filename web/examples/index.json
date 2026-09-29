@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "examples": [
+    {
+      "id": "stroke-left",
+      "title": "Dry stroke / left",
+      "description": "Fresh physical contact on the generic left plate; the opposite channel is transmitted through the modeled fixture.",
+      "path": "stroke-left.ku100.json"
+    },
+    {
+      "id": "wet-stroke-left",
+      "title": "Viscous film / left",
+      "description": "The same stroke with an idealized Newtonian film. This models viscous force and loss; it is not validated wet ASMR.",
+      "path": "wet-stroke-left.ku100.json"
+    },
+    {
+      "id": "tap-right",
+      "title": "Tap / right",
+      "description": "A single prescribed tool indentation drives the right plate, followed by physical decay.",
+      "path": "tap-right.ku100.json"
+    },
+    {
+      "id": "airborne-left",
+      "title": "Measured KU100 receiver",
+      "description": "A synthesized vent source through measured horizontal KU100 responses at 0.5 m, 90 degrees. Absolute level is uncalibrated.",
+      "path": "airborne-left.ku100.json"
+    },
+    {
+      "id": "press-left",
+      "title": "Press and release",
+      "description": "A smooth normal engagement without texture sliding; compare its force and chamber pressure against the stroke.",
+      "path": "press-left.ku100.json"
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "archives": [
+    {
+      "archive": "Parafield-01-Site-and-Handoff.zip",
+      "bytes": 270078041,
+      "sha256": "0e27ad111e5b73913cff0a86835b8e0327add8699e409e1ad212a4fbec0cd54d",
+      "members": 180,
+      "expanded_bytes": 312192040,
+      "crc_verified": true
+    },
+    {
+      "archive": "Parafield-02-Releases-and-Results.zip",
+      "bytes": 351868597,
+      "sha256": "42db3dce19130c057476918df5290237bce2fdc6fdf1b35d17fdf9714608e290",
+      "members": 63,
+      "expanded_bytes": 410317444,
+      "crc_verified": true
+    },
+    {
+      "archive": "Parafield-03-Original-Inputs.zip",
+      "bytes": 271940729,
+      "sha256": "7073fb6d638a762d51f8f84b3e92d902bd61d2b801a10ae3c01f963f5e50cc20",
+      "members": 4,
+      "expanded_bytes": 273611148,
+      "crc_verified": true
+    },
+    {
+      "archive": "Parafield-Target-Audio-Checkpoint.zip",
+      "bytes": 194233346,
+      "sha256": "e01370b90b42852c3c37495deb36a0cb6bf6273f191f648c4192811e67369989",
+      "members": 127,
+      "expanded_bytes": 226432284,
+      "crc_verified": true
+    }
+  ],
+  "manifests": [
+    {
+      "manifest": "checksums.json",
+      "checked": 246,
+      "passed": 246,
+      "failures": []
+    },
+    {
+      "manifest": "checksums.json",
+      "checked": 126,
+      "passed": 126,
+      "failures": []
+    }
+  ],
+  "nested": [
+    {
+      "outer": "Parafield-02-Releases-and-Results.zip",
+      "member": "Parafield-Complete-Handoff/releases/Parafield-Audio-Lab-project.zip",
+      "members": 84,
+      "crc_verified": true
+    },
+    {
+      "outer": "Parafield-02-Releases-and-Results.zip",
+      "member": "Parafield-Complete-Handoff/releases/Parafield-Fidelity-Project.zip",
+      "members": 74,
+      "crc_verified": true
+    },
+    {
+      "outer": "Parafield-02-Releases-and-Results.zip",
+      "member": "Parafield-Complete-Handoff/releases/Parafield-Realism-Research-Package.zip",
+      "members": 5,
+      "crc_verified": true
+    },
+    {
+      "outer": "Parafield-02-Releases-and-Results.zip",
+      "member": "Parafield-Complete-Handoff/releases/Parafield-Alternative-Simulations.zip",
+      "members": 81,
+      "crc_verified": true
+    },
+    {
+      "outer": "Parafield-02-Releases-and-Results.zip",
+      "member": "Parafield-Complete-Handoff/releases/wet-contact-v4.zip",
+      "members": 55,
+      "crc_verified": true
+    },
+    {
+      "outer": "Parafield-02-Releases-and-Results.zip",
+      "member": "Parafield-Complete-Handoff/releases/wet-contact-v5-reality-audit.zip",
+      "members": 9,
+      "crc_verified": true
+    },
+    {
+      "outer": "Parafield-02-Releases-and-Results.zip",
+      "member": "Parafield-Complete-Handoff/releases/wet-contact-v5-project.zip",
+      "members": 52,
+      "crc_verified": true
+    },
+    {
+      "outer": "Parafield-02-Releases-and-Results.zip",
+      "member": "Parafield-Complete-Handoff/releases/Parafield-Hybrid-09.zip",
+      "members": 114,
+      "crc_verified": true
+    },
+    {
+      "outer": "Parafield-02-Releases-and-Results.zip",
+      "member": "Parafield-Complete-Handoff/releases/wet-contact-v6-project.zip",
+      "members": 73,
+      "crc_verified": true
+    },
+    {
+      "outer": "Parafield-03-Original-Inputs.zip",
+      "member": "Parafield-Complete-Handoff/inputs/original-project.zip",
+      "members": 1256,
+      "crc_verified": true
+    }
+  ],
+  "nested_manifests": [
+    {
+      "nested": "Parafield-Complete-Handoff/releases/Parafield-Audio-Lab-project.zip",
+      "manifest": "parafield-audio-lab/manifest.json",
+      "checked": 83,
+      "passed": 83,
+      "failures": []
+    },
+    {
+      "nested": "Parafield-Complete-Handoff/releases/Parafield-Fidelity-Project.zip",
+      "manifest": "parafield-fidelity-v7/manifest.json",
+      "checked": 73,
+      "passed": 73,
+      "failures": []
+    },
+    {
+      "nested": "Parafield-Complete-Handoff/releases/Parafield-Realism-Research-Package.zip",
+      "manifest": "Parafield-Realism-Research/manifest.json",
+      "checked": 4,
+      "passed": 4,
+      "failures": []
+    },
+    {
+      "nested": "Parafield-Complete-Handoff/releases/Parafield-Alternative-Simulations.zip",
+      "manifest": "parafield-alternatives/MANIFEST.sha256.json",
+      "checked": 80,
+      "passed": 80,
+      "failures": []
+    },
+    {
+      "nested": "Parafield-Complete-Handoff/releases/Parafield-Hybrid-09.zip",
+      "manifest": "parafield-hybrid-09/MANIFEST.json",
+      "checked": 113,
+      "passed": 113,
+      "failures": []
+    }
+  ],
+  "method": "Full ZIP-member CRC reads and source-manifest SHA256/size comparison before selective source recovery; original archives not redistributed."
+}

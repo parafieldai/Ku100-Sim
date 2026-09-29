@@ -1,0 +1,365 @@
+{
+  "schema": "ku100-bank-provenance-1",
+  "bank": "ku100_bank.bin",
+  "sha256": "8b781cf38083c47ee4264ca9594289a35dda53b893bd794cba8803d471515712",
+  "bytes": 1843264,
+  "format": {
+    "magic": "KUHRIR01",
+    "byte_order": "little",
+    "header": "8-byte ASCII magic, four uint32: sample rate/radii/azimuths/taps; float64 radii; float32 [radius][azimuth][ear][tap]",
+    "sample_rate_hz": 48000,
+    "radii_m": [
+      0.25,
+      0.5,
+      0.75,
+      1.0,
+      1.5
+    ],
+    "azimuth_count": 360,
+    "ears": [
+      "left",
+      "right"
+    ],
+    "taps": 128
+  },
+  "source_record": "https://zenodo.org/records/4297951",
+  "doi": "10.5281/zenodo.4297951",
+  "authors": [
+    "Johannes M. Arend",
+    "Annika Neidhardt",
+    "Christoph Pörschmann"
+  ],
+  "source_archive_files": [
+    {
+      "file": "NFHRIR_CIRC360_SOFA.zip",
+      "url": "https://zenodo.org/api/records/4297951/files/NFHRIR_CIRC360_SOFA.zip/content",
+      "sha256": "b6ba22b8f575d038675c442f46fe0877a16cfd592681410a580141bd2b966173"
+    },
+    {
+      "file": "NF_Datasets_Gains_infos.pdf",
+      "url": "https://zenodo.org/api/records/4297951/files/NF_Datasets_Gains_infos.pdf/content",
+      "sha256": "3b7884522e6c55e92fb71b0711c452a50d6019789d113dea5973d99269190bfb"
+    },
+    {
+      "file": "Arend_TMT2016.pdf",
+      "url": "https://zenodo.org/api/records/4297951/files/Arend_TMT2016.pdf/content",
+      "sha256": "ee17934870e116f6498882c6aa38f9f035f723bfe64deead8e0ceeebf66c1170"
+    },
+    {
+      "file": "NFHRIR_CIRC360_miro.zip",
+      "url": "https://zenodo.org/api/records/4297951/files/NFHRIR_CIRC360_miro.zip/content",
+      "sha256": "2dfd2b0e176d5a418191ccad04f8f2cea34b9bb42bf697026e4163159add5974"
+    },
+    {
+      "file": "miro.m",
+      "url": "https://zenodo.org/api/records/4297951/files/miro.m/content",
+      "sha256": "1ea7dd29b960f84174638cf672966b36deb6ddf2f0a0e1d5090c534bcb378026"
+    }
+  ],
+  "source_sofa_files": [
+    {
+      "file": "HRIR_CIRC360_NF025.sofa",
+      "sha256": "13e5be0e6f65926c6d43f704e40ef7413b7fb6bb366e842b708e141e43775b4e",
+      "source_radius_m": 0.25,
+      "attributes": {
+        "Author": "Johannes M. Arend",
+        "AuthorContact": "Johannes.Arend@th-koeln.de",
+        "License": "CC 3.0 BY-SA",
+        "References": "Arend, J.M., Neidhardt, A., Pörschmann, C. (2016). Measurement and Perceptual Evaluation of a Spherical Near-Field HRTF Set. In: Proceedings of the 29th VDT International Convention",
+        "DateModified": "2018-05-04 14:40:51",
+        "ListenerDescription": "Neumann KU100",
+        "ReceiverDescription": "Neumann KU100; Internal RME Fireface UFX Preamps",
+        "SourceDescription": "Geithain RL906"
+      },
+      "source_position_type": "spherical",
+      "source_position_units": "degree, degree, metre",
+      "receiver_position_as_published_m": [
+        [
+          [
+            0.0
+          ],
+          [
+            -0.0875
+          ],
+          [
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0
+          ],
+          [
+            0.0875
+          ],
+          [
+            0.0
+          ]
+        ]
+      ],
+      "data_delay_as_published_samples": [
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "ir_shape_as_published": [
+        360,
+        2,
+        128
+      ]
+    },
+    {
+      "file": "HRIR_CIRC360_NF050.sofa",
+      "sha256": "d7d03f9d264292fc3dd32a5ab7f493a4f66e8ae2ee3a8e8c7f54922675933012",
+      "source_radius_m": 0.5,
+      "attributes": {
+        "Author": "Johannes M. Arend",
+        "AuthorContact": "Johannes.Arend@th-koeln.de",
+        "License": "CC 3.0 BY-SA",
+        "References": "Arend, J.M., Neidhardt, A., Pörschmann, C. (2016). Measurement and Perceptual Evaluation of a Spherical Near-Field HRTF Set. In: Proceedings of the 29th VDT International Convention",
+        "DateModified": "2018-05-04 14:40:59",
+        "ListenerDescription": "Neumann KU100",
+        "ReceiverDescription": "Neumann KU100; Internal RME Fireface UFX Preamps",
+        "SourceDescription": "Geithain RL906"
+      },
+      "source_position_type": "spherical",
+      "source_position_units": "degree, degree, metre",
+      "receiver_position_as_published_m": [
+        [
+          [
+            0.0
+          ],
+          [
+            -0.0875
+          ],
+          [
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0
+          ],
+          [
+            0.0875
+          ],
+          [
+            0.0
+          ]
+        ]
+      ],
+      "data_delay_as_published_samples": [
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "ir_shape_as_published": [
+        360,
+        2,
+        128
+      ]
+    },
+    {
+      "file": "HRIR_CIRC360_NF075.sofa",
+      "sha256": "029a3e87d395d346b6df8789d7f9263f4b5b5ccef91b8cc4dc9b82f157dea167",
+      "source_radius_m": 0.75,
+      "attributes": {
+        "Author": "Johannes M. Arend",
+        "AuthorContact": "Johannes.Arend@th-koeln.de",
+        "License": "CC 3.0 BY-SA",
+        "References": "Arend, J.M., Neidhardt, A., Pörschmann, C. (2016). Measurement and Perceptual Evaluation of a Spherical Near-Field HRTF Set. In: Proceedings of the 29th VDT International Convention",
+        "DateModified": "2018-05-04 14:41:05",
+        "ListenerDescription": "Neumann KU100",
+        "ReceiverDescription": "Neumann KU100; Internal RME Fireface UFX Preamps",
+        "SourceDescription": "Geithain RL906"
+      },
+      "source_position_type": "spherical",
+      "source_position_units": "degree, degree, metre",
+      "receiver_position_as_published_m": [
+        [
+          [
+            0.0
+          ],
+          [
+            -0.0875
+          ],
+          [
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0
+          ],
+          [
+            0.0875
+          ],
+          [
+            0.0
+          ]
+        ]
+      ],
+      "data_delay_as_published_samples": [
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "ir_shape_as_published": [
+        360,
+        2,
+        128
+      ]
+    },
+    {
+      "file": "HRIR_CIRC360_NF100.sofa",
+      "sha256": "5b5b2450776e79d70f6ec1b196572a4c0fd7a58d79cbbca1be6cbadd298026ee",
+      "source_radius_m": 1.0,
+      "attributes": {
+        "Author": "Johannes M. Arend",
+        "AuthorContact": "Johannes.Arend@th-koeln.de",
+        "License": "CC 3.0 BY-SA",
+        "References": "Arend, J.M., Neidhardt, A., Pörschmann, C. (2016). Measurement and Perceptual Evaluation of a Spherical Near-Field HRTF Set. In: Proceedings of the 29th VDT International Convention",
+        "DateModified": "2018-05-04 14:41:12",
+        "ListenerDescription": "Neumann KU100",
+        "ReceiverDescription": "Neumann KU100; Internal RME Firefac UFX Preamps",
+        "SourceDescription": "Geithain RL906"
+      },
+      "source_position_type": "spherical",
+      "source_position_units": "degree, degree, metre",
+      "receiver_position_as_published_m": [
+        [
+          [
+            0.0
+          ],
+          [
+            -0.0875
+          ],
+          [
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0
+          ],
+          [
+            0.0875
+          ],
+          [
+            0.0
+          ]
+        ]
+      ],
+      "data_delay_as_published_samples": [
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "ir_shape_as_published": [
+        360,
+        2,
+        128
+      ]
+    },
+    {
+      "file": "HRIR_CIRC360_NF150.sofa",
+      "sha256": "7355b512dbfc826ca4b307f235126f0ea668ea06e67321f20a3a120acc3c4c14",
+      "source_radius_m": 1.5,
+      "attributes": {
+        "Author": "Johannes M. Arend",
+        "AuthorContact": "Johannes.Arend@th-koeln.de",
+        "License": "CC 3.0 BY-SA",
+        "References": "Arend, J.M., Neidhardt, A., Pörschmann, C. (2016). Measurement and Perceptual Evaluation of a Spherical Near-Field HRTF Set. In: Proceedings of the 29th VDT International Convention",
+        "DateModified": "2018-05-04 14:41:22",
+        "ListenerDescription": "Neumann KU100",
+        "ReceiverDescription": "Neumann KU100; Internal RME Fireface UFX Preamps",
+        "SourceDescription": "Geithain RL906"
+      },
+      "source_position_type": "spherical",
+      "source_position_units": "degree, degree, metre",
+      "receiver_position_as_published_m": [
+        [
+          [
+            0.0
+          ],
+          [
+            -0.0875
+          ],
+          [
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0
+          ],
+          [
+            0.0875
+          ],
+          [
+            0.0
+          ]
+        ]
+      ],
+      "data_delay_as_published_samples": [
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "ir_shape_as_published": [
+        360,
+        2,
+        128
+      ]
+    }
+  ],
+  "license": {
+    "embedded_source_notice": "CC 3.0 BY-SA",
+    "preserved_derivative_license": "CC-BY-SA-3.0",
+    "url": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "record_metadata_license": "CC-BY-4.0",
+    "conflict": "Record metadata and embedded SOFA notices differ. The derivative retains source-file attribution/share-alike; no relicensing claim is made."
+  },
+  "transformation": {
+    "gain_factors_applied_once_to_both_ears": [
+      1.0,
+      0.33,
+      0.25,
+      0.16,
+      0.095
+    ],
+    "gain_source": "NF_Datasets_Gains_infos.pdf, authors' correction dated 2020-10-09",
+    "operations": [
+      "sort rows by integer source azimuth",
+      "multiply each complete response by its published radius gain",
+      "cast float64 to float32",
+      "serialize native bank"
+    ],
+    "normalization": "none",
+    "truncation": "none; all 128 published taps retained",
+    "extra_inverse_distance_gain": false,
+    "additional_eq": false,
+    "delay": "No shifting, alignment or modeled delay applied in this bank; SOFA Data.Delay is zero."
+  },
+  "coordinates": {
+    "azimuth_degrees": "0 front, 90 left, 180 rear, 270 right; horizontal only; listener frame",
+    "radius_origin": "center of dummy head, not a pinna/contact gap",
+    "source_channel_order_retained": [
+      0,
+      1
+    ],
+    "receiver_position_caveat": "Published ReceiverPosition has negative y for channel 0, positive y for channel 1; this is inconsistent with customary SOFA positive-y-left labeling. Raw values are preserved in provenance. Named MIRO left/right responses are independently cross-checked in data/orientation-check.json."
+  },
+  "calibration": "Relative measured airborne transfer with authors' restored distance levels. No absolute Pa-to-digital calibration or contact transfer is established.",
+  "measurement_limits": [
+    "200 Hz adaptive low-frequency extension is analytic postprocessing",
+    "possible head–loudspeaker reflection at 0.25 m",
+    "not elevation-dependent; spherical data were not included",
+    "not a calibration of 3Dio, internal-head transmission, silicone deformation or contact pressure"
+  ]
+}

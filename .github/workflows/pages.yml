@@ -1,0 +1,91 @@
+name: Publish private viewer
+
+# Configure Settings > Pages manually first: GitHub Actions source and private
+# visibility. This workflow neither enables Pages nor changes its visibility.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@v6
+      - name: Require an already configured private Pages site
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          visibility="$(gh api "repos/${GITHUB_REPOSITORY}/pages" --jq '.public')"
+          if [[ "$visibility" != 'false' ]]; then
+            echo 'Configure GitHub Actions publishing and private visibility in Settings > Pages before deploying.' >&2
+            exit 1
+          fi
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Install pinned browser test dependency
+        run: npm ci --prefix web
+      - name: Install browser for end-to-end validation
+        run: npx --prefix web playwright install --with-deps chromium
+      - name: Install numerical dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Build native renderer
+        run: python scripts/build_native.py
+      - name: Verify source bank
+        run: python scripts/prepare_ku100.py --download
+      - name: Test native model and export contracts
+        run: python -m unittest discover -s tests -v
+      - name: Test viewer contracts
+        run: npm --prefix web test
+      - name: Verify physical refinement and regime checks
+        run: python scripts/validate_physics.py --out validation/local/physics-convergence.json
+      - name: Generate deterministic demonstration exports
+        run: python scripts/generate_examples.py
+      - name: Verify generated bundles against the browser contract
+        run: npm --prefix web run check:examples
+      - name: Validate publication allowlist and build static site
+        run: python scripts/build_site.py
+      - name: Exercise real rendered audio and import in Chromium
+        run: node scripts/browser_e2e.mjs
+      - name: Upload only the generated static site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy verified viewer
+        id: deployment
+        uses: actions/deploy-pages@v4

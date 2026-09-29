@@ -1,0 +1,484 @@
+{
+  "bank_sha256": "8b781cf38083c47ee4264ca9594289a35dda53b893bd794cba8803d471515712",
+  "extraction_roundtrip_pass": true,
+  "roundtrip_definition": "Every coefficient equals float32(original SOFA coefficient * published radius gain); no shift, truncation, ear gain or normalization.",
+  "distance_gain_checks": [
+    {
+      "radius_m": 0.25,
+      "published_gain": 1.0,
+      "observed_left_right_gains": [
+        0.999999999992281,
+        0.9999999999950817
+      ],
+      "max_float32_absolute_error": 3.719802618706858e-09,
+      "relative_float32_l2_error": 1.3458547060451115e-09
+    },
+    {
+      "radius_m": 0.5,
+      "published_gain": 0.33,
+      "observed_left_right_gains": [
+        0.32999999999349755,
+        0.33000000021842574
+      ],
+      "max_float32_absolute_error": 1.4901161193847656e-08,
+      "relative_float32_l2_error": 2.540756119691336e-08
+    },
+    {
+      "radius_m": 0.75,
+      "published_gain": 0.25,
+      "observed_left_right_gains": [
+        0.2500000000001343,
+        0.24999999999989386
+      ],
+      "max_float32_absolute_error": 4.55585794784108e-10,
+      "relative_float32_l2_error": 6.153518614769534e-10
+    },
+    {
+      "radius_m": 1.0,
+      "published_gain": 0.16,
+      "observed_left_right_gains": [
+        0.16000000016321753,
+        0.16000000003712808
+      ],
+      "max_float32_absolute_error": 3.5762786898541066e-09,
+      "relative_float32_l2_error": 2.5141429808728716e-08
+    },
+    {
+      "radius_m": 1.5,
+      "published_gain": 0.095,
+      "observed_left_right_gains": [
+        0.09500000005779427,
+        0.09500000004838431
+      ],
+      "max_float32_absolute_error": 3.5762786898541066e-09,
+      "relative_float32_l2_error": 2.4948839381667327e-08
+    }
+  ],
+  "cardinal_measurements": [
+    {
+      "radius_m": 0.25,
+      "azimuth_deg": 0,
+      "broadband_ild_l_minus_r_db": -0.11202804408690756,
+      "xcorr_itd_r_minus_l_us": 2.6041666666666665,
+      "absolute_peak_indices_l_r": [
+        31,
+        31
+      ]
+    },
+    {
+      "radius_m": 0.25,
+      "azimuth_deg": 90,
+      "broadband_ild_l_minus_r_db": 22.066688495856468,
+      "xcorr_itd_r_minus_l_us": 854.1666666666667,
+      "absolute_peak_indices_l_r": [
+        15,
+        56
+      ]
+    },
+    {
+      "radius_m": 0.25,
+      "azimuth_deg": 180,
+      "broadband_ild_l_minus_r_db": 0.02250441222898055,
+      "xcorr_itd_r_minus_l_us": 7.8125,
+      "absolute_peak_indices_l_r": [
+        29,
+        29
+      ]
+    },
+    {
+      "radius_m": 0.25,
+      "azimuth_deg": 270,
+      "broadband_ild_l_minus_r_db": -22.477694500370514,
+      "xcorr_itd_r_minus_l_us": -838.5416666666667,
+      "absolute_peak_indices_l_r": [
+        57,
+        15
+      ]
+    },
+    {
+      "radius_m": 0.5,
+      "azimuth_deg": 0,
+      "broadband_ild_l_minus_r_db": -0.15684576361956382,
+      "xcorr_itd_r_minus_l_us": 2.6041666666666665,
+      "absolute_peak_indices_l_r": [
+        30,
+        30
+      ]
+    },
+    {
+      "radius_m": 0.5,
+      "azimuth_deg": 90,
+      "broadband_ild_l_minus_r_db": 16.009912525100574,
+      "xcorr_itd_r_minus_l_us": 825.5208333333334,
+      "absolute_peak_indices_l_r": [
+        15,
+        54
+      ]
+    },
+    {
+      "radius_m": 0.5,
+      "azimuth_deg": 180,
+      "broadband_ild_l_minus_r_db": 0.3848399189268982,
+      "xcorr_itd_r_minus_l_us": 10.416666666666666,
+      "absolute_peak_indices_l_r": [
+        28,
+        28
+      ]
+    },
+    {
+      "radius_m": 0.5,
+      "azimuth_deg": 270,
+      "broadband_ild_l_minus_r_db": -16.610877612220335,
+      "xcorr_itd_r_minus_l_us": -791.6666666666666,
+      "absolute_peak_indices_l_r": [
+        54,
+        15
+      ]
+    },
+    {
+      "radius_m": 0.75,
+      "azimuth_deg": 0,
+      "broadband_ild_l_minus_r_db": -0.4205331405884291,
+      "xcorr_itd_r_minus_l_us": 2.6041666666666665,
+      "absolute_peak_indices_l_r": [
+        29,
+        29
+      ]
+    },
+    {
+      "radius_m": 0.75,
+      "azimuth_deg": 90,
+      "broadband_ild_l_minus_r_db": 14.412629171186722,
+      "xcorr_itd_r_minus_l_us": 802.0833333333334,
+      "absolute_peak_indices_l_r": [
+        14,
+        53
+      ]
+    },
+    {
+      "radius_m": 0.75,
+      "azimuth_deg": 180,
+      "broadband_ild_l_minus_r_db": 0.35945663733228606,
+      "xcorr_itd_r_minus_l_us": 10.416666666666666,
+      "absolute_peak_indices_l_r": [
+        27,
+        27
+      ]
+    },
+    {
+      "radius_m": 0.75,
+      "azimuth_deg": 270,
+      "broadband_ild_l_minus_r_db": -15.028137734831311,
+      "xcorr_itd_r_minus_l_us": -773.4375,
+      "absolute_peak_indices_l_r": [
+        53,
+        14
+      ]
+    },
+    {
+      "radius_m": 1.0,
+      "azimuth_deg": 0,
+      "broadband_ild_l_minus_r_db": -0.6142488889659447,
+      "xcorr_itd_r_minus_l_us": 2.6041666666666665,
+      "absolute_peak_indices_l_r": [
+        29,
+        29
+      ]
+    },
+    {
+      "radius_m": 1.0,
+      "azimuth_deg": 90,
+      "broadband_ild_l_minus_r_db": 13.430313393535304,
+      "xcorr_itd_r_minus_l_us": 791.6666666666666,
+      "absolute_peak_indices_l_r": [
+        14,
+        53
+      ]
+    },
+    {
+      "radius_m": 1.0,
+      "azimuth_deg": 180,
+      "broadband_ild_l_minus_r_db": 0.24942043591179128,
+      "xcorr_itd_r_minus_l_us": 13.020833333333334,
+      "absolute_peak_indices_l_r": [
+        27,
+        27
+      ]
+    },
+    {
+      "radius_m": 1.0,
+      "azimuth_deg": 270,
+      "broadband_ild_l_minus_r_db": -14.056917953692672,
+      "xcorr_itd_r_minus_l_us": -765.625,
+      "absolute_peak_indices_l_r": [
+        53,
+        15
+      ]
+    },
+    {
+      "radius_m": 1.5,
+      "azimuth_deg": 0,
+      "broadband_ild_l_minus_r_db": -0.644644076991106,
+      "xcorr_itd_r_minus_l_us": 5.208333333333333,
+      "absolute_peak_indices_l_r": [
+        29,
+        29
+      ]
+    },
+    {
+      "radius_m": 1.5,
+      "azimuth_deg": 90,
+      "broadband_ild_l_minus_r_db": 12.599771799016066,
+      "xcorr_itd_r_minus_l_us": 789.0625,
+      "absolute_peak_indices_l_r": [
+        14,
+        52
+      ]
+    },
+    {
+      "radius_m": 1.5,
+      "azimuth_deg": 180,
+      "broadband_ild_l_minus_r_db": 0.10316571259494764,
+      "xcorr_itd_r_minus_l_us": 10.416666666666666,
+      "absolute_peak_indices_l_r": [
+        27,
+        27
+      ]
+    },
+    {
+      "radius_m": 1.5,
+      "azimuth_deg": 270,
+      "broadband_ild_l_minus_r_db": -13.17498480457332,
+      "xcorr_itd_r_minus_l_us": -760.4166666666666,
+      "absolute_peak_indices_l_r": [
+        52,
+        15
+      ]
+    }
+  ],
+  "itd_definition": "xcorr(R,L) maximum after eightfold polyphase interpolation, positive means L earlier; not the paper's threshold-onset ITD",
+  "angular_holdout": {
+    "method": "Remove all odd degrees, interpolate their two even neighbors in time domain, compare the held-out measured directions (900 independent targets total). This evaluates a 2-degree gap, not an unmeasured half-degree ground truth.",
+    "rings": [
+      {
+        "radius_m": 0.25,
+        "count": 180,
+        "relative_waveform_l2_error": {
+          "median": 0.029383781898233485,
+          "p95": 0.0571450663537424,
+          "max": 0.06332121298503732
+        },
+        "per_ear_log_spectral_rms_error_db_200_16000_hz": {
+          "median": 0.4582152795389452,
+          "p95": 0.9390663498752893,
+          "max": 1.552037883473568
+        },
+        "absolute_broadband_ild_error_db": {
+          "median": 0.0658699020532385,
+          "p95": 0.19338607533779179,
+          "max": 0.2276609981759954
+        },
+        "absolute_xcorr_itd_error_us": {
+          "median": 0.0,
+          "p95": 2.6041666666667425,
+          "max": 307.29166666666674
+        }
+      },
+      {
+        "radius_m": 0.5,
+        "count": 180,
+        "relative_waveform_l2_error": {
+          "median": 0.028428159987540252,
+          "p95": 0.05653341648254994,
+          "max": 0.061485348466424054
+        },
+        "per_ear_log_spectral_rms_error_db_200_16000_hz": {
+          "median": 0.4417971333711692,
+          "p95": 0.8194156753407017,
+          "max": 1.1225127375999742
+        },
+        "absolute_broadband_ild_error_db": {
+          "median": 0.030900181600298282,
+          "p95": 0.10621299058368575,
+          "max": 0.1319880079959912
+        },
+        "absolute_xcorr_itd_error_us": {
+          "median": 0.0,
+          "p95": 2.6041666666666856,
+          "max": 226.5625
+        }
+      },
+      {
+        "radius_m": 0.75,
+        "count": 180,
+        "relative_waveform_l2_error": {
+          "median": 0.028317903501850473,
+          "p95": 0.05379992926903952,
+          "max": 0.056975743231345126
+        },
+        "per_ear_log_spectral_rms_error_db_200_16000_hz": {
+          "median": 0.42588864270319876,
+          "p95": 0.7515451838721403,
+          "max": 1.0074394183412407
+        },
+        "absolute_broadband_ild_error_db": {
+          "median": 0.024551922883378374,
+          "p95": 0.08599655628106033,
+          "max": 0.11667060252702832
+        },
+        "absolute_xcorr_itd_error_us": {
+          "median": 0.0,
+          "p95": 2.6041666666666856,
+          "max": 2.6041666666667425
+        }
+      },
+      {
+        "radius_m": 1.0,
+        "count": 180,
+        "relative_waveform_l2_error": {
+          "median": 0.02538531047646457,
+          "p95": 0.053849742297765416,
+          "max": 0.057583018811301595
+        },
+        "per_ear_log_spectral_rms_error_db_200_16000_hz": {
+          "median": 0.42894262259395877,
+          "p95": 0.7848865230514235,
+          "max": 1.4675945028689936
+        },
+        "absolute_broadband_ild_error_db": {
+          "median": 0.027456975077932988,
+          "p95": 0.07510724706433847,
+          "max": 0.13375583287947812
+        },
+        "absolute_xcorr_itd_error_us": {
+          "median": 0.0,
+          "p95": 2.6041666666666856,
+          "max": 5.208333333333314
+        }
+      },
+      {
+        "radius_m": 1.5,
+        "count": 180,
+        "relative_waveform_l2_error": {
+          "median": 0.024979965166164908,
+          "p95": 0.05244145081744902,
+          "max": 0.0620300741638375
+        },
+        "per_ear_log_spectral_rms_error_db_200_16000_hz": {
+          "median": 0.43563851288609645,
+          "p95": 0.7557892981167362,
+          "max": 1.4030108987487284
+        },
+        "absolute_broadband_ild_error_db": {
+          "median": 0.02458003380758844,
+          "p95": 0.06584892842711201,
+          "max": 0.08795617087418872
+        },
+        "absolute_xcorr_itd_error_us": {
+          "median": 0.0,
+          "p95": 2.6041666666666856,
+          "max": 5.208333333333314
+        }
+      }
+    ]
+  },
+  "radial_holdout": {
+    "method": "Remove one interior measured circle at a time and linearly interpolate coefficients in log(radius) between its neighbors, including the already-corrected distance amplitudes. This quantifies interpolation error, not a pass/fail equivalence claim.",
+    "rings": [
+      {
+        "held_out_radius_m": 0.5,
+        "bracket_radii_m": [
+          0.25,
+          0.75
+        ],
+        "log_radius_weight": 0.6309297535714575,
+        "count": 360,
+        "relative_waveform_l2_error": {
+          "median": 0.8061445275442366,
+          "p95": 1.204859674742458,
+          "max": 1.2473951081946135
+        },
+        "per_ear_log_spectral_rms_error_db_200_16000_hz": {
+          "median": 6.490086053980997,
+          "p95": 9.808998523963144,
+          "max": 12.803662075080135
+        },
+        "absolute_broadband_ild_error_db": {
+          "median": 1.3120116875990728,
+          "p95": 2.990827023777777,
+          "max": 3.215047410643159
+        },
+        "absolute_xcorr_itd_error_us": {
+          "median": 16.927083333333286,
+          "p95": 52.213541666666735,
+          "max": 234.375
+        }
+      },
+      {
+        "held_out_radius_m": 0.75,
+        "bracket_radii_m": [
+          0.5,
+          1.0
+        ],
+        "log_radius_weight": 0.5849625007211562,
+        "count": 360,
+        "relative_waveform_l2_error": {
+          "median": 0.7701926320124384,
+          "p95": 0.9070960255015558,
+          "max": 0.9297291961693818
+        },
+        "per_ear_log_spectral_rms_error_db_200_16000_hz": {
+          "median": 2.40759438672508,
+          "p95": 5.563030694811546,
+          "max": 7.680436985946616
+        },
+        "absolute_broadband_ild_error_db": {
+          "median": 0.4572049595625929,
+          "p95": 0.7212137533681697,
+          "max": 0.9398656364040185
+        },
+        "absolute_xcorr_itd_error_us": {
+          "median": 2.604166666666657,
+          "p95": 10.416666666666629,
+          "max": 158.85416666666674
+        }
+      },
+      {
+        "held_out_radius_m": 1.0,
+        "bracket_radii_m": [
+          0.75,
+          1.5
+        ],
+        "log_radius_weight": 0.4150374992788438,
+        "count": 360,
+        "relative_waveform_l2_error": {
+          "median": 0.5503412903224669,
+          "p95": 0.6221200592667934,
+          "max": 0.6375865883217093
+        },
+        "per_ear_log_spectral_rms_error_db_200_16000_hz": {
+          "median": 1.3285520638300616,
+          "p95": 1.7898744962578157,
+          "max": 2.862987430703467
+        },
+        "absolute_broadband_ild_error_db": {
+          "median": 0.3113904505348728,
+          "p95": 0.4450098605326443,
+          "max": 0.4690327164441861
+        },
+        "absolute_xcorr_itd_error_us": {
+          "median": 2.6041666666666288,
+          "p95": 5.208333333333371,
+          "max": 171.875
+        }
+      }
+    ]
+  },
+  "spectral_metric": "4096-point DFT, 200–16000 Hz inclusive, RMS log-magnitude error, shared floor -80 dB relative to each target ear peak; no level fitting",
+  "limits": [
+    "Extraction checks establish implementation correctness, not a physical source model.",
+    "Interpolation targets are held out from interpolation but are from the same measurement session.",
+    "Low frequencies were extended analytically below the authors' 200 Hz crossover.",
+    "No contact, ear deformation, absolute pressure, absolute flight time, or 3Dio transfer validation is possible with these airborne measurements."
+  ]
+}

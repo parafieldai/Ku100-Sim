@@ -1,0 +1,134 @@
+{
+  "schema": "ku100-independent-physics-audit-1",
+  "generated_utc": "2026-09-29T05:29:57.524541+00:00",
+  "command": "python -m unittest discover -s tests -p test_physics_audit.py -v",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "system": "Linux-6.18.44-x86_64-with-glibc2.39"
+  },
+  "native_build_identity": {
+    "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+    "flags": [
+      "-std=c++17",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-Werror=return-type",
+      "-O3",
+      "-DNDEBUG"
+    ],
+    "source_sha256": {
+      "native/main.cpp": "7a36b00635e5a22ca9160a62e73730e32e46ef8f9f55c5c93f4ecd2cc2cddd32",
+      "native/physics.cpp": "ac154b7743d680ea064614d456fe6822cc836716478a8596c6cf31fb5509e961",
+      "native/physics.hpp": "db508ba431c32b9e648b358e373ce2f13b98d6892adb180f6a8a2ddad957b49f",
+      "native/receiver.cpp": "a5526aee4b79386272fa3ec05236d8a5228c3f48ebfbccfc5f27e9559f17eceb",
+      "native/receiver.hpp": "04a3535d5784c0bc1422486f081e735622e154c8d84bcf5340c3dc8fe53beb1f"
+    },
+    "binary_sha256": "3dfc20ddc8dd2633e778e27d2ffe4cebd9596d59bd3c4154c7d9a7b7396919a6",
+    "sanitizers": false
+  },
+  "audit_and_wrapper_sha256": {
+    "tests/test_physics_audit.py": "c77af7385c44e2d14bda7c5e46a3691237ac422f84d3f911c03157db4a3453d6",
+    "scripts/render.py": "d38e5ffcb565a5292ad14d867aa70b21608eae97fc155c4e2ec1d4619b592470",
+    "scripts/build_native.py": "812bdc7b768f72762206fd34490adb0e37c0f699c705cbe1365b3479c57766dc",
+    "ku100sim/scene.py": "ceb58b3ec5bc6fb5c65789acd5960ce250ee8696480a24afb4910f1f98775379"
+  },
+  "physics_defaults": {
+    "duration_s": 4,
+    "load_n": 0.01,
+    "speed_m_s": 0.035,
+    "wetness": 0,
+    "contact_radius_m": 0.004,
+    "roughness_rms_m": 2e-06,
+    "plate_width_m": 0.06,
+    "plate_height_m": 0.085,
+    "plate_thickness_m": 0.003,
+    "young_modulus_pa": 1200000,
+    "poisson_ratio": 0.45,
+    "density_kg_m3": 1100,
+    "modal_loss_ratio": 0.025,
+    "cavity_volume_m3": 8e-05,
+    "duct_length_m": 0.18,
+    "duct_radius_m": 0.003,
+    "vent_length_m": 0.025,
+    "vent_radius_m": 0.001,
+    "contact_stiffness_n_m15": 18000,
+    "contact_damping_n_s_m": 0.08,
+    "friction_coefficient": 0.6,
+    "friction_velocity_m_s": 0.002,
+    "film_thickness_m": 8e-05,
+    "film_viscosity_pa_s": 0.001,
+    "air_density_kg_m3": 1.204,
+    "sound_speed_m_s": 343,
+    "air_viscosity_pa_s": 1.81e-05,
+    "sample_rate": 192000,
+    "modes_per_plate": 128,
+    "seed": 1,
+    "trace_stride": 192,
+    "duct_cells": 32,
+    "action": "stroke",
+    "side": "left"
+  },
+  "tests_run": 8,
+  "failures": 0,
+  "errors": 0,
+  "skipped": [],
+  "passed": true,
+  "compiler_warnings": "",
+  "numerical_observations": {
+    "test_cli_airborne_composition_uses_default_bank_and_selected_source": {
+      "relative_l2_error_after_float32_source_export": 3.437530844765096e-08,
+      "frames": 2499,
+      "source_side": "right",
+      "bank": "synthetic fixture"
+    },
+    "test_cli_capture_gain_changes_audio_only_without_normalization": {
+      "digital_gain_a_per_pa": 0.001,
+      "digital_gain_b_per_pa": 0.01,
+      "raw_pressure_and_source_bytes_identical": true
+    },
+    "test_contact_solver_matches_independent_root_and_nonnegative_work_loss": {
+      "max_force_error_n": 6.350475700855895e-14,
+      "min_dissipation_power_w": 0
+    },
+    "test_hertz_discrete_gradient_matches_force_quadrature_across_release": {
+      "max_force_error_n": 6.938893903907228e-18
+    },
+    "test_mindlin_modes_and_work_ports_match_spatial_energy_quadrature": {
+      "max_eigenvalue_relative_error": 4.432010314303625e-13,
+      "max_port_outer_product_absolute_error": 5.4285465012071654e-12
+    },
+    "test_native_linear_coupling_and_energy_match_independent_dense_midpoint": {
+      "max_cavity_pressure_error_pa": 2.5561774918969604e-12,
+      "max_stored_energy_error_j": 1.418780186650953e-20,
+      "max_energy_balance_error_j": 3.3034284942917713e-20,
+      "frames": 2400,
+      "integration_rate_hz": 48000,
+      "known_input": {
+        "sample_rate": 48000,
+        "modes_per_plate": 3,
+        "duct_cells": 3,
+        "duration_s": 0.05,
+        "trace_stride": 1,
+        "load_n": 0.004,
+        "roughness_rms_m": 0,
+        "wetness": 0.4,
+        "speed_m_s": 0.02,
+        "action": "stroke",
+        "side": "left"
+      },
+      "native_regime": true
+    },
+    "test_reference_static_compliance_is_correct_and_independent_of_retained_count": {
+      "independent_compliance_m_per_n": 0.015202399319284006,
+      "native_compliance_m_per_n": 0.015202399319283834
+    },
+    "test_render_bundle_trace_times_match_audio_grid": {
+      "first_trace_audio_time_s": 0.0013333333333333333,
+      "simulation_first_sample_s": 5.208333333333333e-06
+    }
+  },
+  "scope": "Independent equation and CLI consistency tests with synthetic physical inputs. No performance recordings, absolute device calibration, or human listening assessment."
+}

@@ -1,0 +1,11 @@
+{
+  "version": "ku100-scene/1",
+  "name": "Generated vent source · measured KU100 at 0.5 m left",
+  "preset": "tap",
+  "side": "left",
+  "duration_s": 2,
+  "seed": 1,
+  "physics": {"load_n": 0.01, "modes_per_plate": 128},
+  "receiver": {"mode": "airborne", "azimuth_deg": 90, "distance_m": 0.5},
+  "capture": {"sensitivity_mv_pa": 20, "preamp_gain_db": 90, "adc_full_scale_v": 2}
+}

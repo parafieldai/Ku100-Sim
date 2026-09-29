@@ -1,0 +1,81 @@
+{
+  "orientation_pass": true,
+  "conclusion": "Keep SOFA channel0 as left, channel1 as right; azimuth90 is left,270 is right. No sample swapping or metadata rewriting.",
+  "evidence": "Named MIRO Left Ear/Right Ear arrays, processed by authors' getIR head/tail windows, reproduce all archived SOFA coefficients. miroCoordinates in the accompanying class explicitly defines 90 left and270 right.",
+  "receiver_position_issue": "SOFA ReceiverPosition signs conflict with that verified channel convention. Preserve the erroneous published positions in provenance, not as routing instructions.",
+  "archive_sha256": "2dfd2b0e176d5a418191ccad04f8f2cea34b9bb42bf697026e4163159add5974",
+  "class_sha256": "1ea7dd29b960f84174638cf672966b36deb6ddf2f0a0e1d5090c534bcb378026",
+  "decoder_scope": "Only hash-pinned original MCOS release; scipy.io.matlab._mio5 is an internal API used for this offline verification only.",
+  "rings": [
+    {
+      "miro_file": "HRIR_CIRC360_NF025.mat",
+      "miro_sha256": "19eb36d8312c51efea42f4a0d049f401fea15de64db01af16882fdb6b86e1878",
+      "sofa_file": "HRIR_CIRC360_NF025.sofa",
+      "miro_channel_labels": [
+        "Left Ear",
+        "Right Ear"
+      ],
+      "miro_head_tail_window_taps": [
+        8,
+        32
+      ],
+      "max_named_miro_getIR_vs_sofa_absolute_error": 0.0
+    },
+    {
+      "miro_file": "HRIR_CIRC360_NF050.mat",
+      "miro_sha256": "b6c49b1ac7ee612436dbdcb34567f2825536cc6b10ab61562cc1d07b4e00ae3a",
+      "sofa_file": "HRIR_CIRC360_NF050.sofa",
+      "miro_channel_labels": [
+        "Left Ear",
+        "Right Ear"
+      ],
+      "miro_head_tail_window_taps": [
+        8,
+        32
+      ],
+      "max_named_miro_getIR_vs_sofa_absolute_error": 0.0
+    },
+    {
+      "miro_file": "HRIR_CIRC360_NF075.mat",
+      "miro_sha256": "233805e65ca3b207416476b86970d4ac017c0021a7afefaec7cd9cb26b1bdf16",
+      "sofa_file": "HRIR_CIRC360_NF075.sofa",
+      "miro_channel_labels": [
+        "Left Ear",
+        "Right Ear"
+      ],
+      "miro_head_tail_window_taps": [
+        8,
+        32
+      ],
+      "max_named_miro_getIR_vs_sofa_absolute_error": 0.0
+    },
+    {
+      "miro_file": "HRIR_CIRC360_NF100.mat",
+      "miro_sha256": "023d2715e08d688f1f96e42ad4b17f557698c2d8276140bedbecec8283ce320e",
+      "sofa_file": "HRIR_CIRC360_NF100.sofa",
+      "miro_channel_labels": [
+        "Left Ear",
+        "Right Ear"
+      ],
+      "miro_head_tail_window_taps": [
+        8,
+        32
+      ],
+      "max_named_miro_getIR_vs_sofa_absolute_error": 0.0
+    },
+    {
+      "miro_file": "HRIR_CIRC360_NF150.mat",
+      "miro_sha256": "120a67fefd041e2b8ca2e8282d3dd7921e895c2e8d20e8a8d12b8405ea34d314",
+      "sofa_file": "HRIR_CIRC360_NF150.sofa",
+      "miro_channel_labels": [
+        "Left Ear",
+        "Right Ear"
+      ],
+      "miro_head_tail_window_taps": [
+        8,
+        32
+      ],
+      "max_named_miro_getIR_vs_sofa_absolute_error": 0.0
+    }
+  ]
+}

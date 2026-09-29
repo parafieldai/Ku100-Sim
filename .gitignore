@@ -1,0 +1,13 @@
+build/
+outputs/
+_site/
+dist/
+data/*.bin
+data/source/
+__pycache__/
+*.py[cod]
+.venv/
+node_modules/
+web/test-results/
+web/examples/*.ku100.json
+validation/local/

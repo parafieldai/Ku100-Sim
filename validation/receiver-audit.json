@@ -1,0 +1,80 @@
+{
+  "schema": "ku100-native-receiver-audit-1",
+  "generated_utc": "2026-09-29T05:16:47.948640+00:00",
+  "command": "python -m unittest discover -s tests -p test_receiver.py -v",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+    "system": "Linux-6.18.44-x86_64-with-glibc2.39"
+  },
+  "source_sha256": {
+    "native/receiver.cpp": "a5526aee4b79386272fa3ec05236d8a5228c3f48ebfbccfc5f27e9559f17eceb",
+    "native/receiver.hpp": "04a3535d5784c0bc1422486f081e735622e154c8d84bcf5340c3dc8fe53beb1f",
+    "tests/receiver_probe.cpp": "955e143611ccf440d9a0243b1724081bba00832c21723cc840dea3de9f4aa594",
+    "tests/test_receiver.py": "ae2b94bcb2a145f43de1568fa9350f62a00b132d877b6bf32f5a2e8dab60bd6c",
+    "data/ku100_bank.bin": "8b781cf38083c47ee4264ca9594289a35dda53b893bd794cba8803d471515712",
+    "data/manifest.json": "7fb2582c0072225eebf5b16c5376b66f0b2d8c4944612885a30868ac23199251"
+  },
+  "tests_run": 19,
+  "failures": 0,
+  "errors": 0,
+  "skipped": [],
+  "passed": true,
+  "compiler_warnings": "",
+  "numerical_observations": {
+    "test_airborne_matches_delay_convolution_and_does_not_reapply_inverse_radius": {
+      "comparisons": 3,
+      "max_absolute_error": 1.3877787807814457e-17
+    },
+    "test_angle_wrap_and_log_radius_interpolation_preserve_both_ears": {
+      "comparisons": 35,
+      "max_absolute_error": 5.551115123125783e-17
+    },
+    "test_bank_header_and_exact_measurement_samples": {
+      "comparisons": 10,
+      "max_absolute_error": 0.0
+    },
+    "test_decimation_matches_scipy_causal_full_tail_and_latency": {
+      "comparisons": 20,
+      "max_absolute_error": 2.220446049250313e-15
+    },
+    "test_decimation_rejects_alias_band_with_shared_passband_gain": {
+      "output_rms_equivalent_sine_amplitude": {
+        "1000": 0.9999979788085862,
+        "10000": 0.9999981067980949,
+        "30000": 7.098032272978391e-07,
+        "70000": 9.712301756312034e-08
+      }
+    },
+    "test_delay_phase_and_gain_below_declared_audio_cutoff": {
+      "max_complex_response_error": 1.430204703141554e-05
+    },
+    "test_direct_convolution_matches_numpy_and_keeps_final_tail_sample": {
+      "comparisons": 5,
+      "max_absolute_error": 3.552713678800501e-15
+    },
+    "test_fractional_delay_matches_independent_kernel_without_tail_loss": {
+      "comparisons": 7,
+      "max_absolute_error": 4.440892098500626e-16
+    },
+    "test_integer_boundary_has_constant_31_sample_latency": {
+      "max_sample_difference_below_boundary": 1.0044251162044033e-08,
+      "max_sample_difference_above_boundary": 9.955943984667988e-09
+    },
+    "test_negative_epsilon_azimuth_does_not_index_direction_360": {
+      "comparisons": 4,
+      "max_absolute_error": 0.0
+    },
+    "test_one_ring_is_supported_without_radial_division": {
+      "comparisons": 1,
+      "max_absolute_error": 0.0
+    },
+    "test_real_bank_when_available_matches_selected_binary_measurements": {
+      "comparisons": 25,
+      "max_absolute_error": 0.0
+    }
+  },
+  "scope": "Receiver implementation only. Synthetic signals and published HRIR bank; no reference performances, physics-core execution, listening match, or absolute pressure calibration."
+}

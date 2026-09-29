@@ -1,0 +1,24 @@
+test_airborne_matches_delay_convolution_and_does_not_reapply_inverse_radius (test_receiver.NativeReceiverTests.test_airborne_matches_delay_convolution_and_does_not_reapply_inverse_radius) ... ok
+test_angle_wrap_and_log_radius_interpolation_preserve_both_ears (test_receiver.NativeReceiverTests.test_angle_wrap_and_log_radius_interpolation_preserve_both_ears) ... ok
+test_bank_header_and_exact_measurement_samples (test_receiver.NativeReceiverTests.test_bank_header_and_exact_measurement_samples) ... ok
+test_decimation_matches_scipy_causal_full_tail_and_latency (test_receiver.NativeReceiverTests.test_decimation_matches_scipy_causal_full_tail_and_latency) ... ok
+test_decimation_rejects_alias_band_with_shared_passband_gain (test_receiver.NativeReceiverTests.test_decimation_rejects_alias_band_with_shared_passband_gain) ... ok
+test_decimation_rejects_unsupported_rates (test_receiver.NativeReceiverTests.test_decimation_rejects_unsupported_rates) ... ok
+test_delay_phase_and_gain_below_declared_audio_cutoff (test_receiver.NativeReceiverTests.test_delay_phase_and_gain_below_declared_audio_cutoff) ... ok
+test_direct_convolution_matches_numpy_and_keeps_final_tail_sample (test_receiver.NativeReceiverTests.test_direct_convolution_matches_numpy_and_keeps_final_tail_sample) ... ok
+test_float_wav_bytes_preserve_stereo_levels_polarity_and_above_full_scale (test_receiver.NativeReceiverTests.test_float_wav_bytes_preserve_stereo_levels_polarity_and_above_full_scale) ... ok
+test_fractional_delay_matches_independent_kernel_without_tail_loss (test_receiver.NativeReceiverTests.test_fractional_delay_matches_independent_kernel_without_tail_loss) ... ok
+test_integer_boundary_has_constant_31_sample_latency (test_receiver.NativeReceiverTests.test_integer_boundary_has_constant_31_sample_latency) ... ok
+test_negative_epsilon_azimuth_does_not_index_direction_360 (test_receiver.NativeReceiverTests.test_negative_epsilon_azimuth_does_not_index_direction_360) ... ok
+test_nonfinite_samples_and_invalid_delay_or_speed_are_rejected (test_receiver.NativeReceiverTests.test_nonfinite_samples_and_invalid_delay_or_speed_are_rejected) ... ok
+test_one_ring_is_supported_without_radial_division (test_receiver.NativeReceiverTests.test_one_ring_is_supported_without_radial_division) ... ok
+test_real_bank_when_available_matches_selected_binary_measurements (test_receiver.NativeReceiverTests.test_real_bank_when_available_matches_selected_binary_measurements) ... ok
+test_rejects_extrapolation_and_nonfinite_coordinates (test_receiver.NativeReceiverTests.test_rejects_extrapolation_and_nonfinite_coordinates) ... ok
+test_rejects_invalid_bank_shapes_and_radii (test_receiver.NativeReceiverTests.test_rejects_invalid_bank_shapes_and_radii) ... ok
+test_rejects_truncated_trailing_and_nonfinite_bank_bytes (test_receiver.NativeReceiverTests.test_rejects_truncated_trailing_and_nonfinite_bank_bytes) ... ok
+test_wav_rejects_invalid_rate_channels_and_float_overflow (test_receiver.NativeReceiverTests.test_wav_rejects_invalid_rate_channels_and_float_overflow) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 2.491s
+
+OK

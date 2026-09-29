@@ -1,0 +1,13 @@
+test_cli_airborne_composition_uses_default_bank_and_selected_source (test_physics_audit.PhysicsAuditTests.test_cli_airborne_composition_uses_default_bank_and_selected_source) ... ok
+test_cli_capture_gain_changes_audio_only_without_normalization (test_physics_audit.PhysicsAuditTests.test_cli_capture_gain_changes_audio_only_without_normalization) ... ok
+test_contact_solver_matches_independent_root_and_nonnegative_work_loss (test_physics_audit.PhysicsAuditTests.test_contact_solver_matches_independent_root_and_nonnegative_work_loss) ... ok
+test_hertz_discrete_gradient_matches_force_quadrature_across_release (test_physics_audit.PhysicsAuditTests.test_hertz_discrete_gradient_matches_force_quadrature_across_release) ... ok
+test_mindlin_modes_and_work_ports_match_spatial_energy_quadrature (test_physics_audit.PhysicsAuditTests.test_mindlin_modes_and_work_ports_match_spatial_energy_quadrature) ... ok
+test_native_linear_coupling_and_energy_match_independent_dense_midpoint (test_physics_audit.PhysicsAuditTests.test_native_linear_coupling_and_energy_match_independent_dense_midpoint) ... ok
+test_reference_static_compliance_is_correct_and_independent_of_retained_count (test_physics_audit.PhysicsAuditTests.test_reference_static_compliance_is_correct_and_independent_of_retained_count) ... ok
+test_render_bundle_trace_times_match_audio_grid (test_physics_audit.PhysicsAuditTests.test_render_bundle_trace_times_match_audio_grid) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 5.629s
+
+OK
