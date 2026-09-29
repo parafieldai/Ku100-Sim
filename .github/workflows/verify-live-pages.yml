@@ -1,0 +1,77 @@
+name: Verify live Pages
+on:
+  workflow_run:
+    workflows: [Publish viewer]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      publish_run_id:
+        description: Completed successful Publish viewer run ID
+        required: true
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: verify-live-pages
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: github.repository == 'parafieldai/Ku100-Sim' && (github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == github.repository))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Resolve actual deployment and its successful native CI artifact
+        id: source
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PUBLISH_RUN: ${{ github.event.workflow_run.id || inputs.publish_run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$PUBLISH_RUN" =~ ^[0-9]+$ ]]
+          mkdir -p validation/local/live-pages
+          gh api "repos/${GITHUB_REPOSITORY}/actions/runs/$PUBLISH_RUN" > publication.json
+          jq -e --arg repo "$GITHUB_REPOSITORY" '.conclusion == "success" and .head_branch == "main" and .path == ".github/workflows/pages.yml" and .head_repository.full_name == $repo' publication.json
+          gh api "repos/${GITHUB_REPOSITORY}/actions/runs/$PUBLISH_RUN/jobs" > publication-jobs.json
+          if ! jq -e '[.jobs[] | select(.name == "deploy" and .conclusion == "success")] | length > 0' publication-jobs.json; then
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+            echo 'Pages did not deploy in this run; live verification was skipped, not passed.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          gh run download "$PUBLISH_RUN" --repo "$GITHUB_REPOSITORY" --name "pages-availability-$PUBLISH_RUN" --dir availability
+          jq -e --arg repo "$GITHUB_REPOSITORY" '.conclusion == "success" and .head_branch == "main" and .path == ".github/workflows/ci.yml" and .head_repository.full_name == $repo' availability/run.json
+          sha=$(jq -r '.head_sha' availability/run.json)
+          source_run=$(jq -r '.id' availability/run.json)
+          [[ "$sha" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$source_run" =~ ^[0-9]+$ ]]
+          gh run download "$source_run" --repo "$GITHUB_REPOSITORY" --name "ku100-verified-$sha" --dir verified
+          cp publication.json publication-jobs.json availability/run.json availability/pages.json validation/local/live-pages/
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+          echo 'ready=true' >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-node@v6
+        if: steps.source.outputs.ready == 'true'
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Install the locked browser dependency
+        if: steps.source.outputs.ready == 'true'
+        run: |
+          npm ci --prefix web
+          npx --prefix web playwright install --with-deps chromium
+      - name: Check anonymous live HTTPS, exact artifact bytes and actual audio playback
+        if: steps.source.outputs.ready == 'true'
+        env:
+          KU100_EXPECTED_SHA: ${{ steps.source.outputs.sha }}
+          KU100_SITE_DIR: verified/dist
+        run: node scripts/browser_live.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-pages-verification-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 14
+          if-no-files-found: error
+          path: validation/local/live-pages/
