@@ -1,0 +1,26 @@
+# Research evidence and applicability
+
+Checked during the September 2026 continuation. A primary source can justify an equation, measurement or experiment; it cannot certify this implementation's wet-contact realism.
+
+| Source | What it supports | What it does not support |
+|---|---|---|
+| Arend, Neidhardt & Pörschmann, KU100 near-field measurements, [Zenodo record](https://zenodo.org/records/4297951), DOI 10.5281/zenodo.4297951 | Measured airborne spatial responses, circular distances 0.25, 0.50, 0.75, 1.00, 1.50 m. This continuation actually inspected 0.25 and 0.50 m SOFA files from the supplied archives: 360 directions x 2 channels x 128 taps at 48 kHz. | Direct contact/occlusion, true internal mechanical transmission, calibrated saliva/ear interaction. We do not claim to have recovered all five distances. |
+| Authors' [gain correction](https://audiogroup.web.th-koeln.de/FILES/NF_Datasets_Gains_infos.pdf) | Relative distance factors 1, .33, .25, .16, .095. Both SOFA and MIRO sets were normalized; the old MIRO normalization field omits varying preamp gains. | An independently chosen extra inverse-distance factor on the same measured path, or absolute pressure calibration. PDF text inspected; page-image retrieval failed. |
+| [Neumann KU100 specifications](https://www.neumann.com/en-in/products/microphones/ku-100) | Two omni condenser capsules in artificial ears on a full dummy head; nominal 20 Hz–20 kHz, 20 mV/Pa, 16 dB-A self-noise; switchable low cuts and pad. | Ear-contact modulus, internal transfer functions, saliva acoustics, or proof that the supplied live-stream WAVs were recorded on KU100. |
+| [3Dio Free Space](https://3diosound.com/products/free-space-binaural-microphone) and [manufacturer FAQ](https://3diosound.com/pages/frequently-asked-questions) | Matched electret capsules in artificial ears. Product table currently says 60 Hz–20 kHz; FAQ says 50 Hz–20 kHz. The discrepancy is retained. | A full-head KU100 transfer or an experimentally identified wet-contact model. |
+| [3Dio Free Space Pro II](https://3diosound.com/products/free-space-pro-binaural-microphone) | Manufacturer currently identifies DPA 4060 CORE+ capsules, silicone ears, 20 Hz–20 kHz and a 3 dB soft high-frequency boost; nominal 20 mV/Pa and 71 dB(A) SNR. | Identification of an unspecified black-colored microphone's exact revision. “Black 3Dio” is not enough provenance. KU100 and Pro II cannot be interchanged by gain alone. |
+| Bilbao, Torin & Chatziioannou, [Numerical Modeling of Collisions in Musical Instruments](https://arxiv.org/abs/1405.2589) | Potential-based collision formulations and energy-based numerical checks. Equations and page image were inspected. | Identification of this particular contact pair or all saliva mechanisms. Our discrete scheme is documented independently; it is not claimed to be the same entire instrument simulation. |
+| Duda & Martens (1998), [Range Dependence of the Response of a Spherical Head Model](https://escholarship.org/content/qt0kb7r9m9/qt0kb7r9m9.pdf), DOI 10.1121/1.423886 | Ideal rigid-sphere near-field theory and measured sphere experiments. Manuscript text and experimental page image inspected. | Pinna geometry, silicone compliance, direct contact, or arbitrary submillimetre point-source equivalence. Authors report near-surface discrepancies when the experimental source is no longer point-like. |
+| [Leeds biomimetic tongue surfaces](https://archive.researchdata.leeds.ac.uk/757/), DOI 10.5518/917, and [salivary lubricity](https://archive.researchdata.leeds.ac.uk/674/), DOI 10.5518/816 | Candidate material/tribology priors. Dataset metadata reviewed, not fitted into this renderer. | Synchronized force/motion/binaural wet-ear acoustic calibration. No claim that we downloaded or analyzed those spreadsheets this turn. |
+
+## Measured data handling
+
+Extracted FIR files retain both channels and their original temporal samples. In the recovered SOFA files, receiver-position signs and the lateral acoustic cue labeling are inconsistent: at azimuth 90 degrees raw channel 0 is earlier and stronger, although its stored y coordinate is negative. Raw order is retained, the discrepancy is recorded, and no silent reversal is introduced. Gains and hashes are in each extraction receipt.
+
+The source-file license says CC BY-SA 3.0; a prior archive notice reports a different Zenodo record-level license. The derivative preserves the stricter source-file attribution/share-alike notice instead of silently replacing it. Original research code has its own MIT license. These are separate assets.
+
+## What would establish realism
+
+Use a documented device/ear assembly and synchronized displacement, force, and two-channel audio. Identify the contact and structural transfer on one set of actions; predict new loads, speeds and separations on a separate recording session. Keep source impedance, head transmission, room effects, preamp settings and electronic noise distinct. Test uncued/blinded listening resemblance and action correspondence separately from whether a listener experiences ASMR. Neither a device specification nor an energy test answers those perceptual questions.
+
+The uploaded performance WAVs remain reference-only with unverified microphone/action calibration. They are not distributed with the Git repository or Pages build.

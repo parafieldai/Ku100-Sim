@@ -42,6 +42,11 @@ def main():
         if path.suffix=='.json':bundle[str(path.relative_to(dest))]=json.loads(path.read_text())
         elif path.suffix=='.wav':bundle[str(path.relative_to(dest))]='data:audio/wav;base64,'+base64.b64encode(path.read_bytes()).decode()
     html=(dest/'index.html').read_text()
+    # Embedded documentation remains accessible without a localhost server.
+    for doc in [*docs.glob('*.md'), dest/'THIRD_PARTY_NOTICES.md']:
+        if doc.exists():
+            uri='data:text/plain;base64,'+base64.b64encode(doc.read_bytes()).decode()
+            html=html.replace('href="'+str(doc.relative_to(dest))+'"', 'href="'+uri+'" download="'+doc.name+'"')
     embedded='<script>window.ku100Bundle='+json.dumps(bundle,separators=(',',':')).replace('</','<\\/')+';</script>'
     (dest/'offline.html').write_text(html.replace('<script>',embedded+'<script>',1))
     print(f'Built {len(demos)} native-rendered scenes: {dest}')

@@ -32,5 +32,7 @@ def main():
             snr=float(20*np.log10(np.linalg.norm(expected[:,e])/np.linalg.norm(expected[:,e]-got[:,e])))
             tests.append({'check':f'native measured convolution channel {e}','snr_db':snr,'passed':snr>120})
     result={'checks':tests,'passed':all(x['passed'] for x in tests),'measurements':measured,'scope':'Receiver implementation accuracy and unfitted sphere discrepancy; no claim that ideal sphere or contact model matches KU100 wet-ear audio.'}
+    (ROOT/'research').mkdir(exist_ok=True)
     (ROOT/'research/receivers.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
+    if not result['passed']:raise SystemExit(1)
 if __name__=='__main__':main()

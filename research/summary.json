@@ -1,0 +1,106 @@
+{
+  "scope": "Bounded native contact-coupon model; no measured contact calibration, no perceptual verdict.",
+  "source_sha256": "e5142ef49e088a3ea7116fcd3c25153b24a9dc2e2c43c7611348cfe72d9da1c7",
+  "native_acceptance_checks": {
+    "count": 67,
+    "passed": true,
+    "maximum_relative_energy_residual": 7.826726557298618e-12
+  },
+  "native_sanitizer_invariants": {
+    "count": 13,
+    "passed": true,
+    "sanitizers": [
+      "AddressSanitizer",
+      "UndefinedBehaviorSanitizer"
+    ]
+  },
+  "linear_reference": {
+    "OS4_error": 0.48870674851125057,
+    "OS8_error": 0.1287107143091911,
+    "OS16_error": 0.03227373089863131,
+    "OS64_error": 0.0020173448148133014,
+    "target": 0.005,
+    "default_OS8_passes_target": false
+  },
+  "nonlinear_default_vs_OS16_waveform_relative_error": 0.0031787962859869427,
+  "spatial_default6_vs12_waveform_relative_error": 0.14248091569967833,
+  "sphere": {
+    "series_relative_error": 2.168603780344744e-10,
+    "far_field_low_frequency_magnitude": [
+      1.0013139558907689,
+      0.9999987910624025,
+      0.998688953030347
+    ],
+    "static_limit_max_magnitude_error": 5.6290532235436785e-09,
+    "passed": true,
+    "scope": "Series convergence and static limits only; the ideal sphere has no pinnae and does not establish contact fidelity."
+  },
+  "measured_convolution": [
+    {
+      "check": "native measured convolution channel 0",
+      "snr_db": 149.520355144187,
+      "passed": true
+    },
+    {
+      "check": "native measured convolution channel 1",
+      "snr_db": 151.61471989294282,
+      "passed": true
+    }
+  ],
+  "offline_browser": {
+    "checks": [
+      {
+        "check": "native scene and WAV metadata load",
+        "passed": true
+      },
+      {
+        "check": "native browser control starts audio playback",
+        "passed": true
+      },
+      {
+        "check": "seek updates solved telemetry",
+        "passed": true
+      },
+      {
+        "check": "right contact scene has right-dominant displayed cavity pressure",
+        "passed": true
+      },
+      {
+        "check": "scene JSON export contains actual settings",
+        "passed": true
+      },
+      {
+        "check": "mobile viewport has no horizontal overflow",
+        "passed": true
+      },
+      {
+        "check": "no uncaught browser exceptions",
+        "passed": true,
+        "errors": []
+      }
+    ],
+    "passed": true,
+    "count": 7,
+    "transport": "offline embedded native-output bundle",
+    "scope": "Real Chromium playback/telemetry/download checks. Does not establish audible realism, headphone quality or ASMR response."
+  },
+  "scene_wrapper_receipts": {
+    "contact": true,
+    "measured": true,
+    "all_output_hashes_verified": true
+  },
+  "publication": {
+    "cloud_verification_passed": false,
+    "observed_failed_run": 36529482606,
+    "cloud_failure_cause": "Unresolved: no steps or logs available",
+    "github_pages_deployed": false
+  },
+  "review": {
+    "independent_subagents_used": false,
+    "human_listening_performed": false
+  },
+  "environment": {
+    "python": "3.13.5",
+    "compiler": "c++ (Debian 14.2.0-19) 14.2.0"
+  }
+}
