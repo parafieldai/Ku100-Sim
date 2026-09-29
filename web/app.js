@@ -171,6 +171,9 @@ async function loadText(text, label, epoch) {
   $('regime-warning-text').textContent = Array.isArray(physics?.regime_warnings) && physics.regime_warnings.some(value => typeof value === 'string') ? physics.regime_warnings.filter(value => typeof value === 'string').join(' · ') : 'The native renderer marked this parameter regime invalid. Inspect the numerical metrics below.';
   const capture = bundle.scene.capture;
   $('capture-note').textContent = capture ? `${formatNumber(capture.sensitivity_mv_pa)} mV/Pa nominal sensitivity · ${capture.preamp_gain_db >= 0 ? '+' : ''}${formatNumber(capture.preamp_gain_db)} dB electronic gain · ${formatNumber(capture.adc_full_scale_v)} V ADC full scale. Ideal capture with no added device or self-noise. This gain is already in the WAV; the listening slider adds common playback attenuation only.` : 'No capture chain was declared in this export. Digital amplitude must not be interpreted as calibrated sound pressure.';
+  const textureRate = loaded.bundle.scene.preset === 'stroke' ? (loaded.bundle.scene.physics.speed_m_s ?? 0.035) / (loaded.bundle.scene.physics.texture_min_wavelength_m ?? 120e-6) : 0;
+  $('bandwidth-note').textContent = `Physics diagnostic: advected texture frequencies up to ${formatNumber(textureRate)} Hz; highest retained structural mode ${formatNumber(physics?.max_mode_hz)} Hz. ${loaded.bundle.scene.physics.unsteady_viscous_losses === 1 ? 'Frequency-dependent viscous tube memory enabled (no thermal losses).' : 'Legacy steady tube resistance.'} Neither a 48 kHz export nor numerical convergence proves contact realism.`;
+
   $('provenance-json').textContent = JSON.stringify({version: bundle.version, sample_rate_hz: bundle.sample_rate_hz, duration_s: bundle.duration_s, provenance: bundle.provenance, metrics: bundle.metrics}, null, 2);
   fixture.setBundle(bundle);
   originalScene = JSON.stringify(bundle.scene, null, 2);

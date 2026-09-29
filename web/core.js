@@ -153,19 +153,24 @@ export function validateScene(text) {
   assert(finite(scene.duration_s) && scene.duration_s >= 0.02 && scene.duration_s <= 30, 'Scene duration must be between 0.02 and 30 seconds.');
   assert(scene.seed === undefined || (Number.isInteger(scene.seed) && scene.seed >= 0 && scene.seed <= 4294967295), 'Seed must be an unsigned 32-bit integer.');
   assert(object(scene.physics) && object(scene.receiver), 'Scene must contain physics and receiver objects.');
-  const positive = new Set(['contact_radius_m', 'plate_width_m', 'plate_height_m', 'plate_thickness_m', 'young_modulus_pa', 'density_kg_m3', 'cavity_volume_m3', 'duct_length_m', 'duct_radius_m', 'vent_length_m', 'vent_radius_m', 'contact_stiffness_n_m15', 'friction_velocity_m_s', 'film_thickness_m', 'film_viscosity_pa_s', 'air_density_kg_m3', 'sound_speed_m_s', 'air_viscosity_pa_s']);
+  const positive = new Set(['contact_radius_m', 'plate_width_m', 'plate_height_m', 'plate_thickness_m', 'young_modulus_pa', 'density_kg_m3', 'cavity_volume_m3', 'duct_length_m', 'duct_radius_m', 'vent_length_m', 'vent_radius_m', 'contact_stiffness_n_m15', 'friction_velocity_m_s', 'film_thickness_m', 'film_viscosity_pa_s', 'air_density_kg_m3', 'sound_speed_m_s', 'air_viscosity_pa_s', 'texture_min_wavelength_m', 'texture_max_wavelength_m']);
   const nonnegative = new Set(['load_n', 'speed_m_s', 'roughness_rms_m', 'modal_loss_ratio', 'contact_damping_n_s_m', 'friction_coefficient']);
-  const integerRanges = {sample_rate: [48000, 1536000], modes_per_plate: [1, 1024], trace_stride: [1, 4294967295], duct_cells: [1, 256]};
+  const integerRanges = {sample_rate: [48000, 1536000], modes_per_plate: [1, 1024], trace_stride: [1, 4294967295], duct_cells: [1, 256], unsteady_viscous_losses: [0, 1]};
   for (const [key, value] of Object.entries(scene.physics)) {
     assert(finite(value), `physics.${key} must be a finite number.`);
     if (positive.has(key)) assert(value > 0, `physics.${key} must be positive.`);
     else if (nonnegative.has(key)) assert(value >= 0, `physics.${key} must be nonnegative.`);
     else if (integerRanges[key]) { const [min, max] = integerRanges[key]; assert(Number.isInteger(value) && value >= min && value <= max, `physics.${key} must be an integer in ${min}–${max}.`); }
+    else if (key === 'texture_amplitude_exponent') assert(value >= 0 && value <= 2, 'Texture exponent must be in 0–2.');
     else if (key === 'wetness') assert(value >= 0 && value <= 1, 'Wetness must be in 0–1.');
     else if (key === 'poisson_ratio') assert(value > -1 && value < 0.5, 'Poisson ratio must be between −1 and 0.5.');
     else throw new Error(`Unknown physics parameter: ${key}.`);
   }
   const p = scene.physics;
+  const minWave = p.texture_min_wavelength_m ?? 120e-6;
+  const maxWave = p.texture_max_wavelength_m ?? 3e-3;
+  assert(minWave >= 1e-6 && maxWave <= 0.1 && minWave < maxWave, 'Texture wavelengths require 1 micrometre <= minimum < maximum <= 0.1 m.');
+  if (scene.preset === 'stroke') assert((p.speed_m_s ?? 0.035) / minWave <= (p.sample_rate ?? 192000) / 16, 'Texture advection needs at least 16 integration samples per shortest wavelength.');
   if (p.sample_rate !== undefined) assert(p.sample_rate * scene.duration_s <= 24000000 && p.sample_rate % 48000 === 0, 'Integration rate must be a multiple of 48 kHz and total samples at most 24 million.');
   if (p.plate_width_m !== undefined && p.plate_height_m !== undefined) {
     const aspect = p.plate_width_m / p.plate_height_m;

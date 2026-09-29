@@ -60,7 +60,7 @@ def canonical_scene(raw: dict, physics_defaults: dict) -> dict:
     if not isinstance(physics, dict) or set(physics) - set(defaults):
         raise ValueError("Unknown or malformed physics parameters")
     complete = {}
-    integer_fields = {"sample_rate", "modes_per_plate", "trace_stride", "duct_cells"}
+    integer_fields = {"sample_rate", "modes_per_plate", "trace_stride", "duct_cells", "unsteady_viscous_losses"}
     for key, default in defaults.items():
         complete[key] = finite_number(physics.get(key, default), "physics." + key, integer=key in integer_fields)
     if "trace_stride" not in physics:

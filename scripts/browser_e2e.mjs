@@ -14,7 +14,7 @@ const modulePath = process.env.KU100_PLAYWRIGHT_MODULE || path.join(root, 'web',
 const {chromium} = await import(pathToFileURL(modulePath).href);
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const manifest = JSON.parse(await fs.readFile(path.join(site, 'examples', 'index.json'), 'utf8'));
-assert.equal(manifest.examples.length, 5, 'The five native demonstration cases must be built first');
+assert.equal(manifest.examples.length, 7, 'The seven native demonstration cases must be built first');
 await fs.mkdir(out, {recursive: true});
 const mime = {'.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json'};
 const server = createServer(async (req, res) => {
@@ -105,7 +105,7 @@ try {
     await page.locator('#reset-scene').click();
     assert.equal(await page.locator('#scene-side').inputValue(), 'left');
   });
-  await check('all five real native examples decode and retain file identity', async () => {
+  await check('all seven real native examples decode and retain file identity', async () => {
     for (const entry of manifest.examples) {
       const bundle = JSON.parse(await fs.readFile(path.join(site, 'examples', entry.path), 'utf8'));
       await page.locator('#example-select').selectOption(entry.id);

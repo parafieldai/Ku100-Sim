@@ -96,7 +96,7 @@ def validate(work: Path) -> dict:
             raise AssertionError("This fixed trajectory did not converge under modal refinement")
     if max(comparisons[-1]["pressure_relative_l2"]) > 1e-3:
         raise AssertionError("192/384 kHz trajectory disagreement exceeds declared test bound")
-    identity_files = sources + [ROOT / "native/physics.hpp", Path(__file__).resolve()]
+    identity_files = sources + [ROOT / "native/physics.hpp", ROOT / "native/viscous.hpp", Path(__file__).resolve()]
     return {
         "version": "native-physics-convergence/1",
         "generated_utc": datetime.now(timezone.utc).isoformat(),

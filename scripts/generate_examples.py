@@ -21,6 +21,8 @@ EXAMPLES = [
     ("tap-right", "Tap / right", "A single prescribed tool indentation drives the right plate, followed by physical decay."),
     ("airborne-left", "Measured KU100 receiver", "A synthesized vent source through measured horizontal KU100 responses at 0.5 m, 90 degrees. Absolute level is uncalibrated."),
     ("press-left", "Press and release", "A smooth normal engagement without texture sliding; compare its force and chamber pressure against the stroke."),
+    ("unsteady-stroke-left", "Unsteady viscous air losses", "The original stroke with passive frequency-dependent tube friction. Compare with dry stroke at identical geometry, force, texture and capture gain. Thermal losses remain absent."),
+    ("fine-texture-left", "Fine texture / sensitivity only", "A 10 micrometre minimum texture wavelength with 512 modes, compared with the original 120 micrometres. This assumed microgeometry is not measured tongue/ear data or a realism claim."),
 ]
 
 

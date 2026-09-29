@@ -1,4 +1,5 @@
 #include "physics.hpp"
+#include "viscous.hpp"
 
 #include <algorithm>
 #include <array>
@@ -130,9 +131,9 @@ struct Driver {
         double power=0;
         for(unsigned i=0;i<32;++i) {
             phase[i]=2*pi*(splitmix(rng)>>11)*0x1.0p-53;
-            const double wavelength=3e-3*std::pow(0.04,static_cast<double>(i)/31);
+            const double wavelength=p.texture_max_wavelength_m*std::pow(p.texture_min_wavelength_m/p.texture_max_wavelength_m,static_cast<double>(i)/31);
             k[i]=2*pi/wavelength;
-            amplitude[i]=std::pow(wavelength/3e-3,0.65);
+            amplitude[i]=std::pow(wavelength/p.texture_max_wavelength_m,p.texture_amplitude_exponent);
             power+=sq(amplitude[i])/2;
         }
         for(double& a:amplitude) a*=p.roughness_rms_m/std::sqrt(power);
@@ -241,6 +242,15 @@ void validate_physics_params(const PhysicsParams& p) {
     if(p.side!="left"&&p.side!="right") throw std::invalid_argument("side must be left or right");
     nonnegative(p.load_n,"load_n");nonnegative(p.speed_m_s,"speed_m_s");nonnegative(p.roughness_rms_m,"roughness_rms_m");
     if(!std::isfinite(p.wetness)||p.wetness<0||p.wetness>1) throw std::invalid_argument("wetness must be 0..1");
+    if(p.unsteady_viscous_losses>1) throw std::invalid_argument("unsteady_viscous_losses must be 0 or 1");
+    if(!std::isfinite(p.texture_min_wavelength_m)||!std::isfinite(p.texture_max_wavelength_m)||
+       p.texture_min_wavelength_m<1e-6||p.texture_max_wavelength_m>0.1||
+       p.texture_min_wavelength_m>=p.texture_max_wavelength_m)
+        throw std::invalid_argument("texture wavelengths must satisfy 1 um <= minimum < maximum <= 0.1 m");
+    if(!std::isfinite(p.texture_amplitude_exponent)||p.texture_amplitude_exponent<0||p.texture_amplitude_exponent>2)
+        throw std::invalid_argument("texture_amplitude_exponent must be 0..2");
+    if(p.action=="stroke" && p.speed_m_s/p.texture_min_wavelength_m>p.sample_rate/16.)
+        throw std::invalid_argument("texture advection needs at least 16 integration samples per shortest cycle");
     positive_value(p.contact_radius_m,"contact_radius_m");positive_value(p.plate_width_m,"plate_width_m");
     positive_value(p.plate_height_m,"plate_height_m");positive_value(p.plate_thickness_m,"plate_thickness_m");
     const double aspect=p.plate_width_m/p.plate_height_m;
@@ -283,19 +293,20 @@ PhysicsResult simulate(const PhysicsParams& p) {
     const double dx=p.duct_length_m/p.duct_cells,duct_area=pi*sq(p.duct_radius_m);
     std::vector<double> cap(np,duct_area*dx/(rho*c*c));
     cap[0]=cap[last]=p.cavity_volume_m3/(rho*c*c);
-    std::vector<double> inertia(np-1),resistance(np-1),impedance(np-1),invz(np-1);
+    std::vector<ViscousTube> tubes; tubes.reserve(np-1);
+    std::vector<double> invz(np-1),tube_bias(np-1);
     for(std::size_t j=0;j<np-1;++j) {
         const double length=(j==0||j==np-2)?dx/2:dx;
-        inertia[j]=rho*length/duct_area;
-        resistance[j]=8*p.air_viscosity_pa_s*length/(pi*std::pow(p.duct_radius_m,4));
-        impedance[j]=inertia[j]/h+resistance[j];invz[j]=1/impedance[j];
+        tubes.emplace_back(rho,p.air_viscosity_pa_s,p.duct_radius_m,length,h,p.unsteady_viscous_losses!=0);
+        invz[j]=1/tubes[j].impedance;
     }
     const double vent_area=pi*sq(p.vent_radius_m);
-    const double vent_l=rho*p.vent_length_m/vent_area;
-    const double vent_r=8*p.air_viscosity_pa_s*p.vent_length_m/(pi*std::pow(p.vent_radius_m,4));
+    std::array<ViscousTube,2> vents={
+        ViscousTube(rho,p.air_viscosity_pa_s,p.vent_radius_m,p.vent_length_m,h,p.unsteady_viscous_losses!=0),
+        ViscousTube(rho,p.air_viscosity_pa_s,p.vent_radius_m,p.vent_length_m,h,p.unsteady_viscous_losses!=0)};
     const double rad_r=rho*c/(4*pi*sq(p.vent_radius_m)),rad_tau=p.vent_radius_m/c;
     const double rad_a=1/(1+h/rad_tau);
-    const double vent_z=vent_l/h+vent_r+rad_r*rad_a;
+    const double vent_z=vents[0].impedance+rad_r*rad_a;
     std::vector<double> diag(np),off(np-1);
     for(std::size_t j=0;j<np;++j) diag[j]=cap[j]/h;
     for(std::size_t j=0;j<np-1;++j){diag[j]+=invz[j];diag[j+1]+=invz[j];off[j]=-invz[j];}
@@ -306,7 +317,7 @@ PhysicsResult simulate(const PhysicsParams& p) {
     const double ynt=h*bt-h*h*ab*at*response[active];
     const double ytt=h*tt-h*h*at*at*response[active];
     if(ynn<=0 || ytt<0 || ynn*ytt-ynt*ynt < -1e-14*ynn*ytt) throw std::runtime_error("Contact admittance is not passive");
-    std::vector<double> pressure(np,0),flow(np-1,0),pbar(np),qb(np-1);
+    std::vector<double> pressure(np,0),pbar(np),qb(np-1);
     std::array<double,2> vent_flow{},radiation_state{},vent_bias{},vent_mid{},rad_mid{};
     double work=0,dissipation=0,previous_force=0,sliding=0;
     double y0=driver.height(0,0);
@@ -325,11 +336,12 @@ PhysicsResult simulate(const PhysicsParams& p) {
         for(std::size_t j=0;j<np;++j) pbar[j]=cap[j]/h*pressure[j];
         pbar[0]+=avfree[0];pbar[last]+=avfree[1];
         for(std::size_t j=0;j<np-1;++j) {
-            const double bias=inertia[j]/h*flow[j]*invz[j];
+            tube_bias[j]=tubes[j].bias();
+            const double bias=tube_bias[j]*invz[j];
             pbar[j]-=bias;pbar[j+1]+=bias;
         }
         for(unsigned ear=0;ear<2;++ear) {
-            vent_bias[ear]=vent_l/h*vent_flow[ear]+rad_r*rad_a*radiation_state[ear];
+            vent_bias[ear]=vents[ear].bias()+rad_r*rad_a*radiation_state[ear];
             pbar[ear==0?0:last]-=vent_bias[ear]/vent_z;
         }
         acoustic.solve(pbar);
@@ -351,9 +363,9 @@ PhysicsResult simulate(const PhysicsParams& p) {
             energy+=0.5*(sq(v[j])+m.omega2*sq(q[j]));loss_rate+=damping[i]*sq(vm);
         }
         for(std::size_t j=0;j<np-1;++j) {
-            qb[j]=(pbar[j]-pbar[j+1]+inertia[j]/h*flow[j])*invz[j];
-            flow[j]=2*qb[j]-flow[j];energy+=0.5*inertia[j]*sq(flow[j]);loss_rate+=resistance[j]*sq(qb[j]);
-            const double speed=std::abs(flow[j])/duct_area;
+            qb[j]=(pbar[j]-pbar[j+1]+tube_bias[j])*invz[j];
+            loss_rate+=tubes[j].advance(qb[j]);energy+=tubes[j].energy();
+            const double speed=std::abs(tubes[j].flow)/duct_area;
             result.stats.max_duct_mach=std::max(result.stats.max_duct_mach,speed/c);
             result.stats.max_duct_reynolds=std::max(result.stats.max_duct_reynolds,
                 2*rho*p.duct_radius_m*speed/p.air_viscosity_pa_s);
@@ -363,13 +375,14 @@ PhysicsResult simulate(const PhysicsParams& p) {
             vent_mid[ear]=(pbar[ear==0?0:last]+vent_bias[ear])/vent_z;
             rad_mid[ear]=rad_a*radiation_state[ear]+(1-rad_a)*vent_mid[ear];
             const double rad_difference=vent_mid[ear]-rad_mid[ear];
-            vent_flow[ear]=2*vent_mid[ear]-vent_flow[ear];radiation_state[ear]=2*rad_mid[ear]-radiation_state[ear];
+            loss_rate+=vents[ear].advance(vent_mid[ear]);
+            vent_flow[ear]=vents[ear].flow;radiation_state[ear]=2*rad_mid[ear]-radiation_state[ear];
             const double speed=std::abs(vent_flow[ear])/vent_area;
             result.stats.max_vent_mach=std::max(result.stats.max_vent_mach,speed/c);
             result.stats.max_vent_reynolds=std::max(result.stats.max_vent_reynolds,
                 2*rho*p.vent_radius_m*speed/p.air_viscosity_pa_s);
-            energy+=0.5*(vent_l*sq(vent_flow[ear])+rad_r*rad_tau*sq(radiation_state[ear]));
-            loss_rate+=vent_r*sq(vent_mid[ear])+rad_r*sq(rad_difference);
+            energy+=vents[ear].energy()+0.5*rad_r*rad_tau*sq(radiation_state[ear]);
+            loss_rate+=rad_r*sq(rad_difference);
             auto& output=ear==0?result.airborne_pressure_left_at_025m_pa:result.airborne_pressure_right_at_025m_pa;
             // End-of-step observation, matching the cavity/structural states.
             output[step]=rad_r*(p.vent_radius_m/0.25)*(vent_flow[ear]-radiation_state[ear]);

@@ -88,6 +88,12 @@ def describe(rate: int, samples: np.ndarray) -> dict:
     for lo, hi in bands:
         energy = spectrum[(frequency >= lo) & (frequency < hi)].sum(axis=0)
         fractions[f"{lo}_{hi}_hz"] = [float(energy[e] / total[e]) if total[e] else None for e in range(2)]
+    audible_total = spectrum[(frequency >= 20) & (frequency < 20000)].sum(axis=0)
+    audible_fractions = {}
+    for lo, hi in [(20, 250), (250, 500), (500, 2000), (2000, 8000), (8000, 20000)]:
+        energy = spectrum[(frequency >= lo) & (frequency < hi)].sum(axis=0)
+        audible_fractions[f"{lo}_{hi}_hz"] = [float(energy[e] / audible_total[e]) if audible_total[e] else None for e in range(2)]
+    sub20 = spectrum[frequency < 20].sum(axis=0)
     centered = samples - samples.mean(axis=0)
     den = float(np.sqrt(np.sum(centered[:, 0] ** 2) * np.sum(centered[:, 1] ** 2)))
     correlation = float(np.sum(centered[:, 0] * centered[:, 1]) / den) if den else None
@@ -101,6 +107,9 @@ def describe(rate: int, samples: np.ndarray) -> dict:
         "left_minus_right_db": dbfs(float(rms[0] / rms[1])) if rms[0] > 0 and rms[1] > 0 else None,
         "channel_correlation": correlation,
         "band_energy_fractions": fractions,
+        "audible_band_energy_fractions": audible_fractions,
+        "sub_20hz_fraction_of_total_power": [float(sub20[e] / total[e]) if total[e] else None for e in range(2)],
+        "dc_sample_mean": samples.mean(axis=0).tolist(),
         "samples_above_full_scale": int(np.count_nonzero(np.abs(samples) > 1)),
         "silent": bool(np.max(peaks) == 0),
         "decoded_float64_sha256": hashlib.sha256(samples.astype("<f8").tobytes()).hexdigest(),

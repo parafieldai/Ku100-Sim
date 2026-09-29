@@ -18,6 +18,9 @@ struct PhysicsParams {
     double wetness = 0.0;          // 0..1, fixed for a render
     double contact_radius_m = 0.004;
     double roughness_rms_m = 2e-6;
+    double texture_min_wavelength_m = 120e-6;
+    double texture_max_wavelength_m = 3e-3;
+    double texture_amplitude_exponent = 0.65;
     double plate_width_m = 0.060;
     double plate_height_m = 0.085;
     double plate_thickness_m = 0.003;
@@ -28,6 +31,7 @@ struct PhysicsParams {
     double cavity_volume_m3 = 8e-5;
     double duct_length_m = 0.18;
     double duct_radius_m = 0.003;
+    unsigned unsteady_viscous_losses = 0; // 0: legacy; 1: passive circular-tube viscous memory
     unsigned duct_cells = 32;     // distributed 1D acoustic line
     double vent_length_m = 0.025;
     double vent_radius_m = 0.001;

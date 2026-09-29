@@ -30,6 +30,18 @@
       "title": "Press and release",
       "description": "A smooth normal engagement without texture sliding; compare its force and chamber pressure against the stroke.",
       "path": "press-left.ku100.json"
+    },
+    {
+      "id": "unsteady-stroke-left",
+      "title": "Unsteady viscous air losses",
+      "description": "The original stroke with passive frequency-dependent tube friction. Compare with dry stroke at identical geometry, force, texture and capture gain. Thermal losses remain absent.",
+      "path": "unsteady-stroke-left.ku100.json"
+    },
+    {
+      "id": "fine-texture-left",
+      "title": "Fine texture / sensitivity only",
+      "description": "A 10 micrometre minimum texture wavelength with 512 modes, compared with the original 120 micrometres. This assumed microgeometry is not measured tongue/ear data or a realism claim.",
+      "path": "fine-texture-left.ku100.json"
     }
   ]
 }

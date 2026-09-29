@@ -1,0 +1,19 @@
+{
+  "version": "ku100-scene/1",
+  "name": "Fine texture / uncalibrated sensitivity experiment",
+  "preset": "stroke",
+  "side": "left",
+  "duration_s": 4,
+  "seed": 1,
+  "physics": {
+    "load_n": 0.01,
+    "speed_m_s": 0.035,
+    "wetness": 0,
+    "modes_per_plate": 512,
+    "unsteady_viscous_losses": 1,
+    "texture_min_wavelength_m": 1e-05
+  },
+  "receiver": {
+    "mode": "contact"
+  }
+}

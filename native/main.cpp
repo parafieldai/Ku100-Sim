@@ -65,7 +65,8 @@ void field(std::map<std::string,std::string>& a,const char* key,unsigned& value)
  X(density_kg_m3) X(modal_loss_ratio) X(cavity_volume_m3) X(duct_length_m) X(duct_radius_m) \
  X(vent_length_m) X(vent_radius_m) X(contact_stiffness_n_m15) X(contact_damping_n_s_m) \
  X(friction_coefficient) X(friction_velocity_m_s) X(film_thickness_m) X(film_viscosity_pa_s) \
- X(air_density_kg_m3) X(sound_speed_m_s) X(air_viscosity_pa_s)
+ X(air_density_kg_m3) X(sound_speed_m_s) X(air_viscosity_pa_s) \
+ X(texture_min_wavelength_m) X(texture_max_wavelength_m) X(texture_amplitude_exponent)
 std::string flag(std::string s) {std::replace(s.begin(),s.end(),'_','-');return "--"+s;}
 void describe() {
     const ku100::PhysicsParams p;
@@ -75,6 +76,7 @@ void describe() {
     PHYS_DOUBLE_FIELDS(SHOW)
 #undef SHOW
     std::cout << ",\"sample_rate\":" << p.sample_rate << ",\"modes_per_plate\":" << p.modes_per_plate
+              << ",\"unsteady_viscous_losses\":" << p.unsteady_viscous_losses
               << ",\"seed\":" << p.seed << ",\"trace_stride\":" << p.trace_stride << ",\"duct_cells\":" << p.duct_cells
               << ",\"action\":" << quote(p.action) << ",\"side\":" << quote(p.side)
               << "},\"output_sample_rate_hz\":48000,\"receiver_modes\":[\"contact\",\"airborne\"]}\n";
@@ -105,6 +107,7 @@ int main(int argc,char** argv) {
         PHYS_DOUBLE_FIELDS(SET)
 #undef SET
         field(args,"--sample-rate",p.sample_rate);field(args,"--modes-per-plate",p.modes_per_plate);
+        field(args,"--unsteady-viscous-losses",p.unsteady_viscous_losses);
         field(args,"--trace-stride",p.trace_stride);field(args,"--duct-cells",p.duct_cells);
         const auto seed=take(args,"--seed",std::to_string(p.seed));
         p.seed=integer(seed); // exact browser-safe, portable 32-bit texture identity
@@ -177,6 +180,8 @@ int main(int argc,char** argv) {
                  << ",\"max_vent_mach\":" << s.max_vent_mach << ",\"max_vent_reynolds\":" << s.max_vent_reynolds
                  << ",\"max_duct_mach\":" << s.max_duct_mach << ",\"max_duct_reynolds\":" << s.max_duct_reynolds
                  << ",\"min_mode_hz\":" << s.min_mode_hz << ",\"max_mode_hz\":" << s.max_mode_hz
+                 << ",\"texture_max_advection_hz\":" << (p.action=="stroke"?p.speed_m_s/p.texture_min_wavelength_m:0)
+                 << ",\"unsteady_viscous_losses\":" << p.unsteady_viscous_losses
                  << ",\"max_solver_iterations\":" << s.max_solver_iterations
                  << ",\"retained_modes_per_plate\":" << s.retained_modes_per_plate << ",\"finite\":" << (s.finite?"true":"false")
                  << ",\"regime_valid\":" << (s.regime_valid?"true":"false") << ",\"regime_warnings\":[";

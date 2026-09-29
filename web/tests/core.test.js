@@ -131,3 +131,21 @@ test('static app uses local scripts and styles, never inline remote executable d
   assert.match(html, /id="force-canvas"/);
   assert.match(html, /Edits never change the audio currently loaded/);
 });
+
+
+test('native unsteady losses and texture-scale controls survive scene export', () => {
+  const scene = bundle().scene;
+  scene.physics = {unsteady_viscous_losses: 1, texture_min_wavelength_m: 1e-5, texture_max_wavelength_m: 0.003, texture_amplitude_exponent: 0.65};
+  assert.deepEqual(validateScene(JSON.stringify(scene)).physics, scene.physics);
+  for (const [field, value] of [['unsteady_viscous_losses', 2], ['texture_min_wavelength_m', 0], ['texture_amplitude_exponent', 3]]) {
+    const bad = structuredClone(scene); bad.physics[field] = value;
+    assert.throws(() => validateScene(JSON.stringify(bad)));
+  }
+  scene.physics.texture_max_wavelength_m = 1e-6;
+  assert.throws(() => validateScene(JSON.stringify(scene)), /wavelengths/);
+});
+test('an undersampled spatial texture is rejected rather than rendered with hidden aliasing', () => {
+  const scene = bundle().scene;
+  scene.physics = {texture_min_wavelength_m: 1e-6, speed_m_s: 0.035, sample_rate: 192000};
+  assert.throws(() => validateScene(JSON.stringify(scene)), /16 integration samples/);
+});

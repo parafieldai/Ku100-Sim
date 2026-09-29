@@ -6,6 +6,15 @@ A **native C++17 physical research renderer** with a separate static browser vie
 
 This repository is the source of record. Use Git commits and branches for changes. Generated renders, downloaded archives and user reference recordings are excluded from Git and the publication build.
 
+
+## Quality research update
+
+The main engine now includes an optional passive **frequency-dependent viscous air-loss model**, independently checked against the circular-tube Bessel solution. New wavelength controls expose the source's excitation bandwidth. Per-ear, per-band convergence checks explicitly mark weakly excited bands as unassessed, rather than inferring full-band quality from a low-frequency-dominated global score.
+
+See [quality changes and remaining limits](docs/QUALITY_UPDATE.md), [equations and validation](docs/VISCOUS_LOSSES.md), and [HF/Kaggle/paired-data research](docs/DATASET_RESEARCH.md). Use `scenes/unsteady-stroke-left.json` for the new 256-mode experiment. The fine-texture example is an uncalibrated sensitivity study, not measured tongue texture.
+
+Successful native CI publishes **`ku100-verified-<commit>`** in the run's Artifacts section. It includes `outputs/review/Ku100-Research-Preview.html`, original WAVs, evidence, and the hosted-viewer directory. The HTML opens directly without a server. GitHub authentication is needed for a private repository's Actions artifacts. The public Pages workflow uses only the tested static viewer and runs separately; it never publishes reference recordings or repository source archives.
+
 ## Run a native render
 
 The validated environment is Linux with Python 3.12, a C++17 compiler (`g++` or `clang++`), and the pinned Python dependencies. Node 22 is used for viewer checks. The native solver has no third-party C++ dependency.
@@ -125,9 +134,9 @@ The [Arend–Neidhardt–Pörschmann measurements](https://zenodo.org/records/42
 
 ## GitHub Pages
 
-Independent CI builds and verifies the native renderer and static output. The manual **Publish private viewer** workflow deploys only the allowlisted `dist` directory and requires an already configured private Pages site. It does not enable Pages or change repository visibility.
+Public preview publication was authorized by the project owner. The `Publish viewer` workflow deploys only the tested `dist` artifact after successful main-branch native CI. It also supports manual dispatch. Repository visibility is not changed. Native computation runs in Actions or locally, not in Pages.
 
-Configure this internal repository's **Settings → Pages** with GitHub Actions as source and private visibility, then run the publishing workflow from `main`. Record the actual URL returned by GitHub; a committed workflow does not prove a live site. Pages hosts the viewer and generated examples; new native renders run outside Pages.
+A site must first be configured in repository **Settings → Pages → GitHub Actions**. If Pages is unavailable or not enabled, the workflow records that condition and does not claim a URL; downloadable Actions previews remain available. A Pages deployment's actual URL and status are separate from a passing software test.
 
 ## License and attribution
 
