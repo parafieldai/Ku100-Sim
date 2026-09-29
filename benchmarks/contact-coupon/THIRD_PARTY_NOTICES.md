@@ -1,0 +1,5 @@
+# Third-party notices
+
+KU100 measurement derivatives: Johannes M. Arend, Annika Neidhardt and Christoph Pörschmann, TH Köln / TU Ilmenau, *Spherical Near-Field HRIR Compilation of the Neumann KU100*, https://zenodo.org/records/4297951 . Recovered SOFA source attribute: **CC 3.0 BY-SA** (https://creativecommons.org/licenses/by-sa/3.0/). Adaptations here select measured bearings and multiply both channels by the authors' common distance factor; original timing and channel order are retained. Exact source and derivative SHA-256 hashes and original attributes are in the adjacent JSON receipts. These measurement derivatives retain CC BY-SA 3.0; the MIT code license does not replace it. Earlier archive notices report a record-level CC BY 4.0 discrepancy, which is not silently resolved here.
+
+Neumann KU100 and 3Dio names identify measurement equipment discussed in research. No manufacturer affiliation, endorsement or certification is claimed. No proprietary product geometry, performance recording or font file is included in the runtime.

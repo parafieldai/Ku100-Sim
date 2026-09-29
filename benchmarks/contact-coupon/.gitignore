@@ -1,0 +1,6 @@
+build/
+outputs/
+data/
+_site/
+__pycache__/
+*.partial/

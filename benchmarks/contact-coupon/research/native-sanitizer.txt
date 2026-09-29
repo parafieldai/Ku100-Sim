@@ -1,0 +1,14 @@
+PASS known full convolution tail
+PASS 1 ms causal decimator latency
+PASS independently actuated physical side symmetry
+PASS moving patch work included in energy identity
+PASS discrete contact gradient identity
+PASS discrete contact gradient identity
+PASS discrete contact gradient identity
+PASS discrete contact gradient identity
+PASS discrete contact gradient identity
+PASS discrete contact gradient identity
+PASS discrete contact gradient identity
+PASS discrete contact gradient identity
+PASS discrete contact gradient identity
+13 native invariants passed

@@ -1,0 +1,39 @@
+name: Validate isolated contact benchmark
+on:
+  push:
+    branches: [main]
+    paths:
+      - benchmarks/contact-coupon/**
+      - .github/workflows/contact-benchmark.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: benchmarks/contact-coupon
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j2
+      - run: python tests/verify.py && python tools/compare_receivers.py && python tools/sphere.py
+      - name: Check native invariants under sanitizers
+        run: |
+          clang++ -O1 -g -std=c++17 -fsanitize=address,undefined -fno-omit-frame-pointer tests/dsp.cpp -o build/dsp_sanitized
+          ASAN_OPTIONS=detect_leaks=1 ./build/dsp_sanitized
+      - name: Build native-output viewer
+        run: python tools/build_site.py --out _site
+      - name: Retain benchmark evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: contact-benchmark-evidence
+          path: benchmarks/contact-coupon/research/

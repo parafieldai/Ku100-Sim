@@ -1,0 +1,29 @@
+{
+  "checks_failed": [
+    {
+      "name": "linear ODE matrix exponential OS=4",
+      "passed": false,
+      "energy_norm_relative_error": 0.48870674851125057
+    },
+    {
+      "name": "linear ODE matrix exponential OS=8",
+      "passed": false,
+      "energy_norm_relative_error": 0.1287107143091911
+    },
+    {
+      "name": "linear ODE matrix exponential OS=16",
+      "passed": false,
+      "energy_norm_relative_error": 0.03227373089863131
+    }
+  ],
+  "nonlinear_refinement": {
+    "time4": 0.017122858185378904,
+    "left": 0.0031787962859869427
+  },
+  "spatial_refinement": {
+    "left": 0.1468951004031438,
+    "space6": 0.14248091569967833,
+    "space8": 0.09073796103940514
+  },
+  "note": "Initial strict late-decay test failed at OS4,8,16. Preserved, not relaxed to claim success. A separate OS64 reference-quality configuration is subsequently tested."
+}
