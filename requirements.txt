@@ -1,0 +1,5 @@
+numpy>=2.0,<3
+scipy>=1.14,<2
+soundfile>=0.12,<1
+h5py>=3.10,<4
+playwright>=1.48,<2
