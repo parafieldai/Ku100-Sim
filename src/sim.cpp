@@ -137,7 +137,14 @@ Config parse(int argc,char**argv){Config c;std::map<std::string,std::string>a;fo
 }
 int main(int argc,char**argv){try{
  if(argc==2&&std::string(argv[1])=="--help"){std::cout<<"KU100 research renderer: --out DIR --seconds 2 --action stroke|press|tap|silence|linear --side left|right --receiver contact|measured|sphere --filter FIR.txt --modes 6 --oversample 8\n";return 0;}
- Config c=parse(argc,argv);fs::path out=c.out,tmp=c.out+".partial";if(fs::exists(out)||fs::exists(tmp))throw std::runtime_error("output already exists; use a new directory");
+ Config c=parse(argc,argv);
+ // Bound allocations and computation before starting a potentially expensive offline job.
+ double proposed_steps=std::ceil((c.seconds+.2)*48000*c.oversample);
+ if(proposed_steps>16000000 || proposed_steps*2*c.modes*c.modes>1000000000.)
+  throw std::runtime_error("requested resolution exceeds this CLI resource budget; split the scene or reduce resolution");
+ if(c.receiver=="contact"&&(!c.filter.empty()||c.filter_gain!=1))
+  throw std::runtime_error("contact receiver does not accept an airborne filter or filter gain");
+ fs::path out=c.out,tmp=c.out+".partial";if(fs::exists(out)||fs::exists(tmp))throw std::runtime_error("output already exists; use a new directory");
  V hl,hr;if(c.receiver!="contact"){std::ifstream f(c.filter);std::string line;while(std::getline(f,line)){if(line.empty()||line[0]=='#')continue;std::istringstream s(line);double l,r;std::string extra;if(!(s>>l>>r)||(s>>extra)||!std::isfinite(l)||!std::isfinite(r))throw std::runtime_error("invalid filter row");hl.push_back(l*c.filter_gain);hr.push_back(r*c.filter_gain);if(hl.size()>8192)throw std::runtime_error("filter too long");}if(hl.empty())throw std::runtime_error("filter missing or empty");}
  Config internal=c;internal.side=0;Model m(internal);int fsin=48000*c.oversample;size_t steps=size_t(std::llround((c.seconds+.2)*fsin));V l(steps),r(steps),rad(steps);std::vector<std::array<double,9>>trace;
  for(size_t i=0;i<steps;i++){auto s=m.step(double(i)/fsin);l[i]=s[c.side?1:0];r[i]=s[c.side?0:1];rad[i]=s[2];if(i%size_t(fsin/120)==0)trace.push_back({(i+1.)/fsin,l[i],r[i],s[3],s[4],m.work,m.loss,s[5],s[6]});}
