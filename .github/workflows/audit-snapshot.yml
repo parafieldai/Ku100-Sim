@@ -1,0 +1,31 @@
+name: Audit source snapshot
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/audit-snapshot.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Record source identity and branch ancestry
+        run: |
+          mkdir -p audit-source
+          git archive --format=tar HEAD > audit-source/source.tar
+          git bundle create audit-source/source.bundle --all HEAD
+          git rev-parse HEAD > audit-source/commit.txt
+          git for-each-ref --format='%(refname) %(objectname)' > audit-source/refs.txt
+          sha256sum audit-source/source.tar > audit-source/source.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: audit-source-${{ github.sha }}
+          retention-days: 7
+          if-no-files-found: error
+          path: audit-source/
