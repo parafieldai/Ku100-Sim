@@ -1,4 +1,6 @@
-# Parafield — KU100 Contact Physics Lab
+# Parafield — target sound research
+
+**Start with the [wet-contact target comparison](https://parafieldai.github.io/Ku100-Sim/target.html), not the rejected plate examples.** The new pressure-release source is a narrowly labeled competing hypothesis; it does not yet meet the complete tongue–saliva/ear target. Compare it with your local WAVs or the private offline comparison. See [target investigation](docs/TARGET_REFOCUS.md) and [SFX objects/actions research](docs/SFX_TRIGGER_RESEARCH.md). The public site never uploads or embeds user reference recordings.
 
 A **native C++17 physical research renderer** with a separate static browser viewer. The renderer computes fresh contact forces, structural vibration, chamber pressure, duct transmission and vent radiation. It exports stereo Float32 WAV, physical traces and a portable `.ku100.json` bundle. The viewer plays that exact export and shows its state.
 

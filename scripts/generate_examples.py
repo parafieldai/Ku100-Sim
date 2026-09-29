@@ -67,6 +67,8 @@ def generate(destination: Path | None = None):
             if backup.exists():
                 backup.rename(destination)
             raise
+    from target_study import generate as generate_source_study
+    generate_source_study()
     return destination
 
 

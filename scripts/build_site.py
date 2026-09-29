@@ -20,7 +20,8 @@ import struct
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-APP_FILES = ("index.html", "styles.css", "app.js", "core.js", "view3d.js")
+APP_FILES = ("index.html", "styles.css", "app.js", "core.js", "view3d.js",
+             "target.html", "target.css", "target.js", "triggers.json", "target-reference-summary.json")
 MAX_APP_BYTES = 2 * 1024 * 1024
 MAX_MANIFEST_BYTES = 64 * 1024
 MAX_BUNDLE_BYTES = 16 * 1024 * 1024
@@ -175,7 +176,7 @@ def _check_output(output: Path, source: Path) -> None:
             if path.is_dir() and relative.as_posix() == "examples":
                 continue
             if path.is_file() and (relative.as_posix() in APP_FILES
-                    or relative.as_posix() == "examples/index.json"
+                    or relative.as_posix() in ("examples/index.json", "target-study.json")
                     or (relative.parent.as_posix() == "examples" and BUNDLE_NAME.fullmatch(relative.name))):
                 continue
             raise ValueError(f"Refusing to replace an output containing unexpected content: {relative}")
@@ -223,6 +224,36 @@ def build_site(source: Path = ROOT / "web", output: Path = ROOT / "dist") -> dic
     if unknown:
         raise ValueError(f"Unlisted files in generated examples directory: {sorted(unknown)}")
     files["examples/index.json"] = manifest_bytes
+    # Optional only for minimal synthetic packaging fixtures. Production generation
+    # always writes the source study before publication; no recordings are allowed.
+    study_path = source / "target-study.json"
+    if study_path.exists():
+        data = _read_file(study_path, 12 * 1024 * 1024)
+        study = _json(data, "target-study.json")
+        if (study.get("version") != "ku100-target-study/1"
+                or study.get("reference_audio_included") is not False
+                or study.get("physical_target_accepted") is not False
+                or len(study.get("cases", [])) != 4):
+            raise ValueError("Invalid target study or unearned acceptance")
+        for case in study["cases"]:
+            if case.get("kind") != "generated-source-hypothesis":
+                raise ValueError("Only generated source probes may be published")
+            metrics = case["metrics"]
+            _validate_audio(case["audio"], metrics["sample_rate_hz"], metrics["duration_s"], case["id"])
+        summary = _json(files["target-reference-summary.json"], "reference summary")
+        if summary.get("reference_audio_included") is not False:
+            raise ValueError("Reference samples must stay local")
+        def check_summary(value):
+            if isinstance(value, dict):
+                if {"audio", "base64", "samples", "waveform"} & set(value):
+                    raise ValueError("Reference waveform content forbidden")
+                for item in value.values(): check_summary(item)
+            elif isinstance(value, list):
+                for item in value: check_summary(item)
+            elif isinstance(value, str) and len(value)>512:
+                raise ValueError("Unexpected long reference field")
+        check_summary(summary)
+        files["target-study.json"] = data
     total = sum(map(len, files.values()))
     if total > MAX_SITE_BYTES:
         raise ValueError("Site exceeds the 80 MiB publication limit")

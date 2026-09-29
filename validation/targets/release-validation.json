@@ -1,0 +1,100 @@
+{
+  "schema": "pressure-release-validation/1",
+  "linear_reference": "Independent continuous 3x3 matrix exponential, constant open aperture, legacy viscosity, no nonlinear entrance loss; not a reference for the entire nonlinear switched model",
+  "linear_duration_s": 0.002,
+  "linear_initial_state": [
+    80.0,
+    0.0,
+    0.0
+  ],
+  "relative_tolerance": 0.005,
+  "linear_refinement": [
+    {
+      "rate_hz": 192000,
+      "energy_weighted_state_relative_error": 0.02219634946348536,
+      "passes_0_5_percent": false,
+      "energy_residual_j": 9.429858983104515e-22
+    },
+    {
+      "rate_hz": 384000,
+      "energy_weighted_state_relative_error": 0.005553264662951002,
+      "passes_0_5_percent": false,
+      "energy_residual_j": -2.2565487110446595e-21
+    },
+    {
+      "rate_hz": 768000,
+      "energy_weighted_state_relative_error": 0.00138857253718926,
+      "passes_0_5_percent": true,
+      "energy_residual_j": -4.513097422089319e-21
+    }
+  ],
+  "source_cases": {
+    "sealed-384000": {
+      "max_energy_residual_j": 4.8307347773096816e-21,
+      "work_j": 4.3094461809154315e-08,
+      "loss_j": 4.3094461809149485e-08,
+      "final_energy_j": 3.156508292155666e-173,
+      "max_pressure_pa": 122.14634513813748,
+      "max_mach": 0.026644796105083576,
+      "max_reynolds": 344.497255923399,
+      "waveform_sha256": "c508857aba3c16b9ff083734086c11ba267ec5d81ede270cdbcec2b30c036d99",
+      "source_rms_pa": 0.0003528042902404185
+    },
+    "sealed-768000": {
+      "max_energy_residual_j": 6.604210010623373e-21,
+      "work_j": 4.3094461809898275e-08,
+      "loss_j": 4.309446180989167e-08,
+      "final_energy_j": 1.18576e-318,
+      "max_pressure_pa": 122.14634516158748,
+      "max_mach": 0.026312607267490313,
+      "max_reynolds": 343.357960496418,
+      "waveform_sha256": "f47f8968ffcd1e4a32f63aad367ffab8899b125abbd05ba793cfd199dd8a92c5",
+      "source_rms_pa": 0.000352688295866471
+    },
+    "vented-768000": {
+      "max_energy_residual_j": 2.2809061104687918e-24,
+      "work_j": 8.423065309358067e-13,
+      "loss_j": 8.423065309335258e-13,
+      "final_energy_j": 1.18576e-318,
+      "max_pressure_pa": 0.0010070636467280284,
+      "max_mach": 1.0573229424890619e-05,
+      "max_reynolds": 0.5789764908803441,
+      "waveform_sha256": "f14fa443a630705f6cfd2aae027d4aeb11baace36467a994321680636170f5b7",
+      "source_rms_pa": 4.9090121596849154e-08
+    },
+    "slow-768000": {
+      "max_energy_residual_j": 5.6645328347631335e-21,
+      "work_j": 4.3094461809898275e-08,
+      "loss_j": 4.309446180989261e-08,
+      "final_energy_j": 1.18576e-318,
+      "max_pressure_pa": 122.14634516158748,
+      "max_mach": 0.023203373565525855,
+      "max_reynolds": 109.39107483362709,
+      "waveform_sha256": "9daf688a925571a988071019a1dc8908e4e0c7e6e92328c53705e5d057472fd7",
+      "source_rms_pa": 5.022797188603667e-06
+    },
+    "silence-768000": {
+      "max_energy_residual_j": 0.0,
+      "work_j": 0.0,
+      "loss_j": 0.0,
+      "final_energy_j": 0.0,
+      "max_pressure_pa": 0.0,
+      "max_mach": 0.0,
+      "max_reynolds": 0.0,
+      "waveform_sha256": "64bbe8e5587f9988c7e866771d9656c6d97621e37423c5aa94350bc26a2284a7",
+      "source_rms_pa": 0.0
+    }
+  },
+  "nonlinear_unsteady_refinement_384_to_768_khz": 0.0036884511613253872,
+  "reference_time_alignment": "End-of-step times; no fitted gain, delay or phase",
+  "vented_to_sealed_rms_ratio": 0.00013918840566071647,
+  "silence_exact": true,
+  "numerical_checks_passed": true,
+  "target_mechanism_identified": false,
+  "wet_contact_fidelity_established": false,
+  "source_sha256": {
+    "native/release.hpp": "b3ed054bc936b24b667a9a439b0d1fcb538f90d53778eb55a80558c66ab1b7bd",
+    "tests/release_probe.cpp": "cfbb1ef70cf87e320c52070753b92b179099d23e05605963f8a1a9f016e74c22",
+    "scripts/validate_release.py": "a40e545e0c28117fc75162b8500f2b21c575da186d5764f1e930a920eaef5cc2"
+  }
+}

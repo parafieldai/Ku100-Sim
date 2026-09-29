@@ -1,0 +1,555 @@
+{
+  "version": "ku100-target-study/1",
+  "target": "Close nonverbal tongue\u2013saliva interaction with artificial ear",
+  "status": "source-discrimination experiment; full target not met",
+  "physical_target_accepted": false,
+  "listener_assessment": null,
+  "source_sha256": {
+    "native/release.hpp": "b3ed054bc936b24b667a9a439b0d1fcb538f90d53778eb55a80558c66ab1b7bd",
+    "native/release_main.cpp": "ed5d682096fb4c6fedc6654eae4ad2fd24c10b261a0a8cfc5a2eb14033f858b1",
+    "native/receiver.hpp": "04a3535d5784c0bc1422486f081e735622e154c8d84bcf5340c3dc8fe53beb1f",
+    "native/receiver.cpp": "a5526aee4b79386272fa3ec05236d8a5228c3f48ebfbccfc5f27e9559f17eceb",
+    "native/viscous.hpp": "96b48915e9484998f396bc58a34cb4ab8ab7562f093fcb9cdb3a63630201442d"
+  },
+  "bank_sha256": "8b781cf38083c47ee4264ca9594289a35dda53b893bd794cba8803d471515712",
+  "reference_audio_included": false,
+  "comparison_policy": "No fitting to recordings; no per-ear gain or delay optimization. Existing references reused diagnostically, not held-out validation.",
+  "cases": [
+    {
+      "id": "release-fast-left",
+      "title": "Fast opening / left",
+      "kind": "generated-source-hypothesis",
+      "native": {
+        "schema": "release-source-probe/1",
+        "rate": 768000,
+        "duration": 4,
+        "volume_m3": 8e-07,
+        "neck_radius_m": 0.0012,
+        "neck_length_m": 0.002,
+        "opening_s": 0.001,
+        "displaced_volume_m3": 7e-10,
+        "period_s": 0.9,
+        "vented": false,
+        "gain_per_pa": 1,
+        "azimuth_deg": 90,
+        "distance_m": 0.25,
+        "work_j": 1.7237784723958987e-07,
+        "loss_j": 1.7237784723952587e-07,
+        "final_energy_j": 3.107179851045142e-151,
+        "max_energy_residual_j": 6.400392707690307e-20,
+        "max_pressure_pa": 122.14634516158853,
+        "peak_aperture_mach": 0.026312607267509135,
+        "peak_aperture_reynolds": 343.3579604967318,
+        "source_to_audio_latency_s": 0.0027080296404275992,
+        "wet_contact_calibrated": false,
+        "source_mechanism_identified_in_target": false,
+        "radiation": "equivalent sphere; fixed neck plus variable resistive aperture"
+      },
+      "metrics": {
+        "frames": 192351,
+        "sample_rate_hz": 48000,
+        "channels": 2,
+        "duration_s": 4.0073125,
+        "rms_dbfs": [
+          -62.79195416337046,
+          -81.88540727050396
+        ],
+        "peak_dbfs": [
+          -29.627895696163698,
+          -47.358703679042016
+        ],
+        "left_minus_right_db": 19.0934531071335,
+        "channel_correlation": -0.059346743011614383,
+        "band_energy_fractions": {
+          "0_200_hz": [
+            8.922792204776975e-05,
+            0.0005551791337323291
+          ],
+          "0_250_hz": [
+            0.00016941571419328336,
+            0.0010759517883894784
+          ],
+          "200_500_hz": [
+            0.0013843745114927011,
+            0.007485921590309521
+          ],
+          "500_2000_hz": [
+            0.09800878811951808,
+            0.28100847075232016
+          ],
+          "2000_8000_hz": [
+            0.9005114965983314,
+            0.7109501125461581
+          ],
+          "8000_20000_hz": [
+            6.1127917548847485e-06,
+            3.1597679334863544e-07
+          ]
+        },
+        "audible_band_energy_fractions": {
+          "20_250_hz": [
+            0.0001692952012882141,
+            0.001075257099989541
+          ],
+          "250_500_hz": [
+            0.0013041868766193192,
+            0.006965153779477201
+          ],
+          "500_2000_hz": [
+            0.09800879993841694,
+            0.28100866617611087
+          ],
+          "2000_8000_hz": [
+            0.9005116051911883,
+            0.7109506069674317
+          ],
+          "8000_20000_hz": [
+            6.112792492027498e-06,
+            3.1597701309070433e-07
+          ]
+        },
+        "sub_20hz_fraction_of_total_power": [
+          1.2053332040814474e-07,
+          6.954361733829146e-07
+        ],
+        "dc_sample_mean": [
+          -8.984648531124907e-14,
+          1.3557266043468815e-14
+        ],
+        "samples_above_full_scale": 0,
+        "silent": false,
+        "decoded_float64_sha256": "07d36fb1c3d80a8feb6791004e8d0fc032b29a61729d209a6cfd5973a2ae25bb",
+        "meaning": "Unweighted digital descriptors. No listening or device-equivalence conclusion.",
+        "events": {
+          "method": "2ms RMS, 40-18000Hz analysis only, prominence 15% of peak, separation 25ms",
+          "dominant_channel": 0,
+          "detector_peak_times_s": [
+            0.524,
+            1.424,
+            2.324,
+            3.224
+          ],
+          "detector_half_prominence_widths_s": [
+            0.0052118317245079876,
+            0.005211831724508101,
+            0.005211831724508101,
+            0.005211831724508101
+          ],
+          "peaks_per_s": 0.9981752109424957,
+          "activity_fraction_relative_minus30db": 0.013979031452820768,
+          "causal_labels_available": false
+        }
+      },
+      "limits": "Prescribed air-pocket wall/opening. Not saliva, tongue, contact transfer or identified reference source. Measured airborne KU100 receiver at 25cm.",
+      "audio_sha256": "93a6145bde87f89ca3d42d9b682a21134fa7d56c4a4ee517c19a9d99adbfaaaf"
+    },
+    {
+      "id": "release-slow-left",
+      "title": "Slow opening / left",
+      "kind": "generated-source-hypothesis",
+      "native": {
+        "schema": "release-source-probe/1",
+        "rate": 768000,
+        "duration": 4,
+        "volume_m3": 8e-07,
+        "neck_radius_m": 0.0012,
+        "neck_length_m": 0.002,
+        "opening_s": 0.02,
+        "displaced_volume_m3": 7e-10,
+        "period_s": 0.9,
+        "vented": false,
+        "gain_per_pa": 1,
+        "azimuth_deg": 90,
+        "distance_m": 0.25,
+        "work_j": 1.7237784723958987e-07,
+        "loss_j": 1.7237784723952065e-07,
+        "final_energy_j": 3.107179851045142e-151,
+        "max_energy_residual_j": 6.921847365843736e-20,
+        "max_pressure_pa": 122.14634516158853,
+        "peak_aperture_mach": 0.023203373565525855,
+        "peak_aperture_reynolds": 109.39107483362758,
+        "source_to_audio_latency_s": 0.0027080296404275992,
+        "wet_contact_calibrated": false,
+        "source_mechanism_identified_in_target": false,
+        "radiation": "equivalent sphere; fixed neck plus variable resistive aperture"
+      },
+      "metrics": {
+        "frames": 192351,
+        "sample_rate_hz": 48000,
+        "channels": 2,
+        "duration_s": 4.0073125,
+        "rms_dbfs": [
+          -97.3581261313328,
+          -109.79750770890172
+        ],
+        "peak_dbfs": [
+          -63.81072606494284,
+          -76.44595094626779
+        ],
+        "left_minus_right_db": 12.439381577568916,
+        "channel_correlation": -0.0027505679857510092,
+        "band_energy_fractions": {
+          "0_200_hz": [
+            0.15431482460704107,
+            0.2061048279467545
+          ],
+          "0_250_hz": [
+            0.23049551395774545,
+            0.31295787695570154
+          ],
+          "200_500_hz": [
+            0.36036307555767266,
+            0.46025711541254616
+          ],
+          "500_2000_hz": [
+            0.3915177934217922,
+            0.30884463848151317
+          ],
+          "2000_8000_hz": [
+            0.09374646714166789,
+            0.024792915377244516
+          ],
+          "8000_20000_hz": [
+            5.7838879003430885e-05,
+            5.027808984697832e-07
+          ]
+        },
+        "audible_band_energy_fractions": {
+          "20_250_hz": [
+            0.2302342603016497,
+            0.3126670661388084
+          ],
+          "250_500_hz": [
+            0.2842788688141686,
+            0.3535536550855326
+          ],
+          "500_2000_hz": [
+            0.3916507174146504,
+            0.3089753660729151
+          ],
+          "2000_8000_hz": [
+            0.093778294953681,
+            0.024803409709045238
+          ],
+          "8000_20000_hz": [
+            5.785851584974733e-05,
+            5.029937152963373e-07
+          ]
+        },
+        "sub_20hz_fraction_of_total_power": [
+          0.0003393938351156779,
+          0.0004231003679552607
+        ],
+        "dc_sample_mean": [
+          1.4473512563491471e-15,
+          -7.064768212491177e-16
+        ],
+        "samples_above_full_scale": 0,
+        "silent": false,
+        "decoded_float64_sha256": "12355be4a41e1d93a4c9b8587c3911ba3db0d76472674be35edd773f74f4f0a6",
+        "meaning": "Unweighted digital descriptors. No listening or device-equivalence conclusion.",
+        "events": {
+          "method": "2ms RMS, 40-18000Hz analysis only, prominence 15% of peak, separation 25ms",
+          "dominant_channel": 0,
+          "detector_peak_times_s": [
+            0.528,
+            1.428,
+            2.328,
+            3.228
+          ],
+          "detector_half_prominence_widths_s": [
+            0.0025496597141531083,
+            0.002549659714153449,
+            0.002549659714153222,
+            0.0025496597141527674
+          ],
+          "peaks_per_s": 0.9981752109424957,
+          "activity_fraction_relative_minus30db": 0.011982026959560658,
+          "causal_labels_available": false
+        }
+      },
+      "limits": "Prescribed air-pocket wall/opening. Not saliva, tongue, contact transfer or identified reference source. Measured airborne KU100 receiver at 25cm.",
+      "audio_sha256": "96c90832400c8f2f437d0275c4f8dc86a2238dc1bc080f106c5c42f7a2791162"
+    },
+    {
+      "id": "release-vented-left",
+      "title": "Never sealed / control",
+      "kind": "generated-source-hypothesis",
+      "native": {
+        "schema": "release-source-probe/1",
+        "rate": 768000,
+        "duration": 4,
+        "volume_m3": 8e-07,
+        "neck_radius_m": 0.0012,
+        "neck_length_m": 0.002,
+        "opening_s": 0.001,
+        "displaced_volume_m3": 7e-10,
+        "period_s": 0.9,
+        "vented": true,
+        "gain_per_pa": 1,
+        "azimuth_deg": 90,
+        "distance_m": 0.25,
+        "work_j": 3.369226123743225e-12,
+        "loss_j": 3.3692261237330145e-12,
+        "final_energy_j": 3.107179851045155e-151,
+        "max_energy_residual_j": 1.0210510686201435e-23,
+        "max_pressure_pa": 0.0010070636471597684,
+        "peak_aperture_mach": 1.0573229424892823e-05,
+        "peak_aperture_reynolds": 0.5789764908804648,
+        "source_to_audio_latency_s": 0.0027080296404275992,
+        "wet_contact_calibrated": false,
+        "source_mechanism_identified_in_target": false,
+        "radiation": "equivalent sphere; fixed neck plus variable resistive aperture"
+      },
+      "metrics": {
+        "frames": 192351,
+        "sample_rate_hz": 48000,
+        "channels": 2,
+        "duration_s": 4.0073125,
+        "rms_dbfs": [
+          -137.24799707789143,
+          -148.7313455485261
+        ],
+        "peak_dbfs": [
+          -126.39297444265593,
+          -137.87664857543828
+        ],
+        "left_minus_right_db": 11.483348470634663,
+        "channel_correlation": 0.9981686651612924,
+        "band_energy_fractions": {
+          "0_200_hz": [
+            0.9999569433124499,
+            0.9999557967265815
+          ],
+          "0_250_hz": [
+            0.9999763341073026,
+            0.9999776009943825
+          ],
+          "200_500_hz": [
+            3.807636915125637e-05,
+            4.1467513798887694e-05
+          ],
+          "500_2000_hz": [
+            3.8124692672200845e-06,
+            2.575939161185921e-06
+          ],
+          "2000_8000_hz": [
+            1.167846019379088e-06,
+            1.5982055645399512e-07
+          ],
+          "8000_20000_hz": [
+            3.339066362359385e-12,
+            2.1228428851151846e-14
+          ]
+        },
+        "audible_band_energy_fractions": {
+          "20_250_hz": [
+            0.9992141106112415,
+            0.9992599929449689
+          ],
+          "250_500_hz": [
+            0.0006205045639090478,
+            0.0006496244046566316
+          ],
+          "500_2000_hz": [
+            0.00012660325779917378,
+            8.510257890116522e-05
+          ],
+          "2000_8000_hz": [
+            3.8781456399515776e-05,
+            5.280070942899328e-06
+          ],
+          "8000_20000_hz": [
+            1.108826458266978e-10,
+            7.013341263934181e-13
+          ]
+        },
+        "sub_20hz_fraction_of_total_power": [
+          0.969886483701392,
+          0.9697313619112775
+        ],
+        "dc_sample_mean": [
+          -3.2346627684006316e-21,
+          -1.0144015254616902e-21
+        ],
+        "samples_above_full_scale": 0,
+        "silent": false,
+        "decoded_float64_sha256": "e162367f91c89cd70354618cf8a73a373e3c2da78d93d72b4d76909bc603ae71",
+        "meaning": "Unweighted digital descriptors. No listening or device-equivalence conclusion.",
+        "events": {
+          "method": "2ms RMS, 40-18000Hz analysis only, prominence 15% of peak, separation 25ms",
+          "dominant_channel": 0,
+          "detector_peak_times_s": [
+            0.282,
+            0.354,
+            0.672,
+            0.744,
+            1.182,
+            1.254,
+            1.572,
+            1.644,
+            2.082,
+            2.154,
+            2.472,
+            2.544,
+            2.982,
+            3.054,
+            3.372,
+            3.444
+          ],
+          "detector_half_prominence_widths_s": [
+            0.007271753773415753,
+            0.004900022607439667,
+            0.007271753773286377,
+            0.0049000226075540925,
+            0.007271753773401088,
+            0.0049000226068610575,
+            0.007271753773381306,
+            0.004900022606983611,
+            0.007271753773559794,
+            0.004900022606487255,
+            0.007271753773823093,
+            0.0049000226072303124,
+            0.00727175377352296,
+            0.004900022606699622,
+            0.007271753773762612,
+            0.004900022607311712
+          ],
+          "peaks_per_s": 3.992700843769983,
+          "activity_fraction_relative_minus30db": 0.18372441337993012,
+          "causal_labels_available": false
+        }
+      },
+      "limits": "Prescribed air-pocket wall/opening. Not saliva, tongue, contact transfer or identified reference source. Measured airborne KU100 receiver at 25cm.",
+      "audio_sha256": "8212ac26d8d237af64bbf2ec4f6fcdb673579cf261da694e4f7ac5be61eb7ef0"
+    },
+    {
+      "id": "release-fast-right",
+      "title": "Fast opening / right",
+      "kind": "generated-source-hypothesis",
+      "native": {
+        "schema": "release-source-probe/1",
+        "rate": 768000,
+        "duration": 4,
+        "volume_m3": 8e-07,
+        "neck_radius_m": 0.0012,
+        "neck_length_m": 0.002,
+        "opening_s": 0.001,
+        "displaced_volume_m3": 7e-10,
+        "period_s": 0.9,
+        "vented": false,
+        "gain_per_pa": 1,
+        "azimuth_deg": 270,
+        "distance_m": 0.25,
+        "work_j": 1.7237784723958987e-07,
+        "loss_j": 1.7237784723952587e-07,
+        "final_energy_j": 3.107179851045142e-151,
+        "max_energy_residual_j": 6.400392707690307e-20,
+        "max_pressure_pa": 122.14634516158853,
+        "peak_aperture_mach": 0.026312607267509135,
+        "peak_aperture_reynolds": 343.3579604967318,
+        "source_to_audio_latency_s": 0.0027080296404275992,
+        "wet_contact_calibrated": false,
+        "source_mechanism_identified_in_target": false,
+        "radiation": "equivalent sphere; fixed neck plus variable resistive aperture"
+      },
+      "metrics": {
+        "frames": 192351,
+        "sample_rate_hz": 48000,
+        "channels": 2,
+        "duration_s": 4.0073125,
+        "rms_dbfs": [
+          -82.21635772454434,
+          -63.15630411038186
+        ],
+        "peak_dbfs": [
+          -47.520457182528816,
+          -29.75347167633278
+        ],
+        "left_minus_right_db": -19.060053614162463,
+        "channel_correlation": 0.04573317315977956,
+        "band_energy_fractions": {
+          "0_200_hz": [
+            0.0005966159873063355,
+            9.449713170503621e-05
+          ],
+          "0_250_hz": [
+            0.0011504513091922348,
+            0.00018001845009562136
+          ],
+          "200_500_hz": [
+            0.0077824967941408744,
+            0.0015340649125513092
+          ],
+          "500_2000_hz": [
+            0.28736511394114794,
+            0.1123261543397383
+          ],
+          "2000_8000_hz": [
+            0.7042555047310557,
+            0.8860340747668735
+          ],
+          "8000_20000_hz": [
+            2.6854624649118296e-07,
+            1.1208834793213016e-05
+          ]
+        },
+        "audible_band_energy_fractions": {
+          "20_250_hz": [
+            0.001149696876423675,
+            0.00017989093096028544
+          ],
+          "250_500_hz": [
+            0.007228666932076292,
+            0.0014485437789317972
+          ],
+          "500_2000_hz": [
+            0.2873653309885475,
+            0.11232616866766344
+          ],
+          "2000_8000_hz": [
+            0.7042560366565349,
+            0.8860341877862319
+          ],
+          "8000_20000_hz": [
+            2.6854644932465734e-07,
+            1.1208836222972155e-05
+          ]
+        },
+        "sub_20hz_fraction_of_total_power": [
+          7.553011360713838e-07,
+          1.2754208158097497e-07
+        ],
+        "dc_sample_mean": [
+          -1.9073768413842645e-14,
+          5.511006904799023e-14
+        ],
+        "samples_above_full_scale": 0,
+        "silent": false,
+        "decoded_float64_sha256": "88a57bb7c3e6eff3539ea7e5d2289dd6ab1e553f8eb20908a6741866ba77a1e6",
+        "meaning": "Unweighted digital descriptors. No listening or device-equivalence conclusion.",
+        "events": {
+          "method": "2ms RMS, 40-18000Hz analysis only, prominence 15% of peak, separation 25ms",
+          "dominant_channel": 1,
+          "detector_peak_times_s": [
+            0.524,
+            1.424,
+            2.324,
+            3.224
+          ],
+          "detector_half_prominence_widths_s": [
+            0.005303633420630376,
+            0.005303633420630376,
+            0.005303633420630376,
+            0.005303633420630376
+          ],
+          "peaks_per_s": 0.9981752109424957,
+          "activity_fraction_relative_minus30db": 0.013979031452820768,
+          "causal_labels_available": false
+        }
+      },
+      "limits": "Prescribed air-pocket wall/opening. Not saliva, tongue, contact transfer or identified reference source. Measured airborne KU100 receiver at 25cm.",
+      "audio_sha256": "802ce167e141487aef56f5deae8fabf5d767ebe9075dd95655fd5a5b85fa1d97"
+    }
+  ]
+}

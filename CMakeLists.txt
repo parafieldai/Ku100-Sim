@@ -8,3 +8,5 @@ if(MSVC)
 else()
   target_compile_options(ku100-native PRIVATE -Wall -Wextra -Wpedantic)
 endif()
+
+add_executable(ku100-release native/release_main.cpp native/receiver.cpp)
