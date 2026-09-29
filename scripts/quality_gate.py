@@ -52,12 +52,24 @@ def assess(work):
         rate=lookup[coarse]['sample_rate'];factor=lookup[fine]['sample_rate']//rate
         y=signals[fine][factor-1::factor] # End-of-step source times; not a fitted alignment.
         comparisons.append({'coarse':coarse,'fine':fine,**compare(signals[coarse],y,rate)})
+    # Enforce the bounded numerical qualification of the shipped presets.
+    # Historical/coarser failures stay diagnostic; weak upper bands never pass.
+    required_pairs={('viscous256','viscous512'),('fine512','fine1024'),('fine512','fine512-r384')}
+    qualified=[]
+    for comparison in comparisons:
+        pair=(comparison['coarse'],comparison['fine'])
+        if pair not in required_pairs:continue
+        assessed=[row for row in comparison['bands'] if tuple(row['hz']) in {(20,250),(250,500)}]
+        if len(assessed)!=2 or any(status!='pass' for row in assessed for status in row['status']):
+            raise AssertionError('Shipped preset failed required 20-500 Hz per-ear refinement: '+str(pair))
+        qualified.append(list(pair))
+    if len(qualified)!=len(required_pairs):raise AssertionError('Missing required refinement case')
     sensitivity=compare(signals['legacy128'],signals['viscous128'],192000)
     sensitivity['meaning']='Change of physical loss model, NOT a discretization error or fidelity score'
     return {'schema':'main-quality-assessment/1','generated_utc':datetime.now(timezone.utc).isoformat(),'assessment_completed':True,'physical_integrity_checks_passed':True,
             'numerical_policy':{'relative_l2_tolerance':.005,'weak_reference_power_fraction':1e-5,'window':'Hann, fixed 0.12 to 0.55 s','per_ear':True,'gain_fit':False,'delay_fit':False,'limits':'Finite trajectories only; an unexcited band is unassessed, never a pass'},
             'source_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [source,ROOT/'native/physics.cpp',ROOT/'native/physics.hpp',ROOT/'native/viscous.hpp',Path(__file__)]},
-            'runs':records,'mirror_max_error_pa':mirror,'comparisons':comparisons,'unsteady_loss_sensitivity':sensitivity,'full_band_contact_fidelity_established':False,'human_listening_assessment':'not performed'}
+            'qualified_preview_presets_20_500_hz':qualified,'runs':records,'mirror_max_error_pa':mirror,'comparisons':comparisons,'unsteady_loss_sensitivity':sensitivity,'full_band_contact_fidelity_established':False,'human_listening_assessment':'not performed'}
 if __name__=='__main__':
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--out',type=Path,default=ROOT/'validation/local/quality-assessment.json');ap.add_argument('--keep-work',type=Path);args=ap.parse_args()
     if args.keep_work:args.keep_work.mkdir(parents=True,exist_ok=False);report=assess(args.keep_work)
