@@ -51,6 +51,8 @@ jobs:
         run: python scripts/validate_viscous.py
       - name: Assess per-ear and per-band convergence without hiding weak bands
         run: python scripts/quality_gate.py
+      - name: Validate the alternative pressure-release source
+        run: python scripts/validate_release.py
       - name: Generate deterministic demonstration exports
         run: python scripts/generate_examples.py
       - name: Verify generated bundles against the browser contract
@@ -63,6 +65,13 @@ jobs:
         run: python scripts/package_preview.py --out outputs/review
       - name: Exercise the offline preview in Chromium
         run: node scripts/browser_offline.mjs
+      - name: Test the reference-first comparison over HTTP
+        run: node scripts/browser_target.mjs
+      - name: Test the generated-only target comparison offline
+        env:
+          KU100_TARGET_URL: file://${{ github.workspace }}/outputs/review/target.html
+          KU100_TARGET_REPORT_DIR: validation/local/target-offline
+        run: node scripts/browser_target.mjs
       - name: Retain tested native examples and verification evidence
         uses: actions/upload-artifact@v4
         if: always()

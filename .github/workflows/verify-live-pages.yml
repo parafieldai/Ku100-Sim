@@ -68,6 +68,13 @@ jobs:
           KU100_EXPECTED_SHA: ${{ steps.source.outputs.sha }}
           KU100_SITE_DIR: verified/dist
         run: node scripts/browser_live.mjs
+      - name: Verify live target comparison and local-only references
+        if: steps.source.outputs.ready == 'true'
+        env:
+          KU100_TARGET_URL: https://parafieldai.github.io/Ku100-Sim/target.html
+          KU100_SITE_DIR: verified/dist
+          KU100_TARGET_REPORT_DIR: validation/local/live-pages/target
+        run: node scripts/browser_target.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
