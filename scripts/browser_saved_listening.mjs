@@ -46,7 +46,10 @@ try{
   if(memory){if(!privateFile)throw Error('--memory only tests the self-contained local document');await page.setContent(await fs.readFile(privateFile,'utf8'),{waitUntil:'load'});}else await page.goto(base,{waitUntil:'networkidle'});await page.waitForFunction(()=>document.querySelector('#candidate-audio').readyState>=2);
   assert.match(await page.locator('.notice').textContent(),/not passed/);
   assert.equal(await page.locator('#identity').isVisible(),false);
-  report.checks.push('Honest target-failure label and hidden randomized method identity');
+  assert.match(await page.locator('#candidate-select option').first().textContent(),/Empirical/);
+  report.checks.push('Honest failure label; stable named auditions are the default');
+  await page.locator('#blind-mode').check();
+  await page.waitForFunction(()=>document.querySelector('#candidate-select option').textContent==='Candidate A'&&document.querySelector('#candidate-audio').readyState>=2);
   if(!privateFile){
     assert.equal(await page.locator('#play-reference').isDisabled(),true);
     const wrong=path.join(temp,'wrong.wav');await fs.writeFile(wrong,Buffer.from('wrong file'));

@@ -45,7 +45,7 @@ function renderIdentity(){
 }
 async function chooseCandidate(){
   const ticket=++generation,candidate=order[Number($('candidate-select').value)];activeCandidate=candidate;
-  clearSlot('candidate');enable();$('candidate-letter').textContent=String.fromCharCode(65+Number($('candidate-select').value));
+  clearSlot('candidate');enable();$('candidate-letter').textContent=$('blind-mode').checked?'Candidate '+String.fromCharCode(65+Number($('candidate-select').value)):candidate.title;
   renderIdentity();$('feedback-form').reset();
   try{
     let bytes=loadedCandidates.get(candidate.id);
@@ -64,8 +64,9 @@ async function chooseReference(){
   $('reference-description').textContent='Chapter label only: hardware, contact action, force and recording processing are unverified. This crop is excluded from the new parameter fit but was previously inspected.';
   clearSlot('reference');const bytes=loadedReferences.get(activeReference.id);if(bytes)setSlot('reference',bytes);
   $('reference-status').textContent=bytes?'Verified reference crop loaded locally.':'Load the original chapter WAV to hear this exact reference.';
-  order=shuffled(study.candidates.filter(c=>c.side===activeReference.side_label));
-  $('candidate-select').replaceChildren(...order.map((c,i)=>{const o=document.createElement('option');o.value=String(i);o.textContent='Candidate '+String.fromCharCode(65+i);return o;}));
+  const options=study.candidates.filter(c=>c.side===activeReference.side_label);
+  order=$('blind-mode').checked?shuffled(options):options;
+  $('candidate-select').replaceChildren(...order.map((c,i)=>{const o=document.createElement('option');o.value=String(i);o.textContent=$('blind-mode').checked?'Candidate '+String.fromCharCode(65+i):c.title;return o;}));
   await chooseCandidate();
 }
 async function loadReferences(files){
@@ -101,6 +102,7 @@ for(const [which,s] of Object.entries(slots)){
   s.element.addEventListener('timeupdate',()=>{if(!s.element.paused&&s.element.currentTime>.1)s.heard=true;enable();});
 }
 $('reference-files').addEventListener('change',e=>loadReferences([...e.target.files]));
+$('blind-mode').addEventListener('change',chooseReference);
 $('reference-select').addEventListener('change',chooseReference);$('candidate-select').addEventListener('change',chooseCandidate);
 $('trigger-filter').addEventListener('change',renderResearch);
 $('master').addEventListener('input',()=>{const level=Number($('master').value);$('master-label').textContent=level+' dB';for(const s of Object.values(slots))s.element.volume=10**(level/20);});
@@ -115,7 +117,7 @@ $('feedback-form').addEventListener('submit',e=>{
     if(!slots.reference.heard||!slots.candidate.heard)throw Error('Play both the actual reference and candidate first');
     const chosen=document.querySelector('input[name=rating]:checked');
     const gains=Object.fromEntries(Object.entries(slots).map(([k,s])=>[k,{...s.gain,element_volume:s.element.volume,muted:s.element.muted,playback_rate:s.element.playbackRate}]));
-    observations.push(feedbackRow({ref:activeReference,candidate:activeCandidate,rating:Number(chosen?.value),notes:$('notes').value,blind:!revealed,condition:$('level-condition').value,gains,studyHash}));
+    observations.push(feedbackRow({ref:activeReference,candidate:activeCandidate,rating:Number(chosen?.value),notes:$('notes').value,blind:!!$('blind-mode').checked&&!revealed,condition:$('level-condition').value,gains,studyHash}));
     $('feedback-status').textContent=`${observations.length} observation(s) recorded in this page. Download to keep them.`;$('feedback-form').reset();enable();
   }catch(error){notice(error.message);}
 });

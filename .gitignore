@@ -17,3 +17,7 @@ web/target-study.json
 # Generated empirical comparison, never target reference recordings
 web/target/generated/
 outputs/target-study/
+
+# Regenerated source-texture auditions; private reference crops never published
+web/source/generated/
+web/source/.texture-*/

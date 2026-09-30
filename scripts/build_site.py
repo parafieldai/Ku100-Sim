@@ -18,6 +18,9 @@ import shutil
 import stat
 import struct
 import tempfile
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from scripts.texture_publication import collect as collect_texture, FILES as SOURCE_FILES
 
 ROOT = Path(__file__).resolve().parents[1]
 APP_FILES = ("index.html", "styles.css", "app.js", "core.js", "view3d.js",
@@ -222,9 +225,9 @@ def _check_output(output: Path, source: Path) -> None:
             relative = path.relative_to(output)
             if path.is_symlink():
                 raise ValueError(f"Refusing to replace a linked output: {relative}")
-            if path.is_dir() and relative.as_posix() in {"examples", "target", "target/generated"}:
+            if path.is_dir() and relative.as_posix() in {"examples", "target", "target/generated", "source", "source/generated"}:
                 continue
-            if path.is_file() and (relative.as_posix() in (*APP_FILES, *TARGET_FILES)
+            if path.is_file() and (relative.as_posix() in (*APP_FILES, *TARGET_FILES, *SOURCE_FILES)
                     or relative.as_posix() in ("examples/index.json", "target-study.json")
                     or (relative.parent.as_posix() == "examples" and BUNDLE_NAME.fullmatch(relative.name))):
                 continue
@@ -304,6 +307,7 @@ def build_site(source: Path = ROOT / "web", output: Path = ROOT / "dist") -> dic
         check_summary(summary)
         files["target-study.json"] = data
     files.update(_target_files(source))
+    files.update(collect_texture(source, _read_file, _json, _validate_audio))
     total = sum(map(len, files.values()))
     if total > MAX_SITE_BYTES:
         raise ValueError("Site exceeds the 80 MiB publication limit")
