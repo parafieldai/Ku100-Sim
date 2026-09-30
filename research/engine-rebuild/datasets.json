@@ -1,0 +1,131 @@
+{
+  "schema": "ku100-research-registry/1",
+  "checked_date": "2026-09-30",
+  "baseline_commit": "c4ef705ca0924c24915a445e1b40a5efc83dcf68",
+  "status": "Research registry, not executed dataset adapters or verified binary inventory",
+  "policy": {
+    "new_binary_downloaded_this_pass": false,
+    "runtime_recording_playback_allowed": false,
+    "production_release_approved": false,
+    "license_scope": "Code, recordings, annotations, meshes and learned models require separate review.",
+    "inspection": "Primary paper, author release, dataset card and/or selected listing; not a fresh sample-level validation."
+  },
+  "datasets": [
+    {
+      "id": "realimpact", "name": "RealImpact", "priority": "A", "evidence_kind": "measured_impacts",
+      "sources": ["https://arxiv.org/html/2306.09944v1", "https://samuelpclarke.com/realimpact/"],
+      "fields": ["mesh", "impact_location", "microphone_location", "corrected_audio", "force_profiles_described_in_paper"],
+      "use": "Multi-position object identification and acoustic transfer evaluation.",
+      "limits": ["Prior project subset has corrected mono responses, not raw paired force.", "Not gentle wet-ear contact."],
+      "license": "Recording and mesh terms require release-specific review; code license is separate.",
+      "overlap_group": "objectfolder-physical-objects"
+    },
+    {
+      "id": "objectfolder-real", "name": "ObjectFolder-Real", "priority": "A", "evidence_kind": "measured_multisensory",
+      "sources": ["https://objectfolder.stanford.edu/objectfolder-real-download", "https://arxiv.org/abs/2306.00956"],
+      "fields": ["mesh", "impact_location", "force_profile", "impact_video", "audio", "tactile_images"],
+      "use": "Mesh-aligned contact identification and geometry-aware fitting.",
+      "limits": ["Physical overlap with RealImpact; reconcile object identities before dataset splits."],
+      "license": "Dataset and upstream mesh terms not established by this inspection.",
+      "overlap_group": "objectfolder-physical-objects"
+    },
+    {
+      "id": "cluster", "name": "Cluster Haptic Texture Dataset", "priority": "A", "evidence_kind": "measured_controlled_sliding",
+      "sources": ["https://arxiv.org/html/2407.16206", "https://doi.org/10.1038/s41597-026-06760-z", "https://github.com/cluster-lab/Cluster-Haptic-Texture-Dataset"],
+      "fields": ["audio_44100_hz", "acceleration", "force", "position", "speed", "direction", "friction_measurements"],
+      "use": "Conditioned friction with bounded load/speed interpolation.",
+      "limits": ["Raw channels are main and machine-noise reference, not ears.", "Force converter is 80 Hz despite faster value logging.", "Processed audio must remain distinct from raw audio."],
+      "license": "Repository code declares Apache-2.0; separately inspect Figshare recording terms."
+    },
+    {
+      "id": "bare-finger", "name": "Tactile, Audio, and Visual Dataset During Bare Finger Interaction with Textured Surfaces", "priority": "B", "evidence_kind": "measured_human_sliding",
+      "sources": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC11930942/", "https://doi.org/10.1038/s41597-025-04670-0"],
+      "fields": ["audio_12500_hz", "two_accelerometers", "force_torque", "finger_trajectory", "texture_images"],
+      "use": "Human-contact constraints and motion/load response.",
+      "limits": ["Audio Nyquist frequency 6250 Hz, not upper-band validation.", "Smooth-sliding selection bias.", "Microphones are not a dummy-head binaural pair."],
+      "license": "Check Figshare record 26965267; article terms are not automatically every asset's terms."
+    },
+    {
+      "id": "hearing-hands", "name": "Hearing Hands", "priority": "B", "evidence_kind": "recorded_actions_with_reconstructed_pose",
+      "sources": ["https://arxiv.org/html/2506.09989v1", "https://www.yimingdou.com/hearing_hands/", "https://github.com/Dou-Yiming/hearing_hands"],
+      "fields": ["recorded_audio", "estimated_3d_hand_trajectory", "reconstructed_scene", "video"],
+      "use": "Optional action-conditioned source/detail model, distinct from physical calibration.",
+      "limits": ["No calibrated force-to-pressure map.", "Published model downsamples to 16 kHz; not evidence for 8-20 kHz sound detail.", "Vocoder and scene transfer need listening validation."],
+      "license": "Official code links data and checkpoints; review all terms before adoption."
+    },
+    {
+      "id": "objectfolder2", "name": "ObjectFolder 2.0", "priority": "B", "evidence_kind": "synthetic_multisensory",
+      "sources": ["https://objectfolder.stanford.edu/objectfolder2-0-download"],
+      "fields": ["geometry", "synthetic_impact_response", "contact_position", "prescribed_force"],
+      "use": "Modal pretraining and numerical solver comparison.",
+      "limits": ["Synthetic sound is not independent real-world ground truth."],
+      "license": "Author page states CC BY 4.0 with original mesh terms retained.",
+      "overlap_group": "objectfolder2-derived-geometry"
+    },
+    {
+      "id": "nisr", "name": "NISR on Hugging Face", "priority": "C", "evidence_kind": "synthetic_modal_labels_author_claim",
+      "sources": ["https://huggingface.co/datasets/BumsooKim00/nisr-dataset"],
+      "fields": ["voxel_geometry", "modal_frequencies", "surface_mode_shapes", "synthetic_impacts", "material_parameters"],
+      "use": "Candidate pretraining only after independent modal and numerical checks.",
+      "limits": ["Coarse 32-cubed voxels and up to 20 modes.", "No predefined split.", "Material blends are assumed interpolation, not physical composite measurements."],
+      "license": "Card states CC BY 4.0; original ObjectFolder mesh rights remain.",
+      "overlap_group": "objectfolder-physical-and-synthetic-descendants"
+    },
+    {
+      "id": "fsd50k", "name": "FSD50K", "priority": "C", "evidence_kind": "recorded_weak_event_labels",
+      "sources": ["https://zenodo.org/records/4060432"],
+      "fields": ["mono_audio", "event_labels", "uploader", "per_clip_license"],
+      "use": "Sound-family coverage and timbre/recognition examples, not physical calibration.",
+      "limits": ["Uncontrolled capture and no synchronized contact-force trajectories."],
+      "license": "Mixed per-clip Creative Commons terms including noncommercial restrictions."
+    },
+    {
+      "id": "schaeffer", "name": "SCHAEFFER", "priority": "C", "evidence_kind": "curated_sound_objects",
+      "sources": ["https://huggingface.co/datasets/dbschaeffer/SCHAEFFER", "https://www.kaggle.com/datasets/maurizioberta/test-schaeffer"],
+      "fields": ["audio", "onset_sustain_ending", "pulse_and_processing_annotations"],
+      "use": "Acoustic-structure labels and listening comparisons.",
+      "limits": ["Processed/designed sounds are not raw physical trials.", "HF visible records inspected; Kaggle binary not inspected."],
+      "license": "Authors state CC BY 4.0 for data; keep code/data and per-asset provenance separate."
+    },
+    {
+      "id": "epic-sounds", "name": "EPIC-SOUNDS", "priority": "C", "evidence_kind": "recorded_egocentric_actions",
+      "sources": ["https://github.com/epic-kitchens/epic-sounds-annotations", "https://pubmed.ncbi.nlm.nih.gov/40679892/"],
+      "fields": ["audio_video", "action_timestamps", "sound_descriptions", "material_pairs_in_extended_work"],
+      "use": "In-the-wild action taxonomy and recognition.",
+      "limits": ["Not isolated source or capture calibration."],
+      "license": "Author repository states CC BY-NC 4.0, not an unrestricted production corpus."
+    },
+    {
+      "id": "6ksfx", "name": "6KSFx", "priority": "C", "evidence_kind": "procedural_synthetic_audio",
+      "sources": ["https://arxiv.org/abs/2501.17198", "https://zenodo.org/records/14517916"],
+      "fields": ["synthetic_audio", "sound_categories"],
+      "use": "Procedural baselines, not real-world validation.",
+      "limits": ["Reconcile per-category counts and augmentation wording against archive inventory."],
+      "license": "Downloadable terms require inspection; metadata display alone was insufficient."
+    },
+    {
+      "id": "kleinpat", "name": "KleinPAT dataset", "priority": "C", "evidence_kind": "synthetic_modal_radiation",
+      "sources": ["https://graphics.stanford.edu/projects/kleinpat/", "https://graphics.stanford.edu/projects/kleinpat/kleinpat-dataset/dataset_table.html"],
+      "fields": ["surface_modes", "far_field_transfer"],
+      "use": "Offline radiation reference.",
+      "limits": ["Far-field assumptions do not establish touching/occluded-ear transmission."],
+      "license": "Review research-use and upstream mesh conditions."
+    },
+    {
+      "id": "sonicom", "name": "Extended SONICOM", "priority": "C", "evidence_kind": "measured_and_synthetic_hrtf_separated",
+      "sources": ["https://arxiv.org/abs/2507.05053"],
+      "fields": ["hrtf", "head_ear_geometry", "mesh_based_predictions"],
+      "use": "Receiver validation, kept separate from source synthesis.",
+      "limits": ["Human HRTF does not identify KU100/3Dio contact transmission."],
+      "license": "Review receiver, scan and derivative terms separately."
+    },
+    {
+      "id": "acoustitrace", "name": "AcoustiTrace", "priority": "C", "evidence_kind": "real_anchors_and_derived_acoustic_labels",
+      "sources": ["https://arxiv.org/html/2608.02035v2"],
+      "fields": ["audio_video_anchors", "rgbd", "derived_absorption_rt60_labels", "evaluation_relations"],
+      "use": "Causal and acoustic-relation evaluation beyond plausibility.",
+      "limits": ["2026 preprint; no artifact execution in this pass.", "Room absorption labels are not elastic material measurements."],
+      "license": "Release and original-source rights require separate review."
+    }
+  ]
+}
