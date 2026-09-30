@@ -37,7 +37,7 @@ This component forbids intermediate-distance interpolation and extrapolation;
 the previously measured distance-interpolation errors are not hidden.
 
 The source is the authors' [near-field compilation](https://zenodo.org/records/4297951).
-Attribution: Johannes M. Arend, Anja Neidhardt and Christoph Poerschmann. Embedded
+Attribution: Johannes M. Arend, Annika Neidhardt and Christoph Poerschmann. Embedded
 SOFA notice: CC BY-SA 3.0; record metadata: CC BY 4.0. The original source-file
 notice, attribution and share-alike condition are retained, without a relicensing
 claim. See [data/manifest.json](../../data/manifest.json) and
@@ -126,7 +126,8 @@ thresholds and codec/hash checks are not loosened.
 Pages plays actual offline renders and exports edited scene JSON; it still does
 not pretend to rerender when an editor field changes. The new microphone-path
 editor affects the NEXT native render. Browser verification checks sample identity,
-distinct ear signals, playback, seeking, downloads, and edited receiver parameters.
+distinct ear signals, playback, seeking, downloads, and preservation of receiver
+parameters in edited scenes.
 The application never normalizes ears independently. Matched object pulse variants
 share their gain; the very quiet smooth-contact scene is not inflated with noise.
 
