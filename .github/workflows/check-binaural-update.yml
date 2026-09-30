@@ -1,0 +1,134 @@
+name: Validate binaural object capture
+on:
+  push:
+    branches: [binaural-object-capture]
+    paths: ['.binaural-part3', '.github/workflows/check-binaural-update.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: binaural-object-validation
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: github.repository == 'parafieldai/Ku100-Sim' && github.ref == 'refs/heads/binaural-object-capture'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify exact local patch and source allowlist
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,io,lzma,pathlib,subprocess,json
+          raw=b''.join(pathlib.Path(f'.binaural-part{i}').read_bytes() for i in range(1,4))
+          assert len(raw)==28748
+          assert hashlib.sha256(raw).hexdigest()=='81fcf838978797a24e68392061742725a2427fde50e390a88c86ed56431dae79'
+          with lzma.LZMAFile(io.BytesIO(raw)) as stream:patch=stream.read(110217)
+          assert len(patch)==110216
+          assert hashlib.sha256(patch).hexdigest()=='b648d96a0186eaeee755947063e1ede488cc3ca2b0395d541f6eb784e363a8ce'
+          p=pathlib.Path('/tmp/binaural-update.patch');p.write_bytes(patch)
+          allowed={'.github/workflows/ci.yml','docs/engine-rebuild/BINAURAL_CAPTURE.md','ku100sim/binaural.py','ku100sim/unified.py','native/binaural/renderer.cpp','scenes/unified/fork-256.json','scenes/unified/fork-512.json','scenes/unified/fork-damped.json','scenes/unified/plastic-slow.json','scenes/unified/plastic-snap.json','scenes/unified/silicone-hold.json','scenes/unified/silicone-sweep.json','scripts/browser_objects.mjs','scripts/browser_source.mjs','scripts/browser_unified.mjs','scripts/build_object_examples.py','scripts/build_unified_examples.py','scripts/object_publication.py','scripts/package_unified_site.py','scripts/render_unified.py','scripts/validate_binaural.py','tests/test_binaural.py','tests/test_object_publication.py','tests/test_unified.py','web/objects/app.js','web/objects/index.html','web/source/app.js','web/source/index.html','web/unified/app.js','web/unified/index.html'}
+          paths={line.split('\t')[-1] for line in subprocess.check_output(['git','apply','--numstat',str(p)],text=True).splitlines()}
+          assert paths==allowed
+          subprocess.run(['git','apply','--check','--index',str(p)],check=True)
+          subprocess.run(['git','apply','--index',str(p)],check=True)
+          subprocess.run(['git','diff','--cached','--check'],check=True)
+          pathlib.Path('/tmp/binaural-paths.json').write_text(json.dumps(sorted(allowed)))
+          PY
+          git rm .binaural-part1 .binaural-part2 .binaural-part3 .github/workflows/check-binaural-update.yml
+          mkdir -p validation/local/binaural
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install original declared dependencies
+        run: |
+          python -m pip install -r requirements.txt
+          python -m pip install -r requirements-texture.txt
+          npm ci --prefix web
+          npx --prefix web playwright install --with-deps chromium
+      - name: Build native and measured-receiver dependencies
+        run: |
+          python scripts/build_native.py
+          python scripts/prepare_ku100.py --download
+      - name: Run source, receiver and publication regression suites
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s tests -v 2>&1 | tee validation/local/binaural/tests.txt
+          npm --prefix web test 2>&1 | tee validation/local/binaural/frontend-tests.txt
+          python scripts/check_research_index.py
+      - name: Recover unchanged generation prerequisites from verified main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api repos/parafieldai/Ku100-Sim/actions/runs/36752742618 > validation/local/binaural/baseline-run.json
+          jq -e '.head_sha == "f20ab7dffa1c5990ec265e96c93bbe2d2c90628e" and .conclusion == "success"' validation/local/binaural/baseline-run.json
+          gh run download 36752742618 --repo "$GITHUB_REPOSITORY" --name ku100-verified-f20ab7dffa1c5990ec265e96c93bbe2d2c90628e --dir baseline
+          python - <<'PY'
+          import pathlib,shutil
+          root=pathlib.Path('baseline/dist')
+          for p in root.rglob('*'):
+              if p.is_file():
+                  name=p.relative_to(root).as_posix()
+                  if name.startswith(('examples/','target/generated/','source/generated/','long/generated/')) or name=='target-study.json':
+                      target=pathlib.Path('web')/name
+                      if not target.exists():target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,target)
+          PY
+      - name: Render all sixteen object previews through the measured receiver
+        run: |
+          python scripts/build_object_examples.py
+          python scripts/build_unified_examples.py
+          python scripts/validate_binaural.py
+          python scripts/package_unified_site.py
+      - name: Exercise actual stereo playback, movement, export and no-mono controls
+        run: |
+          node scripts/browser_objects.mjs
+          node scripts/browser_unified.mjs
+          node scripts/browser_source.mjs
+      - name: Save exact validated source blobs without changing branch refs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import pathlib,json,hashlib,subprocess,base64
+          rows=[]
+          for name in json.loads(pathlib.Path('/tmp/binaural-paths.json').read_text()):
+              content=pathlib.Path(name).read_bytes()
+              expected=hashlib.sha1(b'blob '+str(len(content)).encode()+b'\0'+content).hexdigest()
+              payload=json.dumps({'content':base64.b64encode(content).decode(),'encoding':'base64'})
+              result=json.loads(subprocess.check_output(['gh','api','--method','POST','repos/parafieldai/Ku100-Sim/git/blobs','--input','-'],input=payload,text=True))
+              assert result['sha']==expected
+              rows.append({'path':name,'mode':'100644','type':'blob','sha':expected,'sha256':hashlib.sha256(content).hexdigest(),'bytes':len(content)})
+          pathlib.Path('validation/local/binaural/blobs.json').write_text(json.dumps({'base_commit':'08e915302781f3c7155a17688d13087dc78e453f','files':rows,'refs_changed':False},indent=2)+'\n')
+          print(json.dumps(rows))
+          PY
+      - name: Preserve expanded tested source
+        if: always()
+        run: |
+          mkdir -p validation/local/binaural/source
+          tree=$(git write-tree)
+          git archive --format=tar "$tree" > validation/local/binaural/source/source.tar
+          echo "$tree" > validation/local/binaural/source/tree.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: binaural-validation-${{ github.run_id }}
+          retention-days: 14
+          if-no-files-found: error
+          path: |
+            dist/unified/
+            dist/objects/
+            validation/local/binaural/
+            validation/local/object-browser/
+            validation/local/unified-browser/
+            validation/local/source-browser/
