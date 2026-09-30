@@ -1,0 +1,17 @@
+{
+  "schema": "periodic-sweep-diagnosis/1",
+  "deployed_audio_commit": "51f8390e6687d590ca53c8e9f97221d9d6807f67",
+  "source_audio_sha256": "8c8a6608927c517a6d55350b02d26ce0fb43755b00bd605ab81ff81de490867f",
+  "counterface_material_identified": false,
+  "named_silicone_formulation": false,
+  "nodes": [
+    {"id":"patch-0","max_speed_m_s":0.035526315789473684,"wavelengths_m":[0.00039999999999999996,0.00015999999999999999,0.000065],"max_forcing_hz":[88.81578947368422,222.03947368421055,546.5587044534414]},
+    {"id":"patch-1","max_speed_m_s":0.035526315789473684,"wavelengths_m":[0.00043,0.00016999999999999999,0.00007],"max_forcing_hz":[82.61933904528763,208.97832817337462,507.5187969924812]},
+    {"id":"patch-2","max_speed_m_s":0.035526315789473684,"wavelengths_m":[0.00045999999999999996,0.00017999999999999998,0.000075],"max_forcing_hz":[77.23112128146454,197.3684210526316,473.68421052631584]}
+  ],
+  "dominant_psd_peak_hz":539.0625,
+  "method":"Welch 8192 samples, default Hann/half overlap, 48kHz; sum both channel PSDs",
+  "interpretation":"Periodic ridge advection offers a specific reason for the tonal sweep. Not proof that real silicone cannot squeak.",
+  "metadata_relabel_only":true,
+  "new_sound_quality_pass":false
+}

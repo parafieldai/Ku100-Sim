@@ -9,20 +9,40 @@
 using V = std::vector<double>;
 static thread_local std::string last_error;
 struct Engine {
-    int n, frame=0; double h, work=0, loss=0, initial=0, residual_max=0;
+    int n, ne, frame=0; double h, work=0, loss=0, initial=0, residual_max=0;
     // Per-node: mass, k2, k4, viscous, memory_k, tau, drive_k, unilateral, q0, v0, limit.
-    V p, K, q, v, r, u, f, linear_maps;
+    V p, K, q, v, r, u, f, linear_maps, edges, er;
     bool exact;
     Engine(int count,int rate,const double* params,const double* matrix,const double* drives,
-           const double* forces,const double* maps,bool is_exact)
-      : n(count), h(1./rate), p(params,params+11*count), K(matrix,matrix+count*count),
+           const double* forces,const double* maps,bool is_exact,int edge_count,const double* edge_params)
+      : n(count), ne(edge_count), h(1./rate), p(params,params+11*count), K(matrix,matrix+count*count),
         q(count),v(count),r(count,0),u(drives,drives+count),f(forces,forces+count),exact(is_exact) {
         if(n<1 || n>32 || rate<96000 || rate>1536000) throw std::runtime_error("Invalid native dimensions");
         for(int i=0;i<n;i++){q[i]=P(i,8);v[i]=P(i,9);}
+        if(ne<0 || ne>128 || (ne>0 && !edge_params) || (ne>0 && exact)) throw std::runtime_error("Invalid interaction graph");
+        if(ne) edges.assign(edge_params,edge_params+10*ne);
+        er.assign(ne,0.);
+        for(int e=0;e<ne;e++) {
+            for(int c=0;c<10;c++) if(!std::isfinite(E(e,c))) throw std::runtime_error("Nonfinite interaction parameter");
+            int a=int(E(e,0)),b=int(E(e,1));
+            if(E(e,0)!=a || E(e,1)!=b || a<0 || b<0 || a>=n || b>=n || a==b || std::abs(E(e,2))!=1
+               || E(e,3)<0 || E(e,4)<0 || E(e,5)<0 || E(e,6)<0 || E(e,7)<=0
+               || (E(e,9)!=0 && E(e,9)!=1)) throw std::runtime_error("Invalid interaction coefficients");
+            if(E(e,9) && (E(e,4)!=0 || E(e,5)!=0 || E(e,6)!=0)) throw std::runtime_error("Contact supports elastic normal penalty only");
+        }
         if(exact) linear_maps.assign(maps,maps+64*n); // four 4x4 transitions per node
         initial=energy(q,v,r,u);
     }
     double P(int i,int j)const{return p[i*11+j];}
+    // Edge: node_a, node_b, normal sign, k2, k4, damping, memory_k, tau, gap, unilateral.
+    double E(int e,int c)const{return edges[e*10+c];}
+    double strain(int e,const V& x)const{return E(e,2)*(x[int(E(e,0))]-x[int(E(e,1))])-E(e,8);}
+    void edge_gradient(int e,double a,double b,double& g,double& dg)const {
+        if(E(e,9)){contact(a,b,E(e,3),true,g,dg);return;}
+        double delta=a-b,den=1+h/(2*E(e,7));
+        g=.5*E(e,3)*(a+b)+.25*E(e,4)*(a+b)*(a*a+b*b)+E(e,5)*delta/h+E(e,6)*(er[e]+delta/2)/den;
+        dg=.5*E(e,3)+.25*E(e,4)*(3*a*a+2*a*b+b*b)+E(e,5)/h+E(e,6)/(2*den);
+    }
     static double pos(double x){return std::max(x,0.);}
     double energy(const V& a,const V& b,const V& c,const V& d)const{
         double e=0;
@@ -32,6 +52,10 @@ struct Engine {
                +.5*P(i,4)*c[i]*c[i]+.5*P(i,6)*delta*delta;
             if(k<0) e+=k*k/(4*k4); // reference at zero-energy well minima
             for(int j=0;j<n;j++)e+=.5*a[i]*K[i*n+j]*a[j];
+        }
+        for(int edge=0;edge<ne;edge++) {
+            const double z=E(edge,9)?pos(strain(edge,a)):strain(edge,a);
+            e+=.5*E(edge,3)*z*z+.25*E(edge,4)*z*z*z*z+.5*E(edge,6)*er[edge]*er[edge];
         }
         return e;
     }
@@ -91,8 +115,17 @@ struct Engine {
                     for(int j=0;j<n;j++){res[i]+=K[i*n+j]*(q[j]+dq[j]/2);J[i*n+j]=K[i*n+j]/2;}
                     J[i*n+i]+=2*P(i,0)/(h*h)+P(i,3)/h+.5*k
                         +.25*k4*(3*a*a+2*a*b+b*b)+P(i,4)/(2*den)+dc;
-                    max_res=std::max(max_res,std::abs(res[i]));
                 }
+                // All internal interactions apply equal/opposite generalized forces.
+                // They enter this SAME Newton system, not a post-render audio layer.
+                for(int e=0;e<ne;e++) {
+                    int a=int(E(e,0)),b=int(E(e,1));double sign=E(e,2),g,dg;
+                    const double oldz=strain(e,q),newz=oldz+sign*(dq[a]-dq[b]);
+                    edge_gradient(e,newz,oldz,g,dg);
+                    res[a]+=sign*g;res[b]-=sign*g;
+                    J[a*n+a]+=dg;J[b*n+b]+=dg;J[a*n+b]-=dg;J[b*n+a]-=dg;
+                }
+                for(double value:res) max_res=std::max(max_res,std::abs(value));
                 if(max_res<1e-11){converged=true;break;}
                 for(auto& x:res)x=-x;
                 solve(J,res);
@@ -108,6 +141,14 @@ struct Engine {
                 loss+=h*(P(i,3)*midv*midv+P(i,4)/P(i,5)*midr*midr);
             }
         }
+        for(int e=0;e<ne;e++) {
+            const double dz=strain(e,qn)-strain(e,q),den=1+h/(2*E(e,7));
+            const double midr=(er[e]+dz/2)/den;
+            if(!E(e,9)) {
+                er[e]=2*midr-er[e];
+                loss+=h*(E(e,5)*(dz/h)*(dz/h)+E(e,6)/E(e,7)*midr*midr);
+            }
+        }
         for(int i=0;i<n;i++)if(!std::isfinite(qn[i]) || !std::isfinite(vn[i]) || std::abs(qn[i])>P(i,10))
             throw std::runtime_error("State exceeds declared coordinate domain");
         q=qn;v=vn;r=rn;u=un;f=fn;frame++;
@@ -115,17 +156,18 @@ struct Engine {
         if(!std::isfinite(e) || !std::isfinite(balance))throw std::runtime_error("Nonfinite energy");
         residual_max=std::max(residual_max,std::abs(balance));
         for(int i=0;i<n;i++){out[i]=q[i];out[n+i]=v[i];out[2*n+i]=r[i];}
-        out[3*n]=e;out[3*n+1]=work;out[3*n+2]=loss;out[3*n+3]=balance;
+        for(int edge=0;edge<ne;edge++)out[3*n+edge]=er[edge];
+        out[3*n+ne]=e;out[3*n+ne+1]=work;out[3*n+ne+2]=loss;out[3*n+ne+3]=balance;
     }
 };
 extern "C" {
 const char* unified_error(){return last_error.c_str();}
-void* unified_create(int n,int rate,const double* p,const double* K,const double* u,const double* f,const double* maps,int exact){
-    try {if(n<1 || n>32 || rate<96000 || rate>1536000 || !p || !K || !u || !f || !maps)throw std::runtime_error("Invalid native constructor"); return new Engine(n,rate,p,K,u,f,maps,exact!=0);}catch(const std::exception& e){last_error=e.what();return nullptr;}
+void* unified_create(int n,int rate,const double* p,const double* K,const double* u,const double* f,const double* maps,int exact,int ne,const double* edges){
+    try {if(n<1 || n>32 || rate<96000 || rate>1536000 || !p || !K || !u || !f || !maps)throw std::runtime_error("Invalid native constructor"); return new Engine(n,rate,p,K,u,f,maps,exact!=0,ne,edges);}catch(const std::exception& e){last_error=e.what();return nullptr;}
 }
 int unified_process(void* handle,int count,const double* u,const double* f,double* output){
     if(!handle || count<0 || count>65536){last_error="Invalid process request";return 1;}
-    try{auto& e=*static_cast<Engine*>(handle);for(int t=0;t<count;t++)e.step(u+t*e.n,f+t*e.n,output+t*(3*e.n+4));return 0;}
+    try{auto& e=*static_cast<Engine*>(handle);for(int t=0;t<count;t++)e.step(u+t*e.n,f+t*e.n,output+t*(3*e.n+e.ne+4));return 0;}
     catch(const std::exception& e){last_error=e.what();return 1;}
 }
 void unified_destroy(void* handle){delete static_cast<Engine*>(handle);}

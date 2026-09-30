@@ -53,7 +53,7 @@ def interpolate(a,t):
 
 
 def validate_scene(scene):
-    keys(scene,('schema','name','description','duration_s','internal_rate','nodes','couplings','evidence','microphone'),
+    keys(scene,('schema','name','description','duration_s','internal_rate','nodes','couplings','evidence','microphone','bodies','interactions'),
          'scene',('schema','name','duration_s','nodes','evidence'))
     if scene['schema']!=_SCHEMA or not isinstance(scene['name'],str) or len(scene['name'])>160:
         raise ValueError('Invalid scene identity')
@@ -115,11 +115,53 @@ def validate_scene(scene):
         if e['a'] not in names or e['b'] not in names or e['a']==e['b']:raise ValueError('Invalid endpoints')
         i,j=names.index(e['a']),names.index(e['b']);s=number(e['stiffness_n_m'],0,1e9,'coupling')
         K[i,i]+=s;K[j,j]+=s;K[i,j]-=s;K[j,i]-=s
+
+    # Optional explicit bodies and reusable pairwise interactions. Scalar
+    # coordinates are reduced normal DOFs, NOT an articulated 3-D hand mesh.
+    bodies=scene.get('bodies',[])
+    if not isinstance(bodies,list) or len(bodies)>32:raise ValueError('Invalid body definitions')
+    ownership={};body_ids=set()
+    for body in bodies:
+        keys(body,('id','material','role','nodes'),'body',('id','material','role','nodes'))
+        for field in ('id','material','role'):
+            if not isinstance(body[field],str) or not 1<=len(body[field])<=200:raise ValueError('Name each body and material')
+        if body['id'] in body_ids:raise ValueError('Duplicate body ID')
+        body_ids.add(body['id'])
+        if not isinstance(body['nodes'],list) or not body['nodes']:raise ValueError('Declare body coordinates')
+        for node_id in body['nodes']:
+            if not isinstance(node_id,str) or node_id not in names or node_id in ownership:raise ValueError('Body coordinates must be unique existing nodes')
+            ownership[node_id]=body['id']
+    pairs=scene.get('interactions',[])
+    if not isinstance(pairs,list) or len(pairs)>128:raise ValueError('Too many pairwise interactions')
+    interaction_ids=set();extra_stiffness=np.zeros(n)
+    for e in pairs:
+        keys(e,('id','law','a','b','normal_sign','gap_m','stiffness_n_m','k4_n_m3','damping_n_s_m','memory'),
+             'interaction',('id','law','a','b','stiffness_n_m'))
+        if not isinstance(e['id'],str) or not 1<=len(e['id'])<=80 or e['id'] in interaction_ids:raise ValueError('Interaction IDs must be unique')
+        interaction_ids.add(e['id'])
+        if e['law'] not in ('normal_contact','viscoelastic_link'):raise ValueError('Unsupported interaction law')
+        if not isinstance(e['a'],str) or not isinstance(e['b'],str) or e['a'] not in names or e['b'] not in names or e['a']==e['b']:raise ValueError('Invalid interaction endpoints')
+        if set(ownership)!=set(names):raise ValueError('Explicit interactions require ownership of every node')
+        if e['law']=='normal_contact' and ownership[e['a']]==ownership[e['b']]:raise ValueError('Contact requires two distinct bodies')
+        sign=e.get('normal_sign',1)
+        if type(sign) is not int or sign not in (-1,1):raise ValueError('normal_sign must be +1 or -1')
+        k2=number(e['stiffness_n_m'],1e-6,1e9,'interaction stiffness')
+        k4=number(e.get('k4_n_m3',0),0,1e18,'interaction cubic stiffness')
+        c=number(e.get('damping_n_s_m',0),0,1e5,'interaction damping')
+        gap=number(e.get('gap_m',0),-.1,.1,'interaction gap')
+        mem=e.get('memory',{});keys(mem,('stiffness_n_m','tau_s'),'interaction memory')
+        kr=number(mem.get('stiffness_n_m',0),0,1e9,'interaction memory stiffness')
+        number(mem.get('tau_s',1),1e-4,100,'interaction relaxation time')
+        if e['law']=='normal_contact' and (k4 or c or mem):raise ValueError('Normal contact has no unimplemented friction/damping/memory')
+        i,j=names.index(e['a']),names.index(e['b'])
+        tangent=k2+3*k4*(p[i,10]+p[j,10]+abs(gap))**2+kr
+        extra_stiffness[[i,j]]+=2*tangent
+
     # Fail rather than silently integrating an arbitrarily stiff nonlinear graph.
-    max_tangent=np.abs(p[:,1])+3*p[:,2]*p[:,10]**2+p[:,4]+p[:,6]+2*K.diagonal()
+    max_tangent=np.abs(p[:,1])+3*p[:,2]*p[:,10]**2+p[:,4]+p[:,6]+2*K.diagonal()+extra_stiffness
     if np.max(np.sqrt(max_tangent/p[:,0]))/rate>.65:raise ValueError('Graph exceeds integration-resolution envelope')
     if np.any(2*p[:,0]*rate**2+p[:,1]/2<=0):raise ValueError('Nonmonotone discrete step')
-    exact=bool(not edges and not np.any(p[:,2]) and not np.any(p[:,4]) and not np.any(p[:,7]))
+    exact=bool(not edges and not pairs and not np.any(p[:,2]) and not np.any(p[:,4]) and not np.any(p[:,7]))
     return duration,rate,p,K,controls,np.asarray(weights),exact
 
 
@@ -134,7 +176,7 @@ def build_library():
             subprocess.run(['g++','-std=c++17','-O3','-Wall','-Wextra','-Wpedantic','-fPIC','-shared',str(source),'-o',str(temp)],check=True)
             temp.replace(dest)
     lib=ct.CDLL(str(dest));D=ct.POINTER(ct.c_double)
-    lib.unified_create.argtypes=[ct.c_int,ct.c_int,D,D,D,D,D,ct.c_int];lib.unified_create.restype=ct.c_void_p
+    lib.unified_create.argtypes=[ct.c_int,ct.c_int,D,D,D,D,D,ct.c_int,ct.c_int,D];lib.unified_create.restype=ct.c_void_p
     lib.unified_process.argtypes=[ct.c_void_p,ct.c_int,D,D,D];lib.unified_process.restype=ct.c_int
     lib.unified_destroy.argtypes=[ct.c_void_p];lib.unified_destroy.restype=None
     lib.unified_error.restype=ct.c_char_p
@@ -156,6 +198,14 @@ class SimulationEngine:
         self.scene=json.loads(json.dumps(scene,allow_nan=False))
         self.duration,self.rate,self.params,self.K,self.controls,self.weights,self.exact=validate_scene(self.scene)
         self.n=len(self.params);self.frame=0;self.failed=False;self._handle=None
+        names=[node['id'] for node in self.scene['nodes']]
+        rows=[]
+        for e in self.scene.get('interactions',[]):
+            mem=e.get('memory',{})
+            rows.append([names.index(e['a']),names.index(e['b']),e.get('normal_sign',1),e['stiffness_n_m'],e.get('k4_n_m3',0),
+                         e.get('damping_n_s_m',0),mem.get('stiffness_n_m',0),mem.get('tau_s',1),e.get('gap_m',0),float(e['law']=='normal_contact')])
+        self.interactions=np.asarray(rows,dtype=np.float64).reshape(-1,10)
+        self.ne=len(rows);self.output_width=3*self.n+self.ne+4
         self.lib,self.kernel_sha256=build_library()
         u,f=self.control_at(np.array([0.]))
         maps=np.zeros((self.n,4,4,4));h=1/self.rate
@@ -164,7 +214,7 @@ class SimulationEngine:
             for i,p in enumerate(self.params):
                 A=np.zeros((4,4));A[0,1]=1;A[1,0]=-(p[1]+p[6])/p[0];A[1,1]=-p[3]/p[0];A[1,2]=1/p[0];A[2,3]=1
                 for j,t in enumerate(fractions):maps[i,j]=expm(h*t*A)
-        self._handle=self.lib.unified_create(self.n,self.rate,ptr(self.params),ptr(self.K),ptr(u),ptr(f),ptr(maps),int(self.exact))
+        self._handle=self.lib.unified_create(self.n,self.rate,ptr(self.params),ptr(self.K),ptr(u),ptr(f),ptr(maps),int(self.exact),self.ne,ptr(self.interactions))
         if not self._handle:raise RuntimeError(self.lib.unified_error().decode())
     def close(self):
         if getattr(self,"_handle",None):self.lib.unified_destroy(self._handle);self._handle=None
@@ -187,11 +237,29 @@ class SimulationEngine:
                 a=np.asarray(value,dtype=np.float64)
                 if a.shape!=dest.shape or not np.isfinite(a).all() or abs(a).max()>bound:raise ValueError('Invalid live controls')
                 dest[:]=a
-        out=np.empty((frames,3*self.n+4),dtype=np.float64)
+        out=np.empty((frames,self.output_width),dtype=np.float64)
         if self.lib.unified_process(self._handle,frames,ptr(u),ptr(f),ptr(out)):
             self.failed=True;raise RuntimeError(self.lib.unified_error().decode())
         self.frame+=frames
         return out
+    def interaction_readout(self,block):
+        """Endpoint contact force/strain. Force on a is -sign*force; b is opposite.
+
+        This endpoint readout is not the discrete-gradient force average used
+        inside an integration step; energy accounting uses the latter.
+        """
+        b=np.asarray(block,dtype=float)
+        if b.ndim!=2 or b.shape[1]!=self.output_width or not np.isfinite(b).all():raise ValueError('Invalid state block')
+        rows={}
+        for index,(e,p) in enumerate(zip(self.scene.get('interactions',[]),self.interactions)):
+            a,j,sign=int(p[0]),int(p[1]),p[2]
+            z=sign*(b[:,a]-b[:,j])-p[8];relative_v=sign*(b[:,self.n+a]-b[:,self.n+j])
+            positive=np.maximum(z,0) if p[9] else z
+            force=p[3]*positive+p[4]*positive**3+p[5]*relative_v+p[6]*b[:,3*self.n+index]
+            rows[e['id']]={'strain_m':z,'force_n':force,'force_on_a_n':-sign*force,'force_on_b_n':sign*force,
+                           'in_contact':z>0 if p[9] else np.ones(len(b),dtype=bool)}
+        return rows
+
     def render_binaural(self,*,gain=12.,block_frames=2048):
         """Complete object-to-microphone output using the shared receiver."""
         result=self.render(block_frames=block_frames)
@@ -217,6 +285,9 @@ class SimulationEngine:
         report={'schema':'shared-mechanics-result/1','engine':'SimulationEngine','kernel_sha256':self.kernel_sha256,
                 'scene_sha256':hashlib.sha256(json.dumps(self.scene,sort_keys=True,separators=(',',':')).encode()).hexdigest(),
                 'sample_rate_internal':self.rate,'frames_internal':frames,'node_count':self.n,
+                'body_count':len(self.scene.get('bodies',[])),'interaction_count':self.ne,
+                'interaction_laws':[e['law'] for e in self.scene.get('interactions',[])],
+                'trace_layout':['time_s','node_q_m','node_v_m_s','node_memory_m','interaction_memory_m','energy_j','work_j','dissipation_j','balance_j'],
                 'integrator':'exact_linear_foh' if self.exact else 'discrete_gradient',
                 'initial_energy_j':energy0,'final_energy_j':float(final[-4]),'input_work_j':float(final[-3]),
                 'dissipation_j':float(final[-2]),'max_energy_balance_error_j':max_balance,

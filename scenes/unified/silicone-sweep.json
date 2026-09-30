@@ -1,7 +1,7 @@
 {
   "schema": "shared-mechanics/1",
-  "name": "Silicone-like pad \u00b7 texture sweep / stop",
-  "description": "Memory springs relax while contact stops; no texture is injected during stationary hold.",
+  "name": "Periodic-ridge sweep \u2014 rejected silicone proxy",
+  "description": "No identified counterface: prescribed sinusoidal heights drive three normal contacts. Not a silicone-on-skin recording model.",
   "duration_s": 6.0,
   "internal_rate": 192000,
   "nodes": [
@@ -340,7 +340,7 @@
   "evidence": {
     "status": "unmeasured_reduced_model",
     "limits": "Reduced normal viscoelastic contacts only: not full silicone geometry or a named formulation. Texture motion is prescribed surface height; tangential stick/slip, adhesive peeling, liquid and seal/cavity pressure are not implemented. Airborne KU100 capture is separate from contact transmission.",
-    "material_note": "SI-valued illustrative reduced parameters; not fitted to a recording or identified commercial material."
+    "material_note": "No real silicone grade, counterface material, or measured surface has been identified. Rejected as the requested ASMR source; keep only as a diagnostic baseline."
   },
   "microphone": {
     "model": "KU100_NF",

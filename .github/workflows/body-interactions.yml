@@ -1,0 +1,40 @@
+name: Check coupled body mechanics
+on:
+  push:
+    branches: [body-pair-interactions]
+    paths: ['ku100sim/unified.py','native/unified/**','scenes/interactions/**','scripts/render_unified.py','scripts/check_interaction_stage.py','tests/test_interactions.py','.github/workflows/body-interactions.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install declared numerical dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Prepare the verified binaural receiver
+        run: python scripts/prepare_ku100.py --download
+      - name: Check shared mechanics, paired contacts and binaural export
+        run: |
+          set -euo pipefail
+          mkdir -p validation/local/body-interactions
+          python -m unittest tests.test_interactions tests.test_unified tests.test_binaural tests.test_unified_publication -v 2>&1 | tee validation/local/body-interactions/tests.txt
+      - name: Measure grip reactions and time refinement
+        run: python scripts/check_interaction_stage.py --out validation/local/body-interactions/check
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coupled-body-check-${{ github.sha }}
+          retention-days: 14
+          if-no-files-found: error
+          path: validation/local/body-interactions/

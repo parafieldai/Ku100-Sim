@@ -1,0 +1,174 @@
+{
+  "schema": "shared-mechanics/1",
+  "name": "Two compliant tips squeezing a soft coupon \u2014 mechanics only",
+  "description": "Explicit moving counterfaces with equal-and-opposite contact reactions. No periodic roughness and no synthesized squish.",
+  "duration_s": 3.0,
+  "internal_rate": 192000,
+  "nodes": [
+    {
+      "id": "thumb_normal",
+      "mass_kg": 0.003,
+      "k2_n_m": 0.0,
+      "limit_m": 0.01,
+      "readout_weight": 0.0,
+      "damping_n_s_m": 0.5,
+      "driver": {
+        "stiffness_n_m": 2500.0,
+        "displacement": [
+          [
+            0,
+            0
+          ],
+          [
+            0.2,
+            0
+          ],
+          [
+            0.65,
+            0.0028
+          ],
+          [
+            1.35,
+            0.0028
+          ],
+          [
+            1.9,
+            0
+          ],
+          [
+            3.0,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "object_left",
+      "mass_kg": 0.006,
+      "k2_n_m": 0.0,
+      "limit_m": 0.01,
+      "readout_weight": 1.0
+    },
+    {
+      "id": "object_right",
+      "mass_kg": 0.006,
+      "k2_n_m": 0.0,
+      "limit_m": 0.01,
+      "readout_weight": -1.0
+    },
+    {
+      "id": "index_normal",
+      "mass_kg": 0.003,
+      "k2_n_m": 0.0,
+      "limit_m": 0.01,
+      "readout_weight": 0.0,
+      "damping_n_s_m": 0.5,
+      "driver": {
+        "stiffness_n_m": 2500.0,
+        "displacement": [
+          [
+            0,
+            0
+          ],
+          [
+            0.2,
+            0
+          ],
+          [
+            0.65,
+            -0.0028
+          ],
+          [
+            1.35,
+            -0.0028
+          ],
+          [
+            1.9,
+            0
+          ],
+          [
+            3.0,
+            0
+          ]
+        ]
+      }
+    }
+  ],
+  "bodies": [
+    {
+      "id": "thumb",
+      "role": "compliant fingertip surrogate",
+      "material": "Unmeasured compliant skin surrogate; no human anatomy model",
+      "nodes": [
+        "thumb_normal"
+      ]
+    },
+    {
+      "id": "object",
+      "role": "reduced soft coupon",
+      "material": "Unmeasured viscoelastic solid; no named silicone grade",
+      "nodes": [
+        "object_left",
+        "object_right"
+      ]
+    },
+    {
+      "id": "index",
+      "role": "compliant fingertip surrogate",
+      "material": "Unmeasured compliant skin surrogate; no human anatomy model",
+      "nodes": [
+        "index_normal"
+      ]
+    }
+  ],
+  "interactions": [
+    {
+      "id": "thumb_to_object",
+      "law": "normal_contact",
+      "a": "thumb_normal",
+      "b": "object_left",
+      "gap_m": 0.0004,
+      "stiffness_n_m": 10000.0
+    },
+    {
+      "id": "object_deformation",
+      "law": "viscoelastic_link",
+      "a": "object_left",
+      "b": "object_right",
+      "stiffness_n_m": 650.0,
+      "k4_n_m3": 10000000.0,
+      "damping_n_s_m": 0.3,
+      "memory": {
+        "stiffness_n_m": 120.0,
+        "tau_s": 0.05
+      }
+    },
+    {
+      "id": "index_to_object",
+      "law": "normal_contact",
+      "a": "object_right",
+      "b": "index_normal",
+      "gap_m": 0.0004,
+      "stiffness_n_m": 10000.0
+    }
+  ],
+  "evidence": {
+    "status": "unmeasured_reduced_model",
+    "limits": "1D normal grip proxy, not a 3D articulated human hand. No tangential friction, anatomical skin, finite-strain mesh, fluid or validated sound radiation. Deliberately not shipped as a new silicone ASMR sound.",
+    "material_note": "All parameters illustrative; not a named or calibrated silicone."
+  },
+  "microphone": {
+    "model": "KU100_NF",
+    "radius_m": 0.25,
+    "azimuth_knots_deg": [
+      [
+        0,
+        -60
+      ],
+      [
+        3.0,
+        -60
+      ]
+    ]
+  }
+}
