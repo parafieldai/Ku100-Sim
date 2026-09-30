@@ -1,0 +1,52 @@
+name: Recover audited object blobs
+on:
+  push:
+    branches: [sfx-object-validation]
+    paths: ['.github/workflows/recover-object-blobs.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: 1020d45505c9dace5ed7b0c4fa2e1883e8b99294
+          persist-credentials: false
+      - name: Recover and hash-check the already tested source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api repos/parafieldai/Ku100-Sim/actions/artifacts/11082422471/zip > /tmp/audited-objects.zip
+          python - <<'PY'
+          import base64,hashlib,io,json,pathlib,subprocess,tarfile,zipfile
+          raw=pathlib.Path('/tmp/audited-objects.zip').read_bytes()
+          assert hashlib.sha256(raw).hexdigest()=='54381b6312fb8758397cb40e5d9310d211c7256b9475e4d76e5ba525f3017bcc'
+          with zipfile.ZipFile(io.BytesIO(raw)) as z:
+              assert z.testzip() is None
+              source=z.read('validation/local/object-validation/source/source.tar')
+          allowed={'.github/workflows/ci.yml','.github/workflows/verify-live-pages.yml','.gitignore','docs/RESEARCH_INDEX.md','docs/objects/RESEARCH.md','docs/objects/VALIDATION.md','ku100sim/modal_object.py','models/object-profiles/27_WoodPlate.json','models/object-profiles/64_CeramicMug.json','models/object-profiles/94_GlassGoblet.json','scripts/acquire_impact_subset.py','scripts/browser_objects.mjs','scripts/build_object_examples.py','scripts/fit_object_models.py','scripts/object_publication.py','scripts/package_object_site.py','tests/test_modal_object.py','tests/test_object_publication.py','validation/objects/assessment.json','validation/objects/data-receipt.json','validation/objects/initial-modal-only.json','web/objects/app.js','web/objects/index.html','web/objects/style.css','web/source/index.html'}
+          rows=[]
+          with tarfile.open(fileobj=io.BytesIO(source)) as tar:
+              for name in sorted(allowed):
+                  info=tar.getmember(name)
+                  assert info.isfile() and info.size<100000
+                  content=tar.extractfile(info).read()
+                  expected=hashlib.sha1(b'blob '+str(len(content)).encode()+b'\0'+content).hexdigest()
+                  payload=json.dumps({'content':base64.b64encode(content).decode(),'encoding':'base64'})
+                  response=json.loads(subprocess.check_output(['gh','api','--method','POST','repos/parafieldai/Ku100-Sim/git/blobs','--input','-'],input=payload,text=True))
+                  assert response['sha']==expected
+                  rows.append({'path':name,'mode':'100644','type':'blob','sha':expected,'sha256':hashlib.sha256(content).hexdigest(),'bytes':len(content)})
+          out=pathlib.Path('object-recovery');out.mkdir()
+          (out/'blobs.json').write_text(json.dumps({'base_commit':'1020d45505c9dace5ed7b0c4fa2e1883e8b99294','source_artifact_id':11082422471,'source_artifact_sha256':hashlib.sha256(raw).hexdigest(),'refs_changed':False,'files':rows},indent=2)+'\n')
+          print(json.dumps(rows))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: recovered-object-blobs-${{ github.run_id }}
+          retention-days: 14
+          path: object-recovery/
