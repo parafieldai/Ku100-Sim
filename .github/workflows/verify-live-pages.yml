@@ -88,6 +88,13 @@ jobs:
           KU100_SITE_DIR: verified/dist
           KU100_SOURCE_REPORT_DIR: validation/local/live-pages/source
         run: node scripts/browser_source.mjs
+      - name: Verify longer audio on public Pages
+        if: steps.source.outputs.ready == 'true'
+        env:
+          KU100_LONG_URL: https://parafieldai.github.io/Ku100-Sim/long/
+          KU100_SITE_DIR: verified/dist
+          KU100_LONG_REPORT_DIR: validation/local/live-pages/long
+        run: node scripts/browser_long.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

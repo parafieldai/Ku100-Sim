@@ -21,3 +21,4 @@ outputs/target-study/
 # Regenerated source-texture auditions; private reference crops never published
 web/source/generated/
 web/source/.texture-*/
+/web/long/generated/

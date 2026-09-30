@@ -86,6 +86,12 @@ jobs:
         run: node scripts/browser_saved_listening.mjs
       - name: Verify named source playback, mono comparison and reference privacy
         run: node scripts/browser_source.mjs
+      - name: Render fresh 12-second variations and the 30-second assembly
+        run: python scripts/build_long_examples.py --out web/long/generated
+      - name: Append the validated longer listening page without publishing references
+        run: python scripts/package_long_site.py
+      - name: Verify longer audio decoding, playback, seeking and downloads
+        run: node scripts/browser_long.mjs
       - name: Retain tested native examples and verification evidence
         uses: actions/upload-artifact@v4
         if: always()
