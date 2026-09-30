@@ -81,6 +81,13 @@ jobs:
           KU100_EXPECTED_SHA: ${{ steps.source.outputs.sha }}
           KU100_SITE_DIR: verified/dist
         run: node scripts/browser_target_live.mjs
+      - name: Verify source texture iteration on public Pages
+        if: steps.source.outputs.ready == 'true'
+        env:
+          KU100_SOURCE_URL: https://parafieldai.github.io/Ku100-Sim/source/
+          KU100_SITE_DIR: verified/dist
+          KU100_SOURCE_REPORT_DIR: validation/local/live-pages/source
+        run: node scripts/browser_source.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
