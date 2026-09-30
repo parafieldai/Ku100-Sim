@@ -18,7 +18,8 @@ def build(out):
             report=render_file(ROOT/'scenes/unified'/f'{slug}.json',target,gain)
             scene=json.loads((target/'scene.json').read_text())
             row={'id':slug,'name':scene['name'],'description':scene.get('description',''),
-                 'limitations':scene['evidence']['limits'],'seconds':scene['duration_s'],
+                 'limitations':scene['evidence']['limits'],'seconds':report['receiver']['output_frames']/48000,
+                 'source_seconds':scene['duration_s'],
                  'report':report,'scene':slug+'.json','audio':slug+'.wav'}
             for old,new in [('audio.wav',row['audio']),('scene.json',row['scene'])]:
                 shutil.copyfile(target/old,out/new)
@@ -33,7 +34,7 @@ def build(out):
             row['files_sha256']={fn:hashlib.sha256((out/fn).read_bytes()).hexdigest() for fn in (row['audio'],row['scene'],row['trace'])}
             samples.append(row);print(slug,report['render_seconds'],flush=True)
     m={'schema':'shared-mechanics-examples/1','single_engine':'SimulationEngine','source_recordings_included':False,
-       'material_calibrated':False,'head_or_microphone_simulated':False,'samples':samples}
+       'material_calibrated':False,'head_or_microphone_simulated':True,'microphone_model':'KU100_NF','samples':samples}
     (out/'manifest.json').write_text(json.dumps(m,indent=2,allow_nan=False)+'\n')
     return m
 if __name__=='__main__':

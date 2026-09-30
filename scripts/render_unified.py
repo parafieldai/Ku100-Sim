@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 from scipy.io import wavfile
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from ku100sim.unified import ROOT,SimulationEngine,preview_audio
+from ku100sim.unified import ROOT,SimulationEngine
 
 
 def render_file(scene_path,out,gain=12.,stiffness_scale=1.,damping_scale=1.):
@@ -20,15 +20,15 @@ def render_file(scene_path,out,gain=12.,stiffness_scale=1.,damping_scale=1.):
     for edge in s.get('couplings',[]):edge['stiffness_n_m']*=stiffness_scale
     if out.exists() or out.is_symlink() or any(p.is_symlink() for p in out.absolute().parents):raise ValueError('Use a new regular output path')
     start=time.perf_counter()
-    with SimulationEngine(s) as e:r=e.render();rate=e.rate
-    audio=preview_audio(r['velocity'],rate,gain)
+    with SimulationEngine(s) as e:r=e.render_binaural(gain=gain)
+    audio=r['audio']
     out.mkdir(parents=True,exist_ok=False);wavfile.write(out/'audio.wav',48000,audio)
     headers=['time_s']+[n['id']+'.q_m' for n in s['nodes']]+[n['id']+'.v_m_s' for n in s['nodes']]+[n['id']+'.memory_m' for n in s['nodes']]+['energy_j','work_j','dissipation_j','balance_j']
     np.savetxt(out/'trace.csv',r['trace'],delimiter=',',header=','.join(headers),comments='')
     (out/'scene.json').write_text(json.dumps(s,indent=2,allow_nan=False)+'\n')
     r['report'].update({'render_seconds':time.perf_counter()-start,'audio_file_sha256':hashlib.sha256((out/'audio.wav').read_bytes()).hexdigest(),
                        'listening_gain':gain,'preview_peak':float(abs(audio).max()),'preview_rms':float(np.sqrt(np.mean(audio**2))),
-                       'preview_domain':'uncalibrated dual-mono audio from surface velocity; 35 Hz high-pass and end fade',
+                       'preview_domain':'measured KU100 binaural capture of an uncalibrated compact velocity source; no contact calibration',
                        'stiffness_scale':stiffness_scale,'damping_scale':damping_scale})
     (out/'report.json').write_text(json.dumps(r['report'],indent=2,allow_nan=False)+'\n')
     return r['report']

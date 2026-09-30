@@ -421,5 +421,27 @@
     "status": "unmeasured_reduced_model",
     "limits": "Independent double-well cells demonstrate state-driven snap-through. Not a deformed wrapper mesh, PET constitutive fit, permanent creasing, self-contact or verified plastic recording. Stationary holds do not schedule crackle events.",
     "material_note": "SI-valued illustrative reduced parameters; not fitted to a recording or identified commercial material."
+  },
+  "microphone": {
+    "model": "KU100_NF",
+    "radius_m": 0.25,
+    "azimuth_knots_deg": [
+      [
+        0.0,
+        -75.0
+      ],
+      [
+        0.6000000000000001,
+        -75.0
+      ],
+      [
+        5.4,
+        75.0
+      ],
+      [
+        6.0,
+        75.0
+      ]
+    ]
   }
 }

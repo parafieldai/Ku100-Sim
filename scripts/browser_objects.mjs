@@ -50,9 +50,10 @@ try{
    for(let i=0;i<d.length;i++)earDifference=Math.max(earDifference,Math.abs(d.getChannelData(0)[i]-d.getChannelData(1)[i]));
    return {channels:d.numberOfChannels,frames:d.length,rate:d.sampleRate,error,earDifference,nativePcmDecodeMaxError};
   },item);
-  const {nativePcmDecodeMaxError,...exact}=decoded;
+  const {nativePcmDecodeMaxError,earDifference,...exact}=decoded;
+  assert.ok(earDifference>1e-6);assert.equal(item.receiver.device,'Neumann KU100');
   assert.ok(Number.isFinite(nativePcmDecodeMaxError));
-  assert.deepEqual(exact,{channels:2,frames:item.frames,rate:48000,error:0,earDifference:0});
+  assert.deepEqual(exact,{channels:2,frames:item.frames,rate:48000,error:0});
   await card.locator('button').click();await page.waitForFunction(id=>{const a=document.querySelector(`article[data-id="${id}"] audio`);return a.currentTime>.16&&!a.paused;},item.id);
   assert.equal(await page.locator('audio').evaluateAll(xs=>xs.filter(a=>!a.paused).length),1);
   await audio.evaluate(a=>{a.pause();a.currentTime=a.duration-.2;});await page.waitForFunction(id=>{const a=document.querySelector(`article[data-id="${id}"] audio`);return !a.seeking&&Math.abs(a.currentTime-(a.duration-.2))<.005;},item.id);

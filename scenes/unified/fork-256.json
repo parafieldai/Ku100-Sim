@@ -73,7 +73,29 @@
   "couplings": [],
   "evidence": {
     "status": "unmeasured_reduced_model",
-    "limits": "Two illustrative modes, no fork mesh or directional radiation. The overtone ratio is an approximation, not a measured fork. Dual-mono velocity readout, not KU100 pressure.",
+    "limits": "Two illustrative modes, no fork mesh or directional radiation. The overtone ratio is an approximation, not a measured fork. Measured KU100 airborne receiver on a compact velocity-source proxy; not calibrated pressure.",
     "material_note": "SI-valued illustrative reduced parameters; not fitted to a recording or identified commercial material."
+  },
+  "microphone": {
+    "model": "KU100_NF",
+    "radius_m": 0.25,
+    "azimuth_knots_deg": [
+      [
+        0.0,
+        -75.0
+      ],
+      [
+        0.6000000000000001,
+        -75.0
+      ],
+      [
+        5.4,
+        75.0
+      ],
+      [
+        6.0,
+        75.0
+      ]
+    ]
   }
 }

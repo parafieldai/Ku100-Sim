@@ -84,7 +84,7 @@ jobs:
         run: node scripts/browser_target.mjs
       - name: Test saved comparison playback and local-only reference handling
         run: node scripts/browser_saved_listening.mjs
-      - name: Verify named source playback, mono comparison and reference privacy
+      - name: Verify stereo-only source playback and reference privacy
         run: node scripts/browser_source.mjs
       - name: Render fresh 12-second variations and the 30-second assembly
         run: python scripts/build_long_examples.py --out web/long/generated
@@ -102,6 +102,8 @@ jobs:
         run: python scripts/validate_unified.py
       - name: Generate seven scenes through the single mechanical engine
         run: python scripts/build_unified_examples.py
+      - name: Enforce measured binaural receiver and reject mono object previews
+        run: python scripts/validate_binaural.py
       - name: Package the bounded shared-engine extension
         run: python scripts/package_unified_site.py
       - name: Verify common-engine audio, traces and scene export

@@ -4,6 +4,7 @@ import numpy as np
 from scripts.build_object_examples import IDS,wav16
 from scripts.object_publication import APP,FILES,collect,validate_wav
 from scripts.build_site import _read_file,_json
+from ku100sim.binaural import BANK_SHA256,default_microphone
 
 class ObjectPublicationTests(unittest.TestCase):
     def fixture(self,root):
@@ -11,10 +12,10 @@ class ObjectPublicationTests(unittest.TestCase):
             path=root/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_text('test')
         folder=root/'objects/generated';folder.mkdir();rows=[]
         for slug in IDS:
-            kind=slug.rsplit('-',1)[-1];frames=48000 if kind=='prior' else 192000
-            x=np.zeros(frames);x[10:20]=.1;raw=wav16(x);(folder/(slug+'.wav')).write_bytes(raw)
-            rows.append({'id':slug,'kind':kind,'file':slug+'.wav','frames':frames,'rate':48000,'channels':2,'pcm_bits':16,'sha256':hashlib.sha256(raw).hexdigest()})
-        m={'schema':'object-sfx-preview/1','reference_audio_public':False,'old_ear_recordings_used':False,'render_from_recording':False,'physical_calibration':False,'pressure_control':False,'raw_reference_audio_embedded':False,'headphone_spatialization':'dual mono, not KU100 transfer','listener_judgment':'not performed','samples':rows}
+            kind=slug.rsplit('-',1)[-1];source_frames=48000 if kind=='prior' else 192000;frames=source_frames+223
+            x=np.zeros((frames,2));x[10:20,0]=.1;x[12:22,1]=.05;raw=wav16(x);(folder/(slug+'.wav')).write_bytes(raw)
+            rows.append({'id':slug,'kind':kind,'file':slug+'.wav','frames':frames,'rate':48000,'channels':2,'pcm_bits':16,'sha256':hashlib.sha256(raw).hexdigest(),'receiver':{'device':'Neumann KU100','bank_sha256':BANK_SHA256,'configuration':default_microphone(source_frames/48000),'source_frames':source_frames,'output_frames':frames,'source_recording_playback':False}})
+        m={'schema':'object-sfx-preview/1','reference_audio_public':False,'old_ear_recordings_used':False,'render_from_recording':False,'physical_calibration':False,'pressure_control':False,'raw_reference_audio_embedded':False,'headphone_spatialization':'measured KU100 binaural; source coloration retained, not calibrated','listener_judgment':'not performed','samples':rows}
         (folder/'manifest.json').write_text(json.dumps(m));return m
     def test_complete_canonical_pcm_population(self):
         with tempfile.TemporaryDirectory() as d:
@@ -41,11 +42,11 @@ class ObjectPublicationTests(unittest.TestCase):
                 altered=dict(row,sha256=hashlib.sha256(raw).hexdigest())
                 with self.assertRaises(ValueError):validate_wav(raw,altered)
             with self.assertRaises(ValueError):validate_wav(original,dict(row,sha256='0'*64))
-    def test_silence_and_stereo_remix_refused(self):
+    def test_silence_and_duplicated_mono_refused(self):
         with tempfile.TemporaryDirectory() as d:
-            root=Path(d);m=self.fixture(root);row=m['samples'][0];raw=wav16(np.zeros(row['frames']))
+            root=Path(d);m=self.fixture(root);row=m['samples'][0];raw=wav16(np.zeros((row['frames'],2)))
             with self.assertRaises(ValueError):validate_wav(raw,dict(row,sha256=hashlib.sha256(raw).hexdigest()))
-            raw=bytearray((root/'objects/generated'/row['file']).read_bytes());raw[46:48]=struct.pack('<h',100);raw=bytes(raw)
+            raw=bytearray((root/'objects/generated'/row['file']).read_bytes());samples=np.frombuffer(raw,dtype='<i2',offset=44).reshape(-1,2);samples[:,1]=samples[:,0];raw=bytes(raw)
             with self.assertRaises(ValueError):validate_wav(raw,dict(row,sha256=hashlib.sha256(raw).hexdigest()))
     def test_filename_traversal_refused(self):
         with tempfile.TemporaryDirectory() as d:

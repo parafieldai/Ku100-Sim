@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/** Actual generated audio, stable identities, mono isolation and no reference upload. */
+/** Actual generated audio, stable identities, stereo-only presentation and no reference upload. */
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -78,11 +78,12 @@ try {
  }
  report.checks.push('All seven named sources decode exactly, play, stop and download unchanged');
  await page.locator('#side').selectOption('right');await ready('revised-right-1');
- const original=hash(await download('#download'));await page.locator('#mode').selectOption('mono');await page.waitForFunction(()=>document.querySelector('#audio').readyState>=2);
- const mono=await page.evaluate(async()=>{
-  const bytes=new Uint8Array(await(await fetch(document.querySelector('#audio').src)).arrayBuffer());const {parseWave}=await import('../target/core.js');const p=parseWave(bytes);let error=0;for(let i=0;i<p.frames;i++)error=Math.max(error,Math.abs(p.samples[0][i]-p.samples[1][i]));return error;
- });assert.equal(mono,0);assert.equal(hash(await download('#download')),original);
- report.checks.push('Source-only mode duplicates the actual near channel; original stereo download remains unchanged');
+ const original=hash(await download('#download'));
+ assert.equal(await page.locator('#mode option[value="mono"]').count(),0);
+ const stereoDifference=await page.evaluate(async()=>{
+  const bytes=new Uint8Array(await(await fetch(document.querySelector('#audio').src)).arrayBuffer());const {parseWave}=await import('../target/core.js');const p=parseWave(bytes);let difference=0;for(let i=0;i<p.frames;i++)difference=Math.max(difference,Math.abs(p.samples[0][i]-p.samples[1][i]));return difference;
+ });assert.ok(stereoDifference>0);assert.equal(hash(await download('#download')),original);
+ report.checks.push('Stereo-only playback; no public mono mode; original download unchanged');
  const bad=path.join(temp,'bad.wav');await fs.writeFile(bad,'not a supplied recording');await page.locator('#reference-file').setInputFiles(bad);
  await page.waitForFunction(()=>document.querySelector('#reference-status').textContent.includes('not an exact'));
  if(fixture){await page.locator('#reference-file').setInputFiles(fixture);await page.waitForFunction(()=>document.querySelector('#reference-audio').readyState>=2);assert.match(await page.locator('#reference-status').textContent(),/verified locally/);}

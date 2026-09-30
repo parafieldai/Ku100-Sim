@@ -53,7 +53,7 @@ def interpolate(a,t):
 
 
 def validate_scene(scene):
-    keys(scene,('schema','name','description','duration_s','internal_rate','nodes','couplings','evidence'),
+    keys(scene,('schema','name','description','duration_s','internal_rate','nodes','couplings','evidence','microphone'),
          'scene',('schema','name','duration_s','nodes','evidence'))
     if scene['schema']!=_SCHEMA or not isinstance(scene['name'],str) or len(scene['name'])>160:
         raise ValueError('Invalid scene identity')
@@ -63,6 +63,9 @@ def validate_scene(scene):
         raise ValueError('No calibrated-material claim is implemented')
     if not isinstance(evidence['limits'],str) or len(evidence['limits'])>4000:raise ValueError('State model limits')
     duration=number(scene['duration_s'],.001,30,'duration')
+    if 'microphone' in scene:
+        from ku100sim.binaural import validate_microphone
+        validate_microphone(scene['microphone'],duration)
     rate=scene.get('internal_rate',192000)
     if type(rate) is not int or rate not in (192000,384000,768000):raise ValueError('Invalid integration rate')
     if not isinstance(scene['nodes'],list) or not 1<=len(scene['nodes'])<=32:raise ValueError('Use 1–32 nodes')
@@ -189,6 +192,14 @@ class SimulationEngine:
             self.failed=True;raise RuntimeError(self.lib.unified_error().decode())
         self.frame+=frames
         return out
+    def render_binaural(self,*,gain=12.,block_frames=2048):
+        """Complete object-to-microphone output using the shared receiver."""
+        result=self.render(block_frames=block_frames)
+        audio,receiver=preview_audio(result['velocity'],self.rate,gain,
+            microphone=self.scene.get('microphone'),return_report=True)
+        result['audio']=audio;result['report']['receiver']=receiver
+        return result
+
     def render(self,*,block_frames=2048):
         if self.frame:raise ValueError('render() requires fresh state; use process() to continue')
         if type(block_frames) is not int or not 1<=block_frames<=65536:raise ValueError('Invalid block size')
@@ -216,7 +227,7 @@ class SimulationEngine:
         return {'velocity':velocity,'trace':np.concatenate(traces),'report':report}
 
 
-def preview_audio(velocity,rate,gain):
+def _source_signal(velocity,rate,gain):
     """Explicit listening-only conversion; never label arbitrary digital gain Pa."""
     number(gain,0,1e7,'listening gain')
     taps,beta=signal.kaiserord(100,4000/(rate/2));taps+=taps%2==0
@@ -226,4 +237,25 @@ def preview_audio(velocity,rate,gain):
     # Short end fade on the listening copy only; physical trace stays untouched.
     fade=min(480,len(mono)//4);mono[-fade:]*=.5+.5*np.cos(np.linspace(0,np.pi,fade))
     if not np.isfinite(mono).all() or abs(mono).max()>.8:raise ValueError('Preview overload; select an explicit smaller gain')
-    return np.column_stack([mono,mono]).astype(np.float32)
+    return mono
+
+
+def preview_audio(velocity,rate,gain,*,microphone=None,return_report=False):
+    """Measured binaural listening render; never a duplicated-mono export.
+
+    The internal weighted velocity remains an uncalibrated point-source proxy.
+    This receiver does not manufacture source realism or contact-to-capsule data.
+    """
+    from ku100sim.binaural import BinauralMicrophone,default_microphone,require_binaural
+    source=_source_signal(velocity,rate,gain);duration=len(source)/48000
+    config=microphone if microphone is not None else default_microphone(duration)
+    with BinauralMicrophone(config,duration,source_domain='weighted_surface_velocity_proxy') as mic:
+        y,report=mic.render(source)
+    if not np.isfinite(y).all() or abs(y).max()>.8:
+        raise ValueError('Binaural preview overload; lower the explicit common source gain')
+    audio=y.astype(np.float32)
+    # A null mechanical test may legitimately have no sound. Publication requires
+    # an excited source, two active channels, and a nonidentical measured response.
+    if np.any(audio):require_binaural(audio)
+    report['stereo']=__import__('ku100sim.binaural',fromlist=['stereo_metrics']).stereo_metrics(audio)
+    return (audio,report) if return_report else audio

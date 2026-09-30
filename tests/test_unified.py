@@ -105,7 +105,8 @@ class UnifiedTests(unittest.TestCase):
   fs=192000;t=np.arange(fs)/fs
   y=preview_audio(.01*np.sin(2*np.pi*30000*t),fs,1)
   self.assertLess(abs(y[2000:-2000]).max(),1e-6)
-  np.testing.assert_array_equal(y[:,0],y[:,1])
+  self.assertFalse(np.array_equal(y[:,0],y[:,1]))
+  self.assertEqual(y.shape,(48000+223,2))
  def test_no_file_read_during_render(self):
   with SimulationEngine(base()) as e:
    with patch('builtins.open',side_effect=AssertionError('recording read')),patch('numpy.load',side_effect=AssertionError('array read')):

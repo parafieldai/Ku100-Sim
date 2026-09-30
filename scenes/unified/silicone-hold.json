@@ -186,7 +186,29 @@
   "couplings": [],
   "evidence": {
     "status": "unmeasured_reduced_model",
-    "limits": "Reduced normal viscoelastic contacts only: not full silicone geometry or a named formulation. Texture motion is prescribed surface height; tangential stick/slip, adhesive peeling, liquid, seal/cavity pressure and microphone capture are not implemented.",
+    "limits": "Reduced normal viscoelastic contacts only: not full silicone geometry or a named formulation. Texture motion is prescribed surface height; tangential stick/slip, adhesive peeling, liquid and seal/cavity pressure are not implemented. Airborne KU100 capture is separate from contact transmission.",
     "material_note": "SI-valued illustrative reduced parameters; not fitted to a recording or identified commercial material."
+  },
+  "microphone": {
+    "model": "KU100_NF",
+    "radius_m": 0.25,
+    "azimuth_knots_deg": [
+      [
+        0.0,
+        -75.0
+      ],
+      [
+        0.6000000000000001,
+        -75.0
+      ],
+      [
+        5.4,
+        75.0
+      ],
+      [
+        6.0,
+        75.0
+      ]
+    ]
   }
 }

@@ -15,7 +15,7 @@ async function select(){
  if(!selected||!safe.test(selected.id))throw Error('Invalid scene');
  $('status').textContent='Checking audio, scene and trace…';const row=selected;
  const [a,b,c]=await Promise.all([file(row.audio,row),file(row.scene,row),file(row.trace,row)]);if(ticket!==loading)return;
- const parsed=parseWave(a);if(parsed.sampleRate!==48000||parsed.frames!==Math.round(row.seconds*48000)||parsed.peak>.80001)throw Error('Invalid audio');
+ const parsed=parseWave(a);if(parsed.sampleRate!==48000||parsed.frames!==Math.round(row.seconds*48000)||parsed.peak>.80001||!parsed.samples[0].some((v,i)=>v!==parsed.samples[1][i])||row.report.receiver?.device!=='Neumann KU100')throw Error('Invalid audio');
  definition=JSON.parse(new TextDecoder().decode(b));trace=JSON.parse(new TextDecoder().decode(c));
  if(definition.schema!=='shared-mechanics/1'||definition.evidence.status!=='unmeasured_reduced_model')throw Error('Invalid scope');
  urls.forEach(u=>URL.revokeObjectURL(u));urls=[];
@@ -23,10 +23,10 @@ async function select(){
  audio.src=au;$('download').href=au;$('download').download=row.audio;$('trace-download').href=tu;$('trace-download').download=row.trace;
  $('name').textContent=row.name;$('description').textContent=row.description;$('limits').textContent=row.limitations;$('parameters').textContent=JSON.stringify(definition,null,2);
  $('stats').replaceChildren();
- for(const [label,value] of [['Engine','SimulationEngine'],['Coordinates',row.report.node_count],['Time integration',row.report.integrator==='exact_linear_foh'?'Exact linear optimization':'Discrete-gradient'],['Physical balance residual',row.report.max_energy_balance_error_j.toExponential(2)+' J']]){
+ for(const [label,value] of [['Engine','SimulationEngine'],['Microphone','Neumann KU100 · measured airborne'],['Head-center radius',(row.report.receiver.configuration.radius_m*100)+' cm'],['Coordinates',row.report.node_count],['Time integration',row.report.integrator==='exact_linear_foh'?'Exact linear optimization':'Discrete-gradient'],['Physical balance residual',row.report.max_energy_balance_error_j.toExponential(2)+' J']]){
   const d=document.createElement('div'),s=document.createElement('span'),b=document.createElement('strong');s.textContent=label;b.textContent=value;d.append(s,b);$('stats').append(d);
  }
- $('stiffness').value=1;$('damping').value=1;$('play').disabled=false;$('export').disabled=false;$('status').textContent='Verified. This is the actual native-rendered audio.';
+ $('stiffness').value=1;$('damping').value=1;$('mic-path').value='current';$('play').disabled=false;$('export').disabled=false;$('status').textContent='Verified binaural render. Left/right filtering and timing come from measured KU100 responses.';
 }
 $('scene').onchange=()=>select().catch(fail);
 function fail(e){$('status').textContent='Cannot load: '+e.message;console.error(e);}
@@ -36,20 +36,41 @@ $('export').onclick=()=>{
   const s=structuredClone(definition);s.name+=' · edited parameters';
   for(const n of s.nodes){n.k2_n_m*=k;if(n.k4_n_m3)n.k4_n_m3*=k;n.damping_n_s_m=(n.damping_n_s_m||0)*d;if(n.memory)n.memory.stiffness_n_m*=k;if(n.driver?.stiffness_n_m)n.driver.stiffness_n_m*=k;}
   for(const e of s.couplings||[])e.stiffness_n_m*=k;
+  const path=$('mic-path').value,T=s.duration_s;
+  if(path==='left'||path==='right')s.microphone.azimuth_knots_deg=[[0,path==='left'?75:-75],[T,path==='left'?75:-75]];
+  else if(path==='arc')s.microphone.azimuth_knots_deg=[[0,-75],[T*.1,-75],[T*.9,75],[T,75]];
   download(new Blob([JSON.stringify(s,null,2)],{type:'application/json'}),'edited-scene.json');$('edit-status').textContent='Edited scene exported. Native validation and a new render are required. Playback above is unchanged.';
  }catch(e){$('edit-status').textContent=e.message;}
 };
-const canvas=$('state'),ctx=canvas.getContext('2d');
+const canvas=$('state'),ctx=canvas.getContext('2d'),mc=$('microphone-path'),mx=mc.getContext('2d');
+function sourceAngle(t){
+ const ks=definition.microphone.azimuth_knots_deg;t=Math.max(0,t);
+ let i=0;while(i<ks.length-2&&t>ks[i+1][0])i++;
+ let z=Math.min(1,Math.max(0,(t-ks[i][0])/(ks[i+1][0]-ks[i][0])));z=z*z*z*(10+z*(-15+6*z));
+ return ks[i][1]+z*(ks[i+1][1]-ks[i][1]);
+}
+function drawMic(t){
+ mx.clearRect(0,0,mc.width,mc.height);if(!definition)return;
+ const phi=sourceAngle(t)*Math.PI/180,cx=mc.width/2,cy=140,r=106;
+ mx.strokeStyle='#aebbb0';mx.lineWidth=2;mx.setLineDash([4,5]);mx.beginPath();mx.arc(cx,cy,r,0,2*Math.PI);mx.stroke();mx.setLineDash([]);
+ mx.fillStyle='#dae4d7';mx.beginPath();mx.ellipse(cx,cy,37,48,0,0,2*Math.PI);mx.fill();
+ mx.fillStyle='#416447';mx.fillRect(cx-44,cy-12,8,24);mx.fillRect(cx+36,cy-12,8,24);
+ mx.font='16px system-ui';mx.fillText('L',cx-66,cy+5);mx.fillText('R',cx+55,cy+5);mx.fillText('FRONT',cx-29,cy-64);
+ mx.beginPath();mx.arc(cx-r*Math.sin(phi),cy-r*Math.cos(phi),9,0,2*Math.PI);mx.fillStyle='#8a533a';mx.fill();
+ mx.fillStyle='#3f5240';mx.textAlign='center';mx.fillText('Source '+(phi*180/Math.PI).toFixed(1)+'° · '+(definition.microphone.radius_m*100)+' cm from head center',cx,275);mx.textAlign='left';
+}
+
 function draw(){
  ctx.clearRect(0,0,canvas.width,canvas.height);
- if(trace){const i=Math.min(trace.time_s.length-1,Math.max(0,Math.floor(audio.currentTime*240))),q=trace.coordinates_m[i],n=q.length;
+ const time=selected?Math.max(0,audio.currentTime-selected.report.receiver.propagation_delay_s-selected.report.receiver.fractional_delay_processing_latency_s):0;drawMic(time);
+ if(trace){const i=Math.min(trace.time_s.length-1,Math.max(0,Math.floor(time*240))),q=trace.coordinates_m[i],n=q.length;
   ctx.strokeStyle='#cad7c7';ctx.fillStyle='#65785f';ctx.font='17px system-ui';ctx.fillText('Coordinate state at '+audio.currentTime.toFixed(2)+' s',24,30);
   for(let j=0;j<n;j++){const x=50+(j+.5)*(canvas.width-100)/n,lim=definition.nodes[j].limit_m,y=120-75*q[j]/lim;
    ctx.beginPath();ctx.moveTo(x,55);ctx.lineTo(x,195);ctx.stroke();ctx.beginPath();ctx.arc(x,y,Math.min(12,canvas.width/n/6),0,2*Math.PI);ctx.fillStyle='#416447';ctx.fill();ctx.fillStyle='#60725e';ctx.fillText(String(j+1),x-5,214);
   }
  }requestAnimationFrame(draw);
 }draw();
-try{const r=await fetch('generated/manifest.json');if(!r.ok)throw Error('Missing manifest');manifest=await r.json();if(manifest.schema!=='shared-mechanics-examples/1'||manifest.single_engine!=='SimulationEngine'||manifest.source_recordings_included!==false)throw Error('Invalid source provenance');
+try{const r=await fetch('generated/manifest.json');if(!r.ok)throw Error('Missing manifest');manifest=await r.json();if(manifest.schema!=='shared-mechanics-examples/1'||manifest.single_engine!=='SimulationEngine'||manifest.source_recordings_included!==false||manifest.head_or_microphone_simulated!==true)throw Error('Invalid source provenance');
  for(const row of manifest.samples){if(!safe.test(row.id)||row.audio!==row.id+'.wav'||row.scene!==row.id+'.json'||row.trace!==row.id+'-trace.json')throw Error('Invalid manifest path');const o=document.createElement('option');o.value=row.id;o.textContent=row.name;$('scene').append(o);}
  $('scene').disabled=false;await select();
 }catch(e){fail(e);}

@@ -12,7 +12,7 @@ try{
   if(!ids.includes(row.id)||row.file!==row.id+'.wav'||!/^[a-f0-9]{64}$/.test(row.sha256))throw Error('Invalid file identity');
   const response=await fetch('./generated/'+row.file);if(!response.ok)throw Error('Missing '+row.file);const bytes=new Uint8Array(await response.arrayBuffer());
   if(await digest(bytes)!==row.sha256)throw Error('File hash mismatch');const wave=parseWave(bytes);
-  if(wave.sampleRate!==48000||wave.frames!==row.frames||wave.samples.length!==2||wave.peak>.50004)throw Error('Unexpected audio format or peak');
+  if(wave.sampleRate!==48000||wave.frames!==row.frames||wave.samples.length!==2||wave.peak>.50004||!wave.samples[0].some((v,i)=>v!==wave.samples[1][i])||row.receiver?.device!=='Neumann KU100')throw Error('Unexpected audio format or peak');
   const url=URL.createObjectURL(new Blob([bytes],{type:'audio/wav'}));
   // Explicit code/32768 conversion avoids codec-dependent PCM scaling. The
   // downloadable original remains PCM16; Float32 preview preserves its samples.
@@ -29,7 +29,7 @@ try{
   const play=document.createElement('button');play.textContent='Play taps from start';card.append(play);
   const download=document.createElement('a');download.className='download';download.textContent='Download generated WAV';card.append(download);
   const detail=document.createElement('p');detail.className='detail';card.append(detail);
-  function set(){audio.pause();const item=cache.get(slug+'-'+select.value);card.dataset.id=item.id;audio.src=item.preview;audio.load();download.href=item.url;download.download=item.file;detail.textContent=`${item.frames/48000} seconds · 48 kHz · PCM16 download / exact Float32 preview · dual mono. ${item.kind==='prior'?'Diagnostic prior, separate listening gain.':'Shorter/longer share the same gain.'}`;volume();}
+  function set(){audio.pause();const item=cache.get(slug+'-'+select.value);card.dataset.id=item.id;audio.src=item.preview;audio.load();download.href=item.url;download.download=item.file;detail.textContent=`${item.frames/48000} seconds · 48 kHz · PCM16 download / exact Float32 preview · measured KU100 binaural capture. ${item.kind==='prior'?'Diagnostic prior, separate listening gain.':'Shorter/longer share the same gain.'}`;volume();}
   audio.addEventListener('play',()=>{if(!audio.paused)players.forEach(other=>{if(other!==audio)other.pause();});});
   play.addEventListener('click',async()=>{try{players.forEach(other=>{if(other!==audio)other.pause();});audio.currentTime=0;await audio.play();}catch(e){$('status').textContent=e.message;}});select.addEventListener('change',set);$('items').append(card);set();
  }

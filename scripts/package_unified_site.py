@@ -11,6 +11,7 @@ from scripts.build_site import ROOT,_read_file,_json,MAX_SITE_BYTES
 from scripts.package_object_site import package as previous_package
 from scripts.build_unified_examples import EXAMPLES
 from ku100sim.unified import validate_scene
+from ku100sim.binaural import require_binaural,BANK_SHA256,validate_microphone
 APP=('unified/index.html','unified/app.js','unified/style.css')
 
 def collect(source):
@@ -32,8 +33,16 @@ def collect(source):
             if row[field]!=name or hashlib.sha256(files['unified/generated/'+name]).hexdigest()!=row['files_sha256'][name]:raise ValueError('Wrong asset identity')
         s=_json(files['unified/generated/'+row['scene']],'scene');duration,internal,p,*_=validate_scene(s)
         fs,a=wavfile.read(io.BytesIO(files['unified/generated/'+row['audio']]))
-        if fs!=48000 or a.dtype!=np.float32 or a.shape!=(round(duration*fs),2) or not np.isfinite(a).all() or abs(a).max()>.80001 or not np.array_equal(a[:,0],a[:,1]):raise ValueError('Invalid generated listening WAV')
-        r=row['report'];kh=r['kernel_sha256'];kernel=kernel or kh
+        if fs!=48000 or a.dtype!=np.float32 or a.shape!=(round(row['seconds']*fs),2) or not np.isfinite(a).all() or abs(a).max()>.80001:raise ValueError('Invalid generated listening WAV')
+        require_binaural(a)
+        r=row['report'];receiver=r.get('receiver',{})
+        config=s.get('microphone');radius,_=validate_microphone(config,duration)
+        expected=round(duration*fs)+int(radius/343*fs)+62+127
+        if (receiver.get('bank_sha256')!=BANK_SHA256 or receiver.get('device')!='Neumann KU100'
+            or receiver.get('configuration')!=config or receiver.get('output_frames')!=len(a)
+            or len(a)!=expected or receiver.get('source_domain')!='weighted_surface_velocity_proxy'
+            or m.get('head_or_microphone_simulated') is not True):raise ValueError('Missing or inconsistent measured binaural receiver')
+        kh=r['kernel_sha256'];kernel=kernel or kh
         if kh!=kernel or r['recording_input'] is not False or r['calibrated_microphone'] is not False or r['relative_balance_error']>1e-6:raise ValueError('Inconsistent kernel/physical report')
         if r['scene_sha256']!=hashlib.sha256(json.dumps(s,sort_keys=True,separators=(',',':')).encode()).hexdigest():raise ValueError('Scene/report mismatch')
         trace=_json(files['unified/generated/'+row['trace']],'trace')
