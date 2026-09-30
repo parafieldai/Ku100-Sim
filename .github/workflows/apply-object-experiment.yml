@@ -20,7 +20,7 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Apply exact tested source patch and sample-preserving preview fix
+      - name: Apply exact source patch and playback corrections
         shell: bash
         run: |
           set -euo pipefail
@@ -44,6 +44,15 @@ jobs:
           assert paths=={'docs/objects/VALIDATION.md','scripts/browser_objects.mjs','web/objects/app.js'}
           subprocess.run(['git','apply','--check','--index',str(fix)],check=True)
           subprocess.run(['git','apply','--index',str(fix)],check=True)
+          app=pathlib.Path('web/objects/app.js');s=app.read_text()
+          changes={"play.addEventListener('click',async()=>{try{audio.currentTime=0;await audio.play();}":"play.addEventListener('click',async()=>{try{players.forEach(other=>{if(other!==audio)other.pause();});audio.currentTime=0;await audio.play();}","audio.addEventListener('play',()=>players.forEach(other=>{if(other!==audio)other.pause();}));":"audio.addEventListener('play',()=>{if(!audio.paused)players.forEach(other=>{if(other!==audio)other.pause();});});"}
+          for before,after in changes.items():
+              assert s.count(before)==1
+              s=s.replace(before,after)
+          app.write_text(s)
+          doc=pathlib.Path('docs/objects/VALIDATION.md')
+          doc.write_text(doc.read_text()+'\nThe next browser run verified all nine decoded previews, seeks and original\ndownloads, but caught overlapping playback while the asynchronous play event\nwas still queued. The Play button now pauses the other players synchronously\nbefore starting its own audio; the play-event guard remains for native controls.\nThe exclusive-playback assertion is unchanged.\n')
+          subprocess.run(['git','add',str(app),str(doc)],check=True)
           subprocess.run(['git','diff','--cached','--check'],check=True)
           PY
           git rm .object-part1 .object-part2 .object-part3 .object-part4 .object-preview-fix.patch .github/workflows/apply-object-experiment.yml
