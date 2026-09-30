@@ -50,7 +50,8 @@ jobs:
           node-version: '22'
       - name: Install declared dependencies
         run: |
-          python -m pip install -r requirements.txt -r requirements-texture.txt
+          python -m pip install -r requirements.txt
+          python -m pip install -r requirements-texture.txt
           npm ci --prefix web
           npx --prefix web playwright install --with-deps chromium
       - name: Main and object model regression tests
