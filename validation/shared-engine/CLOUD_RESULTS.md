@@ -55,7 +55,7 @@ scores. There is no spatial-geometry convergence claim. All seven examples repor
 the same native kernel SHA-256:
 
 ```
-75246326661f9c47f9ec90fba017494a89065a35b47887e5056fcacbd832eaa7
+fc45131e8494346abb22d17b4bd3d774c1eae517f7600e265cecc976595f4008
 ```
 
 The tests independently check a closed-form damped oscillator, a DOP853 solution
@@ -89,3 +89,32 @@ cloud suite listed above.
 The final main CI, Pages deployment and live HTTPS verification must be checked
 at the integration commit. This successful branch run tests HTTP on a GitHub
 runner; it is not itself evidence that Pages has deployed.
+
+## Continuation verification and checksum correction
+
+On 30 September 2026, the interrupted implementation was recovered from artifact
+11114648586 again. Its complete archive SHA-256 and ZIP CRCs were verified. The
+native source matches Git blob `b93fa38128ea93270f2630d9c8f16cca6582a077`, and the
+Python API matches `895369c23026c2b2cbfc4a409aba93e4c449e310`, as read from main
+at `9b93e73b9eaf6caa11d2fdd159bc2f7236b7d6d8`.
+
+The earlier checksum text in this document was incorrectly
+`75246326661f9c47f9ec90fba017494a89065a35b47887e5056fcacbd832eaa7`.
+The corrected `fc45131e...` value above is independently computed from the
+actual C++ source and agrees with all seven generated example manifests. This is
+a documentation correction, not a renderer replacement.
+
+In this continuation, all 28 shared-core/publication tests and the four full
+six-second temporal-refinement comparisons were rerun successfully. All seven
+example WAVs were freshly regenerated and are byte-identical to the hashes in
+the deployed-site verification. The local environment was Python 3.13.5, NumPy
+2.3.5 and SciPy 1.17.0. The previously recorded full 173-test cloud result is not
+presented as a new local full-suite run.
+
+The actual main CI 36752742618, Pages deployment 36754494993 and live verification
+36754605646 were rechecked through GitHub. The downloaded live artifact 11115878353
+matches SHA-256 `84013826bc79be84d8c9b9eb7bdf00f09b514dce5e42bc01f1beeb024e77835d`
+and passes every ZIP CRC. Its report records 25 matched live assets and all seven
+playback/seek/download checks. No new local-browser or human listening test is
+claimed. The deployed application remains `f20ab7d`; this documentation-only
+correction does not require regenerating or redeploying its audio.
