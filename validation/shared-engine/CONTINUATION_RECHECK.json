@@ -1,0 +1,62 @@
+{
+  "schema": "shared-engine-continuation-recheck/1",
+  "checked_utc": "2026-09-30T18:23:17.218931+00:00",
+  "application_commit": "f20ab7dffa1c5990ec265e96c93bbe2d2c90628e",
+  "main_before_document_correction": "9b93e73b9eaf6caa11d2fdd159bc2f7236b7d6d8",
+  "native_sha256": "fc45131e8494346abb22d17b4bd3d774c1eae517f7600e265cecc976595f4008",
+  "native_git_blob_verified": "b93fa38128ea93270f2630d9c8f16cca6582a077",
+  "python_api_git_blob_verified": "895369c23026c2b2cbfc4a409aba93e4c449e310",
+  "source_artifact": {
+    "id": 11114648586,
+    "sha256": "b6839b17180687a108303590569ee42cc947ccf983f6e5c69eb028bdfb281606",
+    "all_zip_crcs_passed": true
+  },
+  "live_artifact": {
+    "id": 11115878353,
+    "sha256": "84013826bc79be84d8c9b9eb7bdf00f09b514dce5e42bc01f1beeb024e77835d",
+    "all_zip_crcs_passed": true
+  },
+  "rerun_tests_passed": 28,
+  "numerical_trajectories_rerun": 4,
+  "velocity_relative_l2": {
+    "fork-512": 0.00001847889063345755,
+    "plastic-snap": 0.001338196031984171,
+    "silicone-sweep": 0.00017334068953683918,
+    "silicone-hold": 0.00002371615989381359
+  },
+  "numerical_limit": 0.01,
+  "regenerated_wav_sha256": {
+    "fork-512": "a4e221d4cf284ad17ed116b172ca0cd583152cd7d838d154cb180cd5ebe663d1",
+    "fork-256": "effca3ce453f1391c618bd62982f3270f2f1860b54ebf2f465e3b236acd4dee3",
+    "fork-damped": "63007f385f064d7bf4a858a08c425ac62e687d8cc99969e2fb048ea2921858d3",
+    "plastic-snap": "5de41b12655da18e0c9e32689b28739e024f6de098d7fabc1ea926ad91dfb533",
+    "plastic-slow": "69744d0cfaf77e32c8f27fbc418cb6b30bcd08515f7044b0dbfc7cd7e03f5922",
+    "silicone-sweep": "621e5c54b44116093da1900bff6e9e82f48749cbd968a51f84c5c74b4e33edbf",
+    "silicone-hold": "8aeef08bd65584fc825d1f04937073aa7a9d9dfac26b6df62a0807b18b236038"
+  },
+  "all_seven_regenerated_wavs_match_deployed": true,
+  "all_seven_have_same_kernel": true,
+  "audio_frames_per_example": 288000,
+  "audio_sample_rate": 48000,
+  "audio_channels": "dual mono",
+  "audio_output_domain": "uncalibrated weighted surface velocity listening proxy",
+  "local_browser_retest_performed": false,
+  "main_ci_run": 36752742618,
+  "actual_pages_deploy_run": 36754494993,
+  "live_browser_run": 36754605646,
+  "live_browser_assets_matched": 25,
+  "live_browser_audio_examples_passed": 7,
+  "kernel_checksum_document_correction": {
+    "incorrect": "75246326661f9c47f9ec90fba017494a89065a35b47887e5056fcacbd832eaa7",
+    "correct": "fc45131e8494346abb22d17b4bd3d774c1eae517f7600e265cecc976595f4008",
+    "scope": "Documentation only. Native kernel, generated reports and WAVs unchanged."
+  },
+  "material_calibrated": false,
+  "human_listening_assessment_performed": false,
+  "new_subagent_review_performed": false,
+  "environment": {
+    "python": "3.13.5",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0"
+  }
+}
