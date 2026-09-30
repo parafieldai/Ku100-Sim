@@ -95,6 +95,13 @@ jobs:
           KU100_SITE_DIR: verified/dist
           KU100_LONG_REPORT_DIR: validation/local/live-pages/long
         run: node scripts/browser_long.mjs
+      - name: Verify generated object sounds on public Pages
+        if: steps.source.outputs.ready == 'true'
+        env:
+          KU100_OBJECT_URL: https://parafieldai.github.io/Ku100-Sim/objects/
+          KU100_SITE_DIR: verified/dist
+          KU100_OBJECT_REPORT_DIR: validation/local/live-pages/objects
+        run: node scripts/browser_objects.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

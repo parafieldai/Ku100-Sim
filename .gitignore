@@ -22,3 +22,7 @@ outputs/target-study/
 web/source/generated/
 web/source/.texture-*/
 /web/long/generated/
+
+# Reproducible item auditions, never measured waveform assets
+/web/objects/generated/
+/web/objects/.objects-*/

@@ -92,6 +92,12 @@ jobs:
         run: python scripts/package_long_site.py
       - name: Verify longer audio decoding, playback, seeking and downloads
         run: node scripts/browser_long.mjs
+      - name: Generate distinct data-assisted object tapping sounds
+        run: python scripts/build_object_examples.py
+      - name: Publish only the validated generated object files
+        run: python scripts/package_object_site.py
+      - name: Verify real object-audio playback and downloads
+        run: node scripts/browser_objects.mjs
       - name: Retain tested native examples and verification evidence
         uses: actions/upload-artifact@v4
         if: always()

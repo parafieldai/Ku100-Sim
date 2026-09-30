@@ -36,3 +36,11 @@ Earlier implementation-specific audits remain at [physics-audit.md](../validatio
 Follow the root [README](../README.md). Successful main CI runs retain `dist/`, server-free `outputs/review/target.html`, the original `outputs/review/Ku100-Research-Preview.html`, original stereo WAVs and `validation/local/` reports. Pages deploys only the exact successful main CI artifact. Both the original viewer and target comparison have post-deployment HTTP/browser checks; a successful availability check or skipped deploy is not a live-site pass.
 
 The source papers justify methods and document measurements. Neither cited literature, numerical agreement nor a passing workflow certifies KU100 wet-contact realism. Geometry/material identification, matched bilateral recordings and a human listening assessment remain separate requirements.
+
+## Data-assisted object-impact extension
+
+[Object research and dataset scope](objects/RESEARCH.md) covers three named
+RealImpact objects and the new modal/transient source. [Validation boundaries](objects/VALIDATION.md)
+and [numerical assessment](../validation/objects/assessment.json) retain the
+unmeasured-prior failure and the two distance-transfer failures. These are new
+item-specific tapping models, not renamed near-ear textures or new KU100 geometry.

@@ -77,4 +77,5 @@ def main():
    row.update({'status':('audio subset extracted' if any(x['name']=='deconvolved_0db.npy' and 'sha256' in x for x in row['arrays']) else 'metadata only'),'network_bytes':remote.used,'ranges':remote.receipts})
   except Exception as e:row.update({'status':'failed','error':str(e)})
   (a.out/'receipt.json').write_text(json.dumps(report,indent=2)+'\n');print(name,row['status'],row.get('error',''),flush=True)
+ if any(r['status']!='audio subset extracted' for r in report['objects']):raise SystemExit('At least one requested audio subset was unavailable; see receipt.json')
 if __name__=='__main__':main()
