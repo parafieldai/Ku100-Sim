@@ -1,0 +1,38 @@
+name: Acquire impact measurements
+on:
+  push:
+    branches: [sfx-object-validation]
+    paths: ['scripts/acquire_impact_subset.py', '.github/workflows/impact-data.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python -m pip install numpy==2.3.5
+      - name: Acquire small, explicitly identified measurement slices
+        run: python scripts/acquire_impact_subset.py
+      - name: Record exact source without credentials
+        if: always()
+        run: |
+          mkdir -p validation/local/impact-source
+          git archive --format=tar HEAD > validation/local/impact-source/source.tar
+          git bundle create validation/local/impact-source/source.bundle --all HEAD
+          git rev-parse HEAD > validation/local/impact-source/commit.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: impact-measurements-${{ github.run_id }}
+          retention-days: 7
+          path: |
+            validation/local/impact-data/
+            validation/local/impact-source/
