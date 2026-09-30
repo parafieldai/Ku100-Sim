@@ -1,0 +1,18 @@
+{
+  "version": "ku100-scene/1",
+  "name": "Rejected generic fixture comparator / right",
+  "preset": "stroke",
+  "side": "right",
+  "duration_s": 6,
+  "seed": 1,
+  "physics": {
+    "load_n": 0.01,
+    "speed_m_s": 0.035,
+    "wetness": 0.7,
+    "modes_per_plate": 256,
+    "unsteady_viscous_losses": 1
+  },
+  "receiver": {
+    "mode": "contact"
+  }
+}

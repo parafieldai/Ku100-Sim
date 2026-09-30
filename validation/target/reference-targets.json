@@ -1,0 +1,347 @@
+{
+  "schema": "target-reference-spec/1",
+  "target": "Nonverbal close wet mouth/artificial-ear interaction from the user-provided references",
+  "reference_audio_public": false,
+  "target_user_acceptance": "not_assessed",
+  "calibrated_contact_data": false,
+  "references": [
+    {
+      "id": "chapter-03",
+      "title": "Chapter 03 / right-labelled reference",
+      "chapter": 3,
+      "side_label": "right",
+      "sha256": "8fd947838376589e9906378b4bbabc4ff629e3ae2e226566edbfc9cfe0c06997",
+      "source_rate_hz": 44100,
+      "source_frames": 5292000,
+      "source_channels": 2,
+      "crop_s": [
+        57.0,
+        63.0
+      ],
+      "crop_frames": [
+        2513700,
+        2778300
+      ],
+      "crop_pcm_f32_sha256": "0d292412fed7a0b3dfbe69cdec12e2b03a0d4789d51d10f9b018eb26ff4ee4d7",
+      "status": "local-reference-required",
+      "physical_action": "unverified",
+      "device": "unverified",
+      "source_split": "excluded from current parameter fit; previously inspected, not a blind test",
+      "metrics": {
+        "duration_s": 6.0,
+        "sample_rate_hz": 44100,
+        "rms": [
+          0.0015571304713408538,
+          0.13128485831300793
+        ],
+        "rms_dbfs": [
+          -56.153499930918535,
+          -17.63570720407639
+        ],
+        "ild_left_minus_right_db": -38.517792726842146,
+        "audio_bands_hz": [
+          [
+            20,
+            250
+          ],
+          [
+            250,
+            1000
+          ],
+          [
+            1000,
+            4000
+          ],
+          [
+            4000,
+            10000
+          ],
+          [
+            10000,
+            20000
+          ]
+        ],
+        "band_power_fraction_per_ear": [
+          [
+            0.6990950182650856,
+            0.060662357100868154,
+            0.23936231983140466,
+            0.0008120918735921188,
+            6.821292904934088e-05
+          ],
+          [
+            0.9044802004674024,
+            0.08889415348047089,
+            0.005893920626730405,
+            0.0006224001514153138,
+            0.00010932527398113593
+          ]
+        ],
+        "sub_20hz_fraction": [
+          0.004333894069341974,
+          0.0015141418331658754
+        ],
+        "acoustic_peak_rate_hz": 2.8333333333333335,
+        "peak": 0.857421875,
+        "full_scale_exceeded": false,
+        "coherence_mean_0_24k": 0.12798400466274848
+      }
+    },
+    {
+      "id": "chapter-05",
+      "title": "Chapter 05 / right-labelled reference",
+      "chapter": 5,
+      "side_label": "right",
+      "sha256": "775fa4cc85ee7f2b48a8b29ceeeb565efaa5530e29084b47cb768b3150f73845",
+      "source_rate_hz": 44100,
+      "source_frames": 5909400,
+      "source_channels": 2,
+      "crop_s": [
+        64.0,
+        70.0
+      ],
+      "crop_frames": [
+        2822400,
+        3087000
+      ],
+      "crop_pcm_f32_sha256": "007719bbf7f283927508d4d2a709e6da06f650f0115a3328476608f0433a0ea7",
+      "status": "local-reference-required",
+      "physical_action": "unverified",
+      "device": "unverified",
+      "source_split": "excluded from current parameter fit; previously inspected, not a blind test",
+      "metrics": {
+        "duration_s": 6.0,
+        "sample_rate_hz": 44100,
+        "rms": [
+          0.000861827894806331,
+          0.10134910881700748
+        ],
+        "rms_dbfs": [
+          -61.29158906398284,
+          -19.88360131584918
+        ],
+        "ild_left_minus_right_db": -41.407987748133664,
+        "audio_bands_hz": [
+          [
+            20,
+            250
+          ],
+          [
+            250,
+            1000
+          ],
+          [
+            1000,
+            4000
+          ],
+          [
+            4000,
+            10000
+          ],
+          [
+            10000,
+            20000
+          ]
+        ],
+        "band_power_fraction_per_ear": [
+          [
+            0.6651606883398645,
+            0.019229710518591323,
+            0.31399800552128276,
+            0.0014156738811702484,
+            0.00019592173909118148
+          ],
+          [
+            0.8855497287820718,
+            0.05088020718145956,
+            0.06239385752968217,
+            0.0011281903508037724,
+            4.801615598260065e-05
+          ]
+        ],
+        "sub_20hz_fraction": [
+          0.007876106029349178,
+          0.0013892453075113641
+        ],
+        "acoustic_peak_rate_hz": 2.1666666666666665,
+        "peak": 0.873687744140625,
+        "full_scale_exceeded": false,
+        "coherence_mean_0_24k": 0.12856752106334865
+      }
+    },
+    {
+      "id": "chapter-04",
+      "title": "Chapter 04 / left-labelled reference",
+      "chapter": 4,
+      "side_label": "left",
+      "sha256": "5bde0407c892ca5b1188aed43ee3dedf90754c332d70708a8d0ebaf53d1698ca",
+      "source_rate_hz": 44100,
+      "source_frames": 8114400,
+      "source_channels": 2,
+      "crop_s": [
+        89.0,
+        95.0
+      ],
+      "crop_frames": [
+        3924900,
+        4189500
+      ],
+      "crop_pcm_f32_sha256": "f523e9fd475a42d39ac67402a0d8bdec81217243813a9469561112cd9cd5e56f",
+      "status": "local-reference-required",
+      "physical_action": "unverified",
+      "device": "unverified",
+      "source_split": "excluded from current parameter fit; previously inspected, not a blind test",
+      "metrics": {
+        "duration_s": 6.0,
+        "sample_rate_hz": 44100,
+        "rms": [
+          0.08638359556131993,
+          0.03298334459992957
+        ],
+        "rms_dbfs": [
+          -21.271374463760182,
+          -29.63410615657997
+        ],
+        "ild_left_minus_right_db": 8.36273169281979,
+        "audio_bands_hz": [
+          [
+            20,
+            250
+          ],
+          [
+            250,
+            1000
+          ],
+          [
+            1000,
+            4000
+          ],
+          [
+            4000,
+            10000
+          ],
+          [
+            10000,
+            20000
+          ]
+        ],
+        "band_power_fraction_per_ear": [
+          [
+            0.9590978249469156,
+            0.035624058254402916,
+            0.005273717070829269,
+            3.9724115092179835e-06,
+            4.273163428873449e-07
+          ],
+          [
+            0.8877360247952734,
+            0.04183063154346467,
+            0.06864462531997532,
+            0.0016990844066530084,
+            8.963393463366239e-05
+          ]
+        ],
+        "sub_20hz_fraction": [
+          0.0009085229217184565,
+          0.00429929734330451
+        ],
+        "acoustic_peak_rate_hz": 2.8333333333333335,
+        "peak": 0.88165283203125,
+        "full_scale_exceeded": false,
+        "coherence_mean_0_24k": 0.03330481365278989
+      }
+    },
+    {
+      "id": "chapter-06",
+      "title": "Chapter 06 / left-labelled reference",
+      "chapter": 6,
+      "side_label": "left",
+      "sha256": "6de13ac41b4f0001815d43413d7749e0783ab2846d6fb8ac4e8e0ef6f6cfd6ee",
+      "source_rate_hz": 44100,
+      "source_frames": 4806900,
+      "source_channels": 2,
+      "crop_s": [
+        51.5,
+        57.5
+      ],
+      "crop_frames": [
+        2271150,
+        2535750
+      ],
+      "crop_pcm_f32_sha256": "9fa786358482b184e9817b84acb7a0f514075940cff9dafafe3c7fdb28c3828e",
+      "status": "local-reference-required",
+      "physical_action": "unverified",
+      "device": "unverified",
+      "source_split": "excluded from current parameter fit; previously inspected, not a blind test",
+      "metrics": {
+        "duration_s": 6.0,
+        "sample_rate_hz": 44100,
+        "rms": [
+          0.002182755514005151,
+          0.0010388486896029828
+        ],
+        "rms_dbfs": [
+          -53.21989812012491,
+          -59.66895407399373
+        ],
+        "ild_left_minus_right_db": 6.449055953868815,
+        "audio_bands_hz": [
+          [
+            20,
+            250
+          ],
+          [
+            250,
+            1000
+          ],
+          [
+            1000,
+            4000
+          ],
+          [
+            4000,
+            10000
+          ],
+          [
+            10000,
+            20000
+          ]
+        ],
+        "band_power_fraction_per_ear": [
+          [
+            0.10843640494519036,
+            0.09762350365348493,
+            0.7408121253980008,
+            0.052835207581143274,
+            0.0002927584221806025
+          ],
+          [
+            0.14753717472212918,
+            0.1681192618912118,
+            0.6468174000962972,
+            0.03696870900782886,
+            0.0005574542825328959
+          ]
+        ],
+        "sub_20hz_fraction": [
+          0.0009316274508776665,
+          0.001768697793654342
+        ],
+        "acoustic_peak_rate_hz": 3.5,
+        "peak": 0.076202392578125,
+        "full_scale_exceeded": false,
+        "coherence_mean_0_24k": 0.2629405200141476
+      }
+    }
+  ],
+  "excluded": "Chapter 02 is labelled as mixed objects/mouth/reverb and is not an isolated primary target.",
+  "required_behavior": [
+    "slide",
+    "rolling contact",
+    "peel",
+    "release",
+    "prior-contact dependence",
+    "synchronized genuine stereo"
+  ],
+  "event_labels": "Acoustic peaks are detector proposals, NOT observed peel/bubble/suction events."
+}

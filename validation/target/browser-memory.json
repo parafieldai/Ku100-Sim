@@ -1,0 +1,33 @@
+{
+  "schema": "target-browser/1",
+  "passed": true,
+  "checks": [
+    "Honest target-failure label and hidden randomized method identity",
+    "Actual supplied reference crops load with original stereo sample hashes",
+    "Paused seeking does not qualify as playback for listener feedback",
+    "Actual reference/candidate playback progresses; both must play before a rating",
+    "No prefilled results; actual submitted observation exports locally without executing notes",
+    "Listening gain does not change original WAV download bytes",
+    "Method reveal exposes separate spectrum/stereo discrepancies, never a realism percentage",
+    "All four original reference crop downloads preserve exact stereo samples",
+    "All six generated candidates play and download with their original SHA-256 identities",
+    "18 research entries distinguish primary target, controls and unimplemented future items",
+    "Desktop/mobile layout fits without horizontal overflow",
+    "No uncaught browser errors or external/network upload requests"
+  ],
+  "actual_user_reference_crops": true,
+  "reference_import_fixture": "actual supplied crops embedded privately",
+  "execution_mode": "self-authored HTML in memory; file/HTTP navigation not tested",
+  "human_listening_performed": false,
+  "errors": [],
+  "external_requests": [],
+  "browser": "144.0.7559.96",
+  "generated_candidate_ids": [
+    "burst-left-a",
+    "burst-right-a",
+    "burst-right-b",
+    "continuous-right",
+    "fixture-left",
+    "fixture-right"
+  ]
+}

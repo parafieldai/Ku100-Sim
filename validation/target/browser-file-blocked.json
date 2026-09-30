@@ -1,0 +1,12 @@
+{
+  "schema": "target-browser/1",
+  "passed": false,
+  "checks": [],
+  "actual_user_reference_crops": true,
+  "reference_import_fixture": "actual supplied crops embedded privately",
+  "human_listening_performed": false,
+  "errors": [],
+  "external_requests": [],
+  "browser": "144.0.7559.96",
+  "error": "page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at file:///mnt/data/Ku100-Target-Comparison-PRIVATE.html\nCall log:\n  - navigating to \"file:///mnt/data/Ku100-Target-Comparison-PRIVATE.html\", waiting until \"networkidle\"\n\n    at /mnt/data/ku100-target-work/scripts/browser_target.mjs:45:14"
+}

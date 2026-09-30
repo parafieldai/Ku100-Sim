@@ -1,0 +1,2 @@
+Target acceptance is NOT established. This is an expected failing product gate, not a passed simulation.
+{"assessment_completed": true, "target_accepted": false, "report": "validation/local/required-target-gate.json"}

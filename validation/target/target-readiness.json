@@ -1,0 +1,324 @@
+{
+  "schema": "target-readiness/1",
+  "assessment_completed": true,
+  "target_accepted": false,
+  "requirements": [
+    {
+      "requirement": "Fresh waveform, no runtime recording retrieval",
+      "status": "implemented for the empirical comparator; not a physical realism pass"
+    },
+    {
+      "requirement": "Observed target action/source identity",
+      "status": "unresolved; chapter labels and waveform alone are insufficient"
+    },
+    {
+      "requirement": "Tongue/ear contact, rolling, peel, release and wet history",
+      "status": "not implemented by this comparator or validated in the generic fixture"
+    },
+    {
+      "requirement": "Calibrated bilateral contact transmission",
+      "status": "not established"
+    },
+    {
+      "requirement": "Prediction of unseen physical actions/conditions",
+      "status": "not established; test crops previously inspected"
+    },
+    {
+      "requirement": "Reference-relevant listening acceptance",
+      "status": "not performed; no prefilled ratings"
+    }
+  ],
+  "comparisons": [
+    {
+      "reference": "chapter-03",
+      "candidate": "burst-right-a",
+      "ild_error_db": 3.085243283627264,
+      "near_1_to_4khz_fraction_reference": 0.005893920626730405,
+      "near_1_to_4khz_fraction_candidate": 0.2534732735991353,
+      "relative_band_error_db_per_ear": [
+        [
+          -5.360816225879815,
+          3.9777955638246447,
+          4.292423074256914,
+          3.0014298081580475,
+          4.708705070963468
+        ],
+        [
+          -3.507171435941425,
+          5.632701539442198,
+          16.335278908454324,
+          14.232078994244187,
+          11.344874461876302
+        ]
+      ],
+      "detected_peak_rate_error_hz": 0.33333333333333304
+    },
+    {
+      "reference": "chapter-03",
+      "candidate": "burst-right-b",
+      "ild_error_db": 2.7680235778563542,
+      "near_1_to_4khz_fraction_reference": 0.005893920626730405,
+      "near_1_to_4khz_fraction_candidate": 0.26127984894992196,
+      "relative_band_error_db_per_ear": [
+        [
+          -5.00786037755814,
+          4.213684217705928,
+          4.114437636081258,
+          3.333802567671662,
+          4.889021339290932
+        ],
+        [
+          -3.5673319219688726,
+          5.599715531894964,
+          16.46701633398797,
+          14.301808530706843,
+          11.154087618008816
+        ]
+      ],
+      "detected_peak_rate_error_hz": 0.5
+    },
+    {
+      "reference": "chapter-03",
+      "candidate": "continuous-right",
+      "ild_error_db": 1.79122686412029,
+      "near_1_to_4khz_fraction_reference": 0.005893920626730405,
+      "near_1_to_4khz_fraction_candidate": 0.24744679552034218,
+      "relative_band_error_db_per_ear": [
+        [
+          -3.77607315785795,
+          4.94220781709066,
+          3.330019013716552,
+          4.132316578048256,
+          5.863938406754521
+        ],
+        [
+          -3.394164587560014,
+          5.581441776813829,
+          16.23077551072179,
+          14.139481130023569,
+          9.81205958612335
+        ]
+      ],
+      "detected_peak_rate_error_hz": 2.8333333333333335
+    },
+    {
+      "reference": "chapter-03",
+      "candidate": "fixture-right",
+      "ild_error_db": 35.03666287546636,
+      "near_1_to_4khz_fraction_reference": 0.005893920626730405,
+      "near_1_to_4khz_fraction_candidate": 2.843345869012721e-07,
+      "relative_band_error_db_per_ear": [
+        [
+          -0.8557957775440721,
+          8.464300288532806,
+          -80.95650549773319,
+          -89.09605164631583,
+          -78.33866698448526
+        ],
+        [
+          -0.5038692933224863,
+          3.4026689113177113,
+          -43.16574591761415,
+          -58.85090608042148,
+          -70.96801379091568
+        ]
+      ],
+      "detected_peak_rate_error_hz": 2.331038057159781
+    },
+    {
+      "reference": "chapter-05",
+      "candidate": "burst-right-a",
+      "ild_error_db": 5.975438304918782,
+      "near_1_to_4khz_fraction_reference": 0.06239385752968217,
+      "near_1_to_4khz_fraction_candidate": 0.2534732735991353,
+      "relative_band_error_db_per_ear": [
+        [
+          -5.144719892892404,
+          8.967260911838007,
+          3.1137120319476668,
+          0.5878492593565022,
+          0.12654578414171128
+        ],
+        [
+          -3.4153103360080967,
+          8.055944814770719,
+          6.087903368450007,
+          11.648952080920502,
+          14.918206316876779
+        ]
+      ],
+      "detected_peak_rate_error_hz": 1.0
+    },
+    {
+      "reference": "chapter-05",
+      "candidate": "burst-right-b",
+      "ild_error_db": 5.658218599147872,
+      "near_1_to_4khz_fraction_reference": 0.06239385752968217,
+      "near_1_to_4khz_fraction_candidate": 0.26127984894992196,
+      "relative_band_error_db_per_ear": [
+        [
+          -4.791764044570731,
+          9.20314956571929,
+          2.9357265937720105,
+          0.9202220188701166,
+          0.30686205246917486
+        ],
+        [
+          -3.475470822035544,
+          8.022958807223484,
+          6.219640793983655,
+          11.71868161738316,
+          14.727419473009293
+        ]
+      ],
+      "detected_peak_rate_error_hz": 1.166666666666667
+    },
+    {
+      "reference": "chapter-05",
+      "candidate": "continuous-right",
+      "ild_error_db": 4.681421885411808,
+      "near_1_to_4khz_fraction_reference": 0.06239385752968217,
+      "near_1_to_4khz_fraction_candidate": 0.24744679552034218,
+      "relative_band_error_db_per_ear": [
+        [
+          -3.5599768248705397,
+          9.931673165104023,
+          2.1513079714073053,
+          1.7187360292467107,
+          1.281779119932764
+        ],
+        [
+          -3.3023034876266855,
+          8.00468505214235,
+          5.983399970717476,
+          11.556354216699882,
+          13.385391441123826
+        ]
+      ],
+      "detected_peak_rate_error_hz": 3.5000000000000004
+    },
+    {
+      "reference": "chapter-05",
+      "candidate": "fixture-right",
+      "ild_error_db": 37.92685789675788,
+      "near_1_to_4khz_fraction_reference": 0.06239385752968217,
+      "near_1_to_4khz_fraction_candidate": 2.843345869012721e-07,
+      "relative_band_error_db_per_ear": [
+        [
+          -0.6396994445566617,
+          13.45376563654617,
+          -82.13521654004245,
+          -91.50963219511736,
+          -82.92082627130702
+        ],
+        [
+          -0.4120081933891572,
+          5.825912186646231,
+          -53.41312145761847,
+          -61.43403299374516,
+          -67.39468193591522
+        ]
+      ],
+      "detected_peak_rate_error_hz": 2.997704723826448
+    },
+    {
+      "reference": "chapter-04",
+      "candidate": "burst-left-a",
+      "ild_error_db": 29.483117809699475,
+      "near_1_to_4khz_fraction_reference": 0.005273717070829269,
+      "near_1_to_4khz_fraction_candidate": 0.24402452454008522,
+      "relative_band_error_db_per_ear": [
+        [
+          -3.0048667681683288,
+          8.473610054986123,
+          16.65316648604738,
+          null,
+          null
+        ],
+        [
+          -5.007441820178564,
+          6.989940854369278,
+          8.62994486812314,
+          7.402020524319913,
+          7.6400125678086805
+        ]
+      ],
+      "detected_peak_rate_error_hz": 0.6666666666666665
+    },
+    {
+      "reference": "chapter-04",
+      "candidate": "fixture-left",
+      "ild_error_db": 4.881601841444002,
+      "near_1_to_4khz_fraction_reference": 0.005273717070829269,
+      "near_1_to_4khz_fraction_candidate": 2.843345869012721e-07,
+      "relative_band_error_db_per_ear": [
+        [
+          -0.7585077105437199,
+          7.373966974265192,
+          -42.68287135497124,
+          null,
+          null
+        ],
+        [
+          -1.8932721452342327,
+          10.078548886848818,
+          -75.53201303384411,
+          -92.30214954168102,
+          -79.52472460934717
+        ]
+      ],
+      "detected_peak_rate_error_hz": 2.331038057159781
+    },
+    {
+      "reference": "chapter-06",
+      "candidate": "burst-left-a",
+      "ild_error_db": 31.39679354865045,
+      "near_1_to_4khz_fraction_reference": 0.7408121253980008,
+      "near_1_to_4khz_fraction_candidate": 0.24402452454008522,
+      "relative_band_error_db_per_ear": [
+        [
+          6.462011185464701,
+          4.095500076157203,
+          -4.822746068764704,
+          -3.403300126899441,
+          5.4339729693100445
+        ],
+        [
+          2.786381994823623,
+          0.9487103226884104,
+          -1.111806687020557,
+          -5.974172781475978,
+          -0.29735538474878664
+        ]
+      ],
+      "detected_peak_rate_error_hz": 0.0
+    },
+    {
+      "reference": "chapter-06",
+      "candidate": "fixture-left",
+      "ild_error_db": 2.967926102493028,
+      "near_1_to_4khz_fraction_reference": 0.7408121253980008,
+      "near_1_to_4khz_fraction_candidate": 2.843345869012721e-07,
+      "relative_band_error_db_per_ear": [
+        [
+          8.70837024308931,
+          2.995856995436274,
+          -64.15878390978332,
+          -78.13944336443708,
+          -75.24590202549157
+        ],
+        [
+          5.900551669767955,
+          4.037318355167949,
+          -85.2737645889878,
+          -105.6783428474769,
+          -87.46209256190465
+        ]
+      ],
+      "detected_peak_rate_error_hz": 1.6643713904931143
+    }
+  ],
+  "failure_interpretation": "Right-side aggregate separation improves relative to the generic fixture, but spectrum is wrong and the left-profile transfer across the selected excerpts fails. The continuous negative control can also score well on a single descriptor. This source is not accepted as the target simulator.",
+  "publication_status": "Comparison tool may be published as a research study; the target simulator may not be advertised as complete.",
+  "study_sha256": "6acb5bf74359f46647e12d149d83bb5c0942b0e11e11017f230b257d4104e8ce"
+}

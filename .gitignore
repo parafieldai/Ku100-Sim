@@ -13,3 +13,7 @@ web/examples/*.ku100.json
 validation/local/
 
 web/target-study.json
+
+# Generated empirical comparison, never target reference recordings
+web/target/generated/
+outputs/target-study/

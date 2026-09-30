@@ -1,0 +1,417 @@
+{
+  "schema": "trigger-research/1",
+  "scope": "SFX item/action/source taxonomy; primary target remains wet mouth/artificial ear",
+  "sources": [
+    {
+      "id": "audioset-contact",
+      "title": "AudioSet: surface contact",
+      "url": "https://research.google.com/audioset/ontology/surface_contact_1.html",
+      "authors": "Google Research",
+      "access": "ontology inspected",
+      "supports": "Distinct rub, scrape, scratch and roll labels; an event vocabulary, not a mechanical calibration.",
+      "checked_date": "2026-09-29"
+    },
+    {
+      "id": "audioset-liquid",
+      "title": "AudioSet: liquid",
+      "url": "https://research.google.com/audioset/ontology/liquid.html",
+      "authors": "Google Research",
+      "access": "ontology inspected",
+      "supports": "Separates squish, drip, splash and other liquid events. A descriptive class does not identify a microscopic sound source.",
+      "checked_date": "2026-09-29"
+    },
+    {
+      "id": "ucs",
+      "title": "Universal Category System",
+      "url": "https://universalcategorysystem.com/",
+      "authors": "UCS authors",
+      "access": "project page inspected",
+      "supports": "Public-domain SFX organization and naming. No simulator parameters or recording license are implied.",
+      "checked_date": "2026-09-29"
+    },
+    {
+      "id": "realimpact",
+      "title": "RealImpact: A Dataset of Impact Sound Fields for Real Objects",
+      "url": "https://samuelpclarke.com/realimpact/",
+      "authors": "Clarke et al., CVPR 2023",
+      "access": "author project inspected; no new trial downloaded",
+      "supports": "150,000 controlled impact recordings of 50 objects, with force/location/material information. Stronger relevance for dry impacts than for wet ears.",
+      "checked_date": "2026-09-29"
+    },
+    {
+      "id": "greatest-hits",
+      "title": "Visually Indicated Sounds / Greatest Hits",
+      "url": "https://andrewowens.com/vis/",
+      "authors": "Owens et al., 2016",
+      "access": "author project inspected; no new trial downloaded",
+      "supports": "Hit/scratch audiovisual examples across materials. Its example-based waveform synthesis is NOT adopted as runtime architecture.",
+      "checked_date": "2026-09-29"
+    },
+    {
+      "id": "fsd50k",
+      "title": "FSD50K",
+      "url": "https://zenodo.org/records/4060432",
+      "authors": "Fonseca et al.",
+      "access": "release metadata inspected; no new trial downloaded",
+      "supports": "51,197 sound clips in 200 classes; broad sound taxonomy. Audio licenses are per clip, not a blanket right to redistribute.",
+      "checked_date": "2026-09-29"
+    },
+    {
+      "id": "schaeffer",
+      "title": "SCHAEFFER sound-object dataset",
+      "url": "https://huggingface.co/datasets/dbschaeffer/SCHAEFFER",
+      "authors": "Berta and Ghisi, DAFx 2025",
+      "access": "dataset card and example rows inspected; audio not downloaded",
+      "supports": "1,000 designed/recorded sound objects, annotated onset, sustain, offset, pulse structure and processes. CC BY 4.0 data; code has a separate GPL license. Processed/designed sounds are not unprocessed physical trials.",
+      "checked_date": "2026-09-29"
+    },
+    {
+      "id": "schaeffer-kaggle",
+      "title": "SCHAEFFER on Kaggle",
+      "url": "https://www.kaggle.com/datasets/maurizioberta/test-schaeffer",
+      "authors": "Berta and Ghisi",
+      "access": "author-linked listing resolved; no readable data body or downloaded sample",
+      "supports": "An actual author-linked Kaggle audio resource, not the previously found channel-analytics dataset. Primary card inspected on Hugging Face.",
+      "checked_date": "2026-09-29"
+    },
+    {
+      "id": "sonicgauss",
+      "title": "SonicGauss dataset card",
+      "url": "https://huggingface.co/datasets/AiEson2/SonicGauss",
+      "authors": "SonicGauss authors",
+      "access": "card inspected; no new trial downloaded",
+      "supports": "Processed ObjectFolder synthetic/real impact material and visual assets. Preserve synthetic-versus-measured identities; not force-to-wet-ear data.",
+      "checked_date": "2026-09-29"
+    },
+    {
+      "id": "cluster",
+      "title": "Cluster Haptic Texture Dataset",
+      "url": "https://www.nature.com/articles/s41597-026-06760-z",
+      "authors": "Eguchi et al., 2026",
+      "access": "descriptor plus previous paired-trial audit retained",
+      "supports": "Sliding motion, force, acceleration and raw/processed audio. Raw channels are contact-plus-machine and machine-reference, not two ears; do not transfer the processed spectrum blindly.",
+      "checked_date": "2026-09-29"
+    },
+    {
+      "id": "tape",
+      "title": "Screeching sound of peeling tape",
+      "url": "https://journals.aps.org/pre/abstract/10.1103/p19h-9ysx",
+      "authors": "Li et al., Physical Review E 113, 025508 (2026)",
+      "access": "primary abstract and supplementary description inspected",
+      "supports": "Synchronized microphones and high-speed imaging connect the investigated tape sound to fracture-tip shock pulses. NOT evidence that saliva clicks use that mechanism.",
+      "checked_date": "2026-09-29"
+    },
+    {
+      "id": "crumple",
+      "title": "Universal power law in the noise from a crumpled elastic sheet",
+      "url": "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.53.1465",
+      "authors": "Kramer and Lobkovsky, 1996",
+      "access": "primary abstract inspected",
+      "supports": "Recorded Mylar clicks accompany rapid configuration changes. Material, geometry and history must remain distinct from a generic hiss source.",
+      "checked_date": "2026-09-29"
+    },
+    {
+      "id": "sms",
+      "title": "Spectral Modeling Synthesis",
+      "url": "https://mtg.upf.edu/node/251",
+      "authors": "Serra and Smith, 1990",
+      "access": "author publication record inspected",
+      "supports": "A signal-modeling framework, not first-principles contact acoustics. The current empirical comparator is only a pooled, phase-dependent filtered-pulse baseline, not a full SMS implementation.",
+      "checked_date": "2026-09-29"
+    },
+    {
+      "id": "ku100-near",
+      "title": "Near-field KU100 HRIR measurements",
+      "url": "https://zenodo.org/records/4297951",
+      "authors": "Arend, Neidhardt and P\u00f6rschmann",
+      "access": "previous measured bank and provenance retained",
+      "supports": "Airborne receiver responses at measured distances. Not tongue contact, sealing, or cross-head mechanical transmission.",
+      "checked_date": "2026-09-29"
+    }
+  ],
+  "triggers": [
+    {
+      "id": "wet-slide",
+      "family": "Primary target",
+      "item": "Artificial ear + compliant tongue/saliva",
+      "action": "Slide and direction reversal",
+      "sound_description": "Intermittent wet texture, bursts, changing brightness",
+      "mechanism_hypothesis": "Competing sources: contact friction, internal-mouth emission, changing seal. None identified by the WAV alone.",
+      "minimum_observations": "Contact position/speed/load, fluid condition, both raw microphones; compare with contact-free mouth motion.",
+      "listen_for": "Compare sustained detail and reversal-associated changes; reject an unrelated noise bed.",
+      "sources": [
+        "audioset-contact",
+        "cluster",
+        "ku100-near"
+      ],
+      "implementation": "Unimplemented physical target; empirical acoustic comparator only",
+      "evidence_boundary": "Hypothesis/design mapping unless the cited experiment explicitly establishes it in its own apparatus."
+    },
+    {
+      "id": "wet-roll",
+      "family": "Primary target",
+      "item": "Artificial ear + compliant tongue",
+      "action": "Rolling contact",
+      "sound_description": "Evolving contact texture rather than a uniformly swept filter",
+      "mechanism_hypothesis": "Changing contact patch and deformation are candidate causes, not established labels.",
+      "minimum_observations": "Contact patch video and gross motion plus raw stereo; distinguish rolling from sliding.",
+      "listen_for": "Listen for action-corresponding changes without an animation suggesting them.",
+      "sources": [
+        "audioset-contact"
+      ],
+      "implementation": "Unimplemented",
+      "evidence_boundary": "Hypothesis/design mapping unless the cited experiment explicitly establishes it in its own apparatus."
+    },
+    {
+      "id": "wet-peel",
+      "family": "Primary target",
+      "item": "Wetted artificial ear + compliant tongue",
+      "action": "Peel and full release",
+      "sound_description": "Short clustered releases or a sticky-separation impression",
+      "mechanism_hypothesis": "Adhesive separation, seal opening or internal-mouth sources compete. Tape fracture is only an analogy to test, not a saliva law.",
+      "minimum_observations": "Synchronized separation/force and near/far microphones; compare slow peel, rapid release and dry contact.",
+      "listen_for": "Does the release sound resemble the reference, with appropriate timing and decay?",
+      "sources": [
+        "tape",
+        "cluster"
+      ],
+      "implementation": "Unimplemented",
+      "evidence_boundary": "Hypothesis/design mapping unless the cited experiment explicitly establishes it in its own apparatus."
+    },
+    {
+      "id": "wet-hold",
+      "family": "Primary target",
+      "item": "Same contact pair",
+      "action": "Stationary hold then recontact",
+      "sound_description": "Quiet hold, delayed events or change after recontact",
+      "mechanism_hypothesis": "Liquid/contact history might matter; fixed viscous damping does not identify or model it.",
+      "minimum_observations": "Controlled hold durations, initial liquid amount and reset conditions.",
+      "listen_for": "Reject unchanged continuous rubbing sound during an action that should be held still.",
+      "sources": [
+        "cluster"
+      ],
+      "implementation": "Unimplemented history-dependent contact",
+      "evidence_boundary": "Hypothesis/design mapping unless the cited experiment explicitly establishes it in its own apparatus."
+    },
+    {
+      "id": "mouth-free",
+      "family": "Source-isolation control",
+      "item": "Mouth near but not touching the ear",
+      "action": "Non-contact mouth gesture",
+      "sound_description": "Clicks, bursts or breath-like material",
+      "mechanism_hypothesis": "Could be an internal-mouth source radiating toward the ear, rather than a sound created on the pinna.",
+      "minimum_observations": "Verify contact-free condition and mouth-to-microphone position.",
+      "listen_for": "Compare reference character without assuming every click is tongue-to-ear contact.",
+      "sources": [
+        "audioset-liquid",
+        "ku100-near"
+      ],
+      "implementation": "Unimplemented physical source; needed control",
+      "evidence_boundary": "Hypothesis/design mapping unless the cited experiment explicitly establishes it in its own apparatus."
+    },
+    {
+      "id": "rubber-rub",
+      "family": "Diagnostic material",
+      "item": "Dry/wet silicone coupon + compliant pad",
+      "action": "Rub at fixed speed/load",
+      "sound_description": "Soft rubbing with possible squeak or intermittency",
+      "mechanism_hypothesis": "Reduced contact/friction models may be fittable after force/vibration measurements.",
+      "minimum_observations": "Actual silicone formulation, surface topography, force, slip and microphone transfer.",
+      "listen_for": "Separate interface excitation from the object/cavity ringing.",
+      "sources": [
+        "cluster",
+        "audioset-contact"
+      ],
+      "implementation": "Generic fixture exists; target relation unvalidated",
+      "evidence_boundary": "Hypothesis/design mapping unless the cited experiment explicitly establishes it in its own apparatus."
+    },
+    {
+      "id": "glass-tap",
+      "family": "Future object",
+      "item": "Glass or ceramic vessel + small striker",
+      "action": "Tap at named points",
+      "sound_description": "Sharp onset followed by material/object-dependent decay",
+      "mechanism_hypothesis": "Impact, elastic modes and radiation; geometry and mounting influence response.",
+      "minimum_observations": "Instrumented impact, object geometry, support and microphone coordinates.",
+      "listen_for": "Compare attack and resonant decay at the same impact location.",
+      "sources": [
+        "realimpact"
+      ],
+      "implementation": "Research candidate; no new item renderer",
+      "evidence_boundary": "Hypothesis/design mapping unless the cited experiment explicitly establishes it in its own apparatus."
+    },
+    {
+      "id": "wood-tap",
+      "family": "Future object",
+      "item": "Wood block + nail, finger or striker",
+      "action": "Tap or knock",
+      "sound_description": "Damped transient and body resonance",
+      "mechanism_hypothesis": "Tool/object contact and structural radiation, not just material-name EQ.",
+      "minimum_observations": "Tool compliance, impact profile, mounting and grain/geometry.",
+      "listen_for": "Can two impact points and two tools be distinguished?",
+      "sources": [
+        "realimpact",
+        "greatest-hits"
+      ],
+      "implementation": "Research candidate; no new item renderer",
+      "evidence_boundary": "Hypothesis/design mapping unless the cited experiment explicitly establishes it in its own apparatus."
+    },
+    {
+      "id": "metal-ring",
+      "family": "Future object",
+      "item": "Metal lid, spoon or plate",
+      "action": "Strike and damp",
+      "sound_description": "Ringing onset, decay altered by touch",
+      "mechanism_hypothesis": "Impact-driven modes with damping and boundary-condition changes.",
+      "minimum_observations": "Impact and subsequent touch location/load plus microphone position.",
+      "listen_for": "Does touching change decay rather than just volume?",
+      "sources": [
+        "realimpact"
+      ],
+      "implementation": "Research candidate; no new item renderer",
+      "evidence_boundary": "Hypothesis/design mapping unless the cited experiment explicitly establishes it in its own apparatus."
+    },
+    {
+      "id": "plastic-click",
+      "family": "Future object",
+      "item": "Rigid plastic case or cap",
+      "action": "Tap, flex or snap",
+      "sound_description": "Click, short rattle, or abrupt flex event",
+      "mechanism_hypothesis": "Tap, latch and buckling are different mechanisms. Do not put them in one undifferentiated preset.",
+      "minimum_observations": "Video of mechanism and impact/force history.",
+      "listen_for": "Distinguish tapping the body from opening the latch.",
+      "sources": [
+        "greatest-hits",
+        "fsd50k"
+      ],
+      "implementation": "Research candidate; no new item renderer",
+      "evidence_boundary": "Hypothesis/design mapping unless the cited experiment explicitly establishes it in its own apparatus."
+    },
+    {
+      "id": "brush",
+      "family": "Future object",
+      "item": "Bristle brush + ear surrogate/surface",
+      "action": "Brush at varied angle/speed",
+      "sound_description": "Many fine contacts with gross stroke structure",
+      "mechanism_hypothesis": "Distributed bristle contacts and transmission; wind/microphone rubbing can confound the capture.",
+      "minimum_observations": "Brush geometry, orientation, stroke and surface contact state.",
+      "listen_for": "Does stroke direction or stopping change the micro-event texture?",
+      "sources": [
+        "audioset-contact",
+        "greatest-hits"
+      ],
+      "implementation": "Research candidate; no new item renderer",
+      "evidence_boundary": "Hypothesis/design mapping unless the cited experiment explicitly establishes it in its own apparatus."
+    },
+    {
+      "id": "scratch-scrape",
+      "family": "Future object",
+      "item": "Nail/edge + textured surface",
+      "action": "Scratch or scrape",
+      "sound_description": "Sharp rough transients or sustained roughness",
+      "mechanism_hypothesis": "Material removal and hard-edge sliding are not equivalent to soft rubbing.",
+      "minimum_observations": "Contact pair, force, edge geometry, speed and surface change.",
+      "listen_for": "Avoid using the same hiss with different brightness for all interactions.",
+      "sources": [
+        "audioset-contact",
+        "greatest-hits"
+      ],
+      "implementation": "Research candidate; no new item renderer",
+      "evidence_boundary": "Hypothesis/design mapping unless the cited experiment explicitly establishes it in its own apparatus."
+    },
+    {
+      "id": "sheet-crinkle",
+      "family": "Future object",
+      "item": "Paper, Mylar or plastic bag",
+      "action": "Crumple, bend, unfold",
+      "sound_description": "Discrete crackles, clusters and pauses",
+      "mechanism_hypothesis": "Rapid sheet reconfiguration has experimental support in Mylar; transferring its statistics to another sheet requires measurement.",
+      "minimum_observations": "Sheet dimensions/thickness, prior folds, motion and raw sound.",
+      "listen_for": "Check clicks and changing activity, including history after unfolding.",
+      "sources": [
+        "crumple",
+        "schaeffer"
+      ],
+      "implementation": "Research candidate; no new item renderer",
+      "evidence_boundary": "Hypothesis/design mapping unless the cited experiment explicitly establishes it in its own apparatus."
+    },
+    {
+      "id": "tape-peel",
+      "family": "Diagnostic material",
+      "item": "Pressure-sensitive adhesive tape + substrate",
+      "action": "Peel",
+      "sound_description": "Pulse trains, crackle or screech",
+      "mechanism_hypothesis": "Fracture-tip shock pulses supported in the cited tape experiment; not established for a wet tongue.",
+      "minimum_observations": "Tape/substrate, peel speed/angle, force and synchronized imaging/audio.",
+      "listen_for": "Use as a mechanism discrimination example, not a replacement wet-ear sound.",
+      "sources": [
+        "tape"
+      ],
+      "implementation": "Research candidate; no new item renderer",
+      "evidence_boundary": "Hypothesis/design mapping unless the cited experiment explicitly establishes it in its own apparatus."
+    },
+    {
+      "id": "sponge-squish",
+      "family": "Later wet object",
+      "item": "Liquid-saturated sponge or foam",
+      "action": "Squeeze and release",
+      "sound_description": "Squish, drainage or intermittent gas events",
+      "mechanism_hypothesis": "Porous drainage, compliance and air interfaces are competing contributions.",
+      "minimum_observations": "Liquid quantity, pore material, compression and separate air/liquid paths.",
+      "listen_for": "Does the sound depend on fluid amount and compression rather than a wetness filter?",
+      "sources": [
+        "audioset-liquid"
+      ],
+      "implementation": "Later extension; not prioritized over primary target",
+      "evidence_boundary": "Hypothesis/design mapping unless the cited experiment explicitly establishes it in its own apparatus."
+    },
+    {
+      "id": "droplet-pour",
+      "family": "Later wet object",
+      "item": "Liquid + container or receiving surface",
+      "action": "Drip, pour, splash",
+      "sound_description": "Isolated impacts versus a stream and container response",
+      "mechanism_hypothesis": "Separate drop/surface events from cavity and entrained-air sound; no automatic bubble label.",
+      "minimum_observations": "Liquid, landing surface/depth, drop/flow rate and microphone position.",
+      "listen_for": "Distinguish individual impacts from filling/flow; do not use as saliva evidence.",
+      "sources": [
+        "audioset-liquid"
+      ],
+      "implementation": "Later extension; no new item renderer",
+      "evidence_boundary": "Hypothesis/design mapping unless the cited experiment explicitly establishes it in its own apparatus."
+    },
+    {
+      "id": "fabric",
+      "family": "Future object",
+      "item": "Cloth/leather-like surface + hand",
+      "action": "Rub, stretch, fold",
+      "sound_description": "Frictional texture or creak",
+      "mechanism_hypothesis": "Surface contact and tension/bending may contribute; broad labels alone do not identify the force law.",
+      "minimum_observations": "Named material, tension, texture and action history.",
+      "listen_for": "Compare rub versus fold at controlled gross motion.",
+      "sources": [
+        "greatest-hits",
+        "fsd50k"
+      ],
+      "implementation": "Research candidate; no new item renderer",
+      "evidence_boundary": "Hypothesis/design mapping unless the cited experiment explicitly establishes it in its own apparatus."
+    },
+    {
+      "id": "sound-shape",
+      "family": "Annotation vocabulary",
+      "item": "Any sound object, source unknown",
+      "action": "Describe onset / sustain / offset / pulse pattern",
+      "sound_description": "Impulse, irregular pulses, sustained layer, sharp or soft ending",
+      "mechanism_hypothesis": "This is sound morphology, not a cause. Useful before assigning physical mechanisms.",
+      "minimum_observations": "Acoustic event boundaries, source provenance and processing record.",
+      "listen_for": "Use consistent language for what is wrong without inventing its cause.",
+      "sources": [
+        "schaeffer",
+        "ucs"
+      ],
+      "implementation": "Implemented as listening prompts and acoustic-event proposals",
+      "evidence_boundary": "Hypothesis/design mapping unless the cited experiment explicitly establishes it in its own apparatus."
+    }
+  ],
+  "raw_external_audio_downloaded_this_pass": false
+}

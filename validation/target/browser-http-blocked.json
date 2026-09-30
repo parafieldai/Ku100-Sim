@@ -1,0 +1,12 @@
+{
+  "schema": "target-browser/1",
+  "passed": false,
+  "checks": [],
+  "actual_user_reference_crops": false,
+  "reference_import_fixture": "synthetic generated stereo, NOT a physical/realism validation",
+  "human_listening_performed": false,
+  "errors": [],
+  "external_requests": [],
+  "browser": "144.0.7559.96",
+  "error": "page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:35983/target/\nCall log:\n  - navigating to \"http://127.0.0.1:35983/target/\", waiting until \"networkidle\"\n\n    at /mnt/data/ku100-target-work/scripts/browser_target.mjs:45:14"
+}

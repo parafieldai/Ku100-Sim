@@ -1,0 +1,165 @@
+{
+  "schema": "target-local-audit/1",
+  "checked_utc": "2026-09-29T22:53:26.846810+00:00",
+  "base_commit": "f578d1ff8c247e745d59261834702bd28579bcae",
+  "remote_main_last_read": "42472a45d2cb2b786993cea0d6cacb57b74e2981",
+  "remote_changed": false,
+  "github_pages_updated": false,
+  "github_write_capability_available": false,
+  "local_checks": {
+    "native_python": {
+      "passed": 89,
+      "failures": 0,
+      "skipped": 0
+    },
+    "node_frontend": {
+      "passed": 25,
+      "failures": 0,
+      "skipped": 0
+    },
+    "private_html_in_memory": {
+      "passed": 12,
+      "actual_supplied_reference_crops": true,
+      "human_listening": false,
+      "automated_rating_is_test_input": true
+    },
+    "normal_file_navigation": "blocked_by_browser_administrator; not passed",
+    "normal_http_navigation": "blocked_by_browser_administrator; not passed",
+    "remote_ci": "not run for this change",
+    "deployed_site": "unchanged; new target route not verified"
+  },
+  "target_accepted": false,
+  "physical_tongue_saliva_contact_implemented": false,
+  "product_acceptance_command": "python scripts/assess_target_study.py --require-target",
+  "product_acceptance_exit_code": 2,
+  "product_acceptance_note": "Explicit rejection based on documented missing requirements and measured failures, not a calibrated perceptual threshold.",
+  "unchanged_original_native_and_scene_files": [
+    {
+      "path": "native/main.cpp",
+      "sha256": "61c570490b289e2570ee274342892030ba4b79ef6d86688862cc89ef99c2869f"
+    },
+    {
+      "path": "native/physics.cpp",
+      "sha256": "233f1f1ef9222cf1c0e4611a300e9fc355e35616c6395a078b79e2f242c0cf28"
+    },
+    {
+      "path": "native/physics.hpp",
+      "sha256": "cb6e7d33f46ea596f45adc59115f63f22e55fd97ef6f224b5a0396abd0cc10e9"
+    },
+    {
+      "path": "native/receiver.cpp",
+      "sha256": "a5526aee4b79386272fa3ec05236d8a5228c3f48ebfbccfc5f27e9559f17eceb"
+    },
+    {
+      "path": "native/receiver.hpp",
+      "sha256": "04a3535d5784c0bc1422486f081e735622e154c8d84bcf5340c3dc8fe53beb1f"
+    },
+    {
+      "path": "native/viscous.hpp",
+      "sha256": "96b48915e9484998f396bc58a34cb4ab8ab7562f093fcb9cdb3a63630201442d"
+    },
+    {
+      "path": "scenes/airborne-left.json",
+      "sha256": "4bec5741bd7030630ae43de96035f38868c04ae709a8daed416d97a35dc1116e"
+    },
+    {
+      "path": "scenes/fine-texture-left.json",
+      "sha256": "619f07ce2a015560d4c720f964f4ea8679f49afb23008f3aa97971a8309b3e92"
+    },
+    {
+      "path": "scenes/press-left.json",
+      "sha256": "cbd15667715ebf6c72772f2f0b1c7ed0a056e2ff31e6a096a966b96cc1443dd8"
+    },
+    {
+      "path": "scenes/stroke-left.json",
+      "sha256": "5b0a1aa48da2a3ef7d7122fa4466250f17e72bb5c9a86a87b887c79cc1ab7578"
+    },
+    {
+      "path": "scenes/tap-right.json",
+      "sha256": "8b95857b6c02874f6c84e778631ebe4bf2f5af24b7f84be018fb6825fefc3b21"
+    },
+    {
+      "path": "scenes/unsteady-stroke-left.json",
+      "sha256": "d86ea819a91ac82ba6763dc527652214334769d72fcb7232e4a2f735255e0a90"
+    },
+    {
+      "path": "scenes/wet-stroke-left.json",
+      "sha256": "17a4cee2232577a31fd2398cb3e568e329ddf3680ff4f3cf8a8160da9bf9011d"
+    }
+  ],
+  "public_build": {
+    "files": 24,
+    "bytes": 27640974,
+    "reference_recording_waveforms_included": false,
+    "generated_audio": [
+      {
+        "id": "burst-right-a",
+        "file": "burst-right-a.wav",
+        "sha256": "605ce9f407689ccb23d8fc834527911be0580d38f21a8b77fe1b419d03139089",
+        "bytes": 2304044
+      },
+      {
+        "id": "burst-right-b",
+        "file": "burst-right-b.wav",
+        "sha256": "3f253319b92f0764d36660f9c147363c16e951dcc1b0621a6e3467562c15f052",
+        "bytes": 2304044
+      },
+      {
+        "id": "burst-left-a",
+        "file": "burst-left-a.wav",
+        "sha256": "eb8ac7cdf5efb1b05f91b8e8ee0bd0c17ed1515bd00c9eb193907a3772ff1ee3",
+        "bytes": 2304044
+      },
+      {
+        "id": "continuous-right",
+        "file": "continuous-right.wav",
+        "sha256": "92db7ef206798bf8ca239be3e0fb2e9212194654f76369eb5526925757c68280",
+        "bytes": 2304044
+      },
+      {
+        "id": "fixture-right",
+        "file": "fixture-right.wav",
+        "sha256": "21354a247753fdd24eec278739c9d1aa9632f5354f0ef843f2e586e28f90f3e5",
+        "bytes": 2305082
+      },
+      {
+        "id": "fixture-left",
+        "file": "fixture-left.wav",
+        "sha256": "e9c136e5a6c167ab5b9ff3aa8f424574c886e9c4c91acd8bc9b43119c85e0553",
+        "bytes": 2305082
+      }
+    ]
+  },
+  "private_comparison": {
+    "reference_crops": 4,
+    "reference_seconds_total": 24,
+    "public_distribution_allowed_by_this_package": false,
+    "artifact_receipt": {
+      "bytes": 29828927,
+      "sha256": "18c7f2613717d5d0a3c6dc32d4f04c66c46b14e32090d3942690bdaf1502b135",
+      "private_reference_crops_included": true,
+      "public_deployment_permitted": false,
+      "references": 4,
+      "generated_examples": 6
+    }
+  },
+  "log_receipts": {
+    "target-full-python.log": {
+      "bytes": 14247,
+      "sha256": "13db247a2e2dd90cd142a58edc265b2e51465bed46297cc34b5cb539951bbf35"
+    },
+    "target-js-tests-final.log": {
+      "bytes": 5366,
+      "sha256": "5abc5ab044f256dd0953bb33623fab8d7028e61889a443a391b87d7f6d89a9f4"
+    },
+    "required-target-gate.log": {
+      "bytes": 218,
+      "sha256": "d6ec47d233c39703e2e86a5cbdc99d984d498d4916fcc6cd77af193111dad45d"
+    }
+  },
+  "new_subagents_invoked": false,
+  "additional_ui_regressions": [
+    "Paused seeking cannot qualify as listening playback",
+    "Asynchronous candidate loads use captured candidate identity and generation checks"
+  ]
+}

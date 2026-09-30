@@ -27,6 +27,9 @@ MAX_MANIFEST_BYTES = 64 * 1024
 MAX_BUNDLE_BYTES = 16 * 1024 * 1024
 MAX_SITE_BYTES = 80 * 1024 * 1024
 MAX_EXAMPLES = 16
+TARGET_NAMES = ("burst-right-a", "burst-right-b", "burst-left-a", "continuous-right", "fixture-right", "fixture-left")
+TARGET_APP = ("target/index.html", "target/app.js", "target/core.js", "target/style.css")
+TARGET_FILES = (*TARGET_APP, "target/generated/study.json", *("target/generated/"+name+".wav" for name in TARGET_NAMES))
 SLUG = re.compile(r"[a-z][a-z0-9-]{0,63}\Z")
 BUNDLE_NAME = re.compile(r"[a-z][a-z0-9-]{0,63}\.ku100\.json\Z")
 
@@ -159,6 +162,52 @@ def _validate_bundle(data: bytes, label: str) -> None:
     _validate_audio(bundle["audio"], sample_rate, duration, label)
 
 
+def _target_files(source: Path) -> dict[str, bytes]:
+    target = source / "target"
+    if not target.exists():
+        if source == (ROOT / "web").resolve():
+            raise ValueError("Build the required target comparison before publication")
+        return {}  # Existing isolated publication fixtures need no target page.
+    if target.is_symlink() or not target.is_dir():
+        raise ValueError("Target source must be a real directory")
+    found = set()
+    for entry in target.rglob("*"):
+        rel = entry.relative_to(source).as_posix()
+        if entry.is_symlink(): raise ValueError("Linked target entry is forbidden")
+        if entry.is_dir() and rel == "target/generated": continue
+        if not entry.is_file() or rel not in TARGET_FILES:
+            raise ValueError("Unlisted target file, including private reference audio: " + rel)
+        found.add(rel)
+    if found != set(TARGET_FILES): raise ValueError("Incomplete target comparison build")
+    files = {name: _read_file(source / name, MAX_BUNDLE_BYTES if name.endswith(".wav") else MAX_APP_BYTES) for name in TARGET_FILES}
+    study = _json(files["target/generated/study.json"], "target study")
+    if (study.get("schema") != "target-listening-study/1" or study.get("reference_audio_public") is not False
+            or study.get("physical_target_implemented") is not False or study.get("status") != "target_not_accepted"):
+        raise ValueError("Target scope/privacy labels must remain explicit")
+    candidates = study.get("candidates")
+    if not isinstance(candidates, list) or len(candidates) != len(TARGET_NAMES): raise ValueError("Invalid target candidates")
+    if {c.get("id") for c in candidates} != set(TARGET_NAMES): raise ValueError("Invalid candidate identities")
+    for entry in candidates:
+        if entry.get("file") != entry["id"] + ".wav": raise ValueError("Invalid target audio path")
+        raw = files["target/generated/" + entry["file"]]
+        if entry.get("sha256") != hashlib.sha256(raw).hexdigest(): raise ValueError("Target WAV hash mismatch")
+        metrics = entry.get("metrics", {})
+        if not isinstance(metrics, dict) or not _number(metrics.get("duration_s")) or not 1 <= metrics["duration_s"] <= 30:
+            raise ValueError("Invalid target audio duration")
+        _validate_audio({"mime":"audio/wav", "base64":base64.b64encode(raw).decode(), "sha256":entry["sha256"], "channels":2},
+                        48000, metrics.get("duration_s"), entry["file"])
+    # Recursively forbid embedded raw reference material or transport payloads.
+    def no_embedded(value):
+        if isinstance(value, dict):
+            for key, child in value.items():
+                if key in {"base64", "reference_waveform", "samples", "raw_audio"}: raise ValueError("Embedded reference/sample payload prohibited")
+                no_embedded(child)
+        elif isinstance(value, list):
+            for child in value: no_embedded(child)
+    no_embedded(study)
+    return files
+
+
 def _check_output(output: Path, source: Path) -> None:
     if output.is_symlink() or any(parent.is_symlink() for parent in output.parents):
         raise ValueError("Output path must not contain symbolic links")
@@ -173,9 +222,9 @@ def _check_output(output: Path, source: Path) -> None:
             relative = path.relative_to(output)
             if path.is_symlink():
                 raise ValueError(f"Refusing to replace a linked output: {relative}")
-            if path.is_dir() and relative.as_posix() == "examples":
+            if path.is_dir() and relative.as_posix() in {"examples", "target", "target/generated"}:
                 continue
-            if path.is_file() and (relative.as_posix() in APP_FILES
+            if path.is_file() and (relative.as_posix() in (*APP_FILES, *TARGET_FILES)
                     or relative.as_posix() in ("examples/index.json", "target-study.json")
                     or (relative.parent.as_posix() == "examples" and BUNDLE_NAME.fullmatch(relative.name))):
                 continue
@@ -254,6 +303,7 @@ def build_site(source: Path = ROOT / "web", output: Path = ROOT / "dist") -> dic
                 raise ValueError("Unexpected long reference field")
         check_summary(summary)
         files["target-study.json"] = data
+    files.update(_target_files(source))
     total = sum(map(len, files.values()))
     if total > MAX_SITE_BYTES:
         raise ValueError("Site exceeds the 80 MiB publication limit")

@@ -1,0 +1,164 @@
+
+> ku100-render-viewer@1.0.0 test
+> node --test tests/*.test.js
+
+TAP version 13
+# Subtest: native Float32 stereo samples retain polarity, ear level and absolute amplitude
+ok 1 - native Float32 stereo samples retain polarity, ear level and absolute amplitude
+  ---
+  duration_ms: 2.669434
+  type: 'test'
+  ...
+# Subtest: PCM 16-bit decode preserves sign and stereo order
+ok 2 - PCM 16-bit decode preserves sign and stereo order
+  ---
+  duration_ms: 0.310278
+  type: 'test'
+  ...
+# Subtest: PCM 24-bit decode preserves sign and stereo order
+ok 3 - PCM 24-bit decode preserves sign and stereo order
+  ---
+  duration_ms: 0.13233
+  type: 'test'
+  ...
+# Subtest: PCM 32-bit decode preserves sign and stereo order
+ok 4 - PCM 32-bit decode preserves sign and stereo order
+  ---
+  duration_ms: 0.088042
+  type: 'test'
+  ...
+# Subtest: truncated, mono and non-finite WAV data fail before playback
+ok 5 - truncated, mono and non-finite WAV data fail before playback
+  ---
+  duration_ms: 1.084575
+  type: 'test'
+  ...
+# Subtest: duplicate chunks, trailing bytes, residual headers and incorrect byte rates fail
+ok 6 - duplicate chunks, trailing bytes, residual headers and incorrect byte rates fail
+  ---
+  duration_ms: 0.281134
+  type: 'test'
+  ...
+# Subtest: declared audio hash is verified before playback and corruption is rejected
+ok 7 - declared audio hash is verified before playback and corruption is rejected
+  ---
+  duration_ms: 6.426228
+  type: 'test'
+  ...
+# Subtest: inconsistent audio metadata and future schemas are rejected
+ok 8 - inconsistent audio metadata and future schemas are rejected
+  ---
+  duration_ms: 0.387234
+  type: 'test'
+  ...
+# Subtest: trace column ambiguity, dimensions, backwards time and invalid values are rejected
+ok 9 - trace column ambiguity, dimensions, backwards time and invalid values are rejected
+  ---
+  duration_ms: 0.899195
+  type: 'test'
+  ...
+# Subtest: geometry units and coordinate orientation must be explicit
+ok 10 - geometry units and coordinate orientation must be explicit
+  ---
+  duration_ms: 0.592373
+  type: 'test'
+  ...
+# Subtest: trace interpolation follows audio-aligned timestamps without inventing tail state
+ok 11 - trace interpolation follows audio-aligned timestamps without inventing tail state
+  ---
+  duration_ms: 0.242445
+  type: 'test'
+  ...
+# Subtest: wave envelopes preserve short positive and negative transients
+ok 12 - wave envelopes preserve short positive and negative transients
+  ---
+  duration_ms: 0.212441
+  type: 'test'
+  ...
+# Subtest: example manifest permits local export basenames only
+ok 13 - example manifest permits local export basenames only
+  ---
+  duration_ms: 0.324289
+  type: 'test'
+  ...
+# Subtest: scene editing validates its schema without mutating the loaded render
+ok 14 - scene editing validates its schema without mutating the loaded render
+  ---
+  duration_ms: 0.510219
+  type: 'test'
+  ...
+# Subtest: static app uses local scripts and styles, never inline remote executable dependencies
+ok 15 - static app uses local scripts and styles, never inline remote executable dependencies
+  ---
+  duration_ms: 0.455878
+  type: 'test'
+  ...
+# Subtest: native unsteady losses and texture-scale controls survive scene export
+ok 16 - native unsteady losses and texture-scale controls survive scene export
+  ---
+  duration_ms: 0.449888
+  type: 'test'
+  ...
+# Subtest: an undersampled spatial texture is rejected rather than rendered with hidden aliasing
+ok 17 - an undersampled spatial texture is rejected rather than rendered with hidden aliasing
+  ---
+  duration_ms: 0.15919
+  type: 'test'
+  ...
+# Subtest: partial geometry overrides are validated against omitted native defaults
+ok 18 - partial geometry overrides are validated against omitted native defaults
+  ---
+  duration_ms: 0.570691
+  type: 'test'
+  ...
+# Subtest: exported integration rates stay within the native decimator range
+ok 19 - exported integration rates stay within the native decimator range
+  ---
+  duration_ms: 0.428306
+  type: 'test'
+  ...
+# Subtest: stereo RMS preview uses exactly one gain and preserves original samples
+ok 20 - stereo RMS preview uses exactly one gain and preserves original samples
+  ---
+  duration_ms: 2.113897
+  type: 'test'
+  ...
+# Subtest: reference crop preserves both ears and exact sample interval
+ok 21 - reference crop preserves both ears and exact sample interval
+  ---
+  duration_ms: 0.396007
+  type: 'test'
+  ...
+# Subtest: randomized ordering does not mutate or drop methods
+ok 22 - randomized ordering does not mutate or drop methods
+  ---
+  duration_ms: 0.25836
+  type: 'test'
+  ...
+# Subtest: listening observations require real nonempty ratings and retain provenance
+ok 23 - listening observations require real nonempty ratings and retain provenance
+  ---
+  duration_ms: 0.532974
+  type: 'test'
+  ...
+# Subtest: source and target roles are explicit and imported reference material is never sent
+ok 24 - source and target roles are explicit and imported reference material is never sent
+  ---
+  duration_ms: 0.431751
+  type: 'test'
+  ...
+# Subtest: portable offline SHA-256 matches independent known vectors and offset buffers
+ok 25 - portable offline SHA-256 matches independent known vectors and offset buffers
+  ---
+  duration_ms: 28.179893
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 101.533959
