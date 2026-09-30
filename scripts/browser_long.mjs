@@ -41,7 +41,8 @@ try{
   assert.deepEqual(decoded,{channels:2,frames:item.frames,rate:48000,error:0});
   await card.locator('button').click();await page.waitForFunction(id=>{const a=document.querySelector(`article[data-id="${id}"] audio`);return a.currentTime>.15&&!a.paused;},item.id);
   assert.equal(await page.locator('audio').evaluateAll(xs=>xs.filter(a=>!a.paused).length),1);
-  await audio.evaluate(a=>{a.currentTime=a.duration-1;});await page.waitForTimeout(150);await audio.evaluate(a=>a.pause());
+  await audio.evaluate(a=>{a.pause();a.currentTime=a.duration-1;});
+  await page.waitForFunction(id=>{const a=document.querySelector(`article[data-id="${id}"] audio`);return !a.seeking&&Math.abs(a.currentTime-(a.duration-1))<.005;},item.id);
   const dp=page.waitForEvent('download');await card.locator('a.download').click();const download=await dp;assert.equal(await download.failure(),null);assert.equal(hash(await fs.readFile(await download.path())),item.sha256);
   report.samples.push({id:item.id,...decoded,played:true,download_sha256:item.sha256});
  }

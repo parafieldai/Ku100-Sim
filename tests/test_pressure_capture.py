@@ -1,6 +1,7 @@
 import unittest
 import numpy as np
 from dataclasses import replace
+from unittest.mock import patch
 from ku100sim.pressure_capture import CaptureConfig,capture_pressure
 
 class CaptureTests(unittest.TestCase):
@@ -30,6 +31,11 @@ class CaptureTests(unittest.TestCase):
   self.assertLess(abs(y[12000:36000]).max(),2e-6)
  def test_overload_is_not_hidden(self):
   with self.assertRaises(ValueError):capture_pressure(self.tone(rms=2),self.rate)
+ def test_positive_half_lsb_cannot_quantize_past_full_scale(self):
+  for bits in (16,24):
+   virtual_output=np.array([[1-2.**(-bits),0.]])
+   with patch('ku100sim.pressure_capture.signal.resample_poly',return_value=virtual_output):
+    with self.assertRaises(ValueError):capture_pressure(np.zeros((100,2)),self.rate,replace(CaptureConfig(),bits=bits))
  def test_invalid_inputs(self):
   for x in [np.zeros(20),np.full((10,2),np.nan),np.zeros((0,2)),np.zeros((10,3))]:
    with self.assertRaises(ValueError):capture_pressure(x,self.rate)

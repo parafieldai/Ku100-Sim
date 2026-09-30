@@ -62,7 +62,7 @@ def capture_pressure(pressure_pa, input_rate:int, config:CaptureConfig=CaptureCo
     anti_alias=signal.firwin(taps,22000.,fs=input_rate,window=('kaiser',beta))
     full=signal.resample_poly(scaled,1,input_rate//config.output_rate,axis=0,window=anti_alias)
     step=1./2**(config.bits-1)
-    if full.max()>1-step/2 or full.min()<-1+step/2:raise ValueError('Reconstruction overshoot reaches ADC full scale')
+    if full.max()>=1-step/2 or full.min()<-1+step/2:raise ValueError('Reconstruction overshoot reaches ADC full scale')
     code=np.rint(full*2**(config.bits-1)).astype(np.int32)
     pcm=code.astype(float)/2**(config.bits-1)
     report={'schema':'illustrative-capture/1','configuration':asdict(config),'input_unit':'Pa at capsule',
