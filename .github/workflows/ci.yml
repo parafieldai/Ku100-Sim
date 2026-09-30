@@ -98,6 +98,14 @@ jobs:
         run: python scripts/package_object_site.py
       - name: Verify real object-audio playback and downloads
         run: node scripts/browser_objects.mjs
+      - name: Check shared-engine trajectory refinement and state behavior
+        run: python scripts/validate_unified.py
+      - name: Generate seven scenes through the single mechanical engine
+        run: python scripts/build_unified_examples.py
+      - name: Package the bounded shared-engine extension
+        run: python scripts/package_unified_site.py
+      - name: Verify common-engine audio, traces and scene export
+        run: node scripts/browser_unified.mjs
       - name: Retain tested native examples and verification evidence
         uses: actions/upload-artifact@v4
         if: always()

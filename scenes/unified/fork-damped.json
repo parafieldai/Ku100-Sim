@@ -1,0 +1,79 @@
+{
+  "schema": "shared-mechanics/1",
+  "name": "Fork-like resonator \u00b7 stronger damping",
+  "description": "Strike, then free ringing; no recorded source.",
+  "duration_s": 6.0,
+  "internal_rate": 192000,
+  "nodes": [
+    {
+      "id": "mode-0",
+      "mass_kg": 0.002,
+      "k2_n_m": 20698.06060895335,
+      "damping_n_s_m": 0.024,
+      "limit_m": 0.001,
+      "readout_weight": 1.0,
+      "driver": {
+        "force": [
+          [
+            0,
+            0
+          ],
+          [
+            0.12,
+            0
+          ],
+          [
+            0.12025,
+            0.03
+          ],
+          [
+            0.1205,
+            0
+          ],
+          [
+            6.0,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "mode-1",
+      "mass_kg": 0.0005,
+      "k2_n_m": 203230.57803903968,
+      "damping_n_s_m": 0.12,
+      "limit_m": 0.001,
+      "readout_weight": 0.12,
+      "driver": {
+        "force": [
+          [
+            0,
+            0
+          ],
+          [
+            0.12,
+            0
+          ],
+          [
+            0.12025,
+            0.015
+          ],
+          [
+            0.1205,
+            0
+          ],
+          [
+            6.0,
+            0
+          ]
+        ]
+      }
+    }
+  ],
+  "couplings": [],
+  "evidence": {
+    "status": "unmeasured_reduced_model",
+    "limits": "Two illustrative modes, no fork mesh or directional radiation. The overtone ratio is an approximation, not a measured fork. Dual-mono velocity readout, not KU100 pressure.",
+    "material_note": "SI-valued illustrative reduced parameters; not fitted to a recording or identified commercial material."
+  }
+}

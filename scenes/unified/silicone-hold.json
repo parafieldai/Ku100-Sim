@@ -1,0 +1,192 @@
+{
+  "schema": "shared-mechanics/1",
+  "name": "Silicone-like pad \u00b7 smooth press / hold / release",
+  "description": "Memory springs relax while contact stops; no texture is injected during stationary hold.",
+  "duration_s": 6.0,
+  "internal_rate": 192000,
+  "nodes": [
+    {
+      "id": "patch-0",
+      "mass_kg": 5e-05,
+      "k2_n_m": 150,
+      "k4_n_m3": 66666666.666666664,
+      "damping_n_s_m": 0.024248711305964284,
+      "memory": {
+        "stiffness_n_m": 90.0,
+        "tau_s": 0.045
+      },
+      "limit_m": 0.0004,
+      "readout_weight": 0.55,
+      "driver": {
+        "stiffness_n_m": 300,
+        "unilateral": true,
+        "displacement": [
+          [
+            0,
+            -3e-05
+          ],
+          [
+            0.2,
+            -3e-05
+          ],
+          [
+            0.45,
+            0.00012
+          ],
+          [
+            1.8,
+            0.00012
+          ],
+          [
+            2.05,
+            -3e-05
+          ],
+          [
+            2.6,
+            -3e-05
+          ],
+          [
+            2.85,
+            0.00012
+          ],
+          [
+            4.7,
+            0.00012
+          ],
+          [
+            4.95,
+            -3e-05
+          ],
+          [
+            6.0,
+            -3e-05
+          ]
+        ]
+      }
+    },
+    {
+      "id": "patch-1",
+      "mass_kg": 3e-05,
+      "k2_n_m": 600,
+      "k4_n_m3": 266666666.66666666,
+      "damping_n_s_m": 0.03756594202199647,
+      "memory": {
+        "stiffness_n_m": 360.0,
+        "tau_s": 0.045
+      },
+      "limit_m": 0.0004,
+      "readout_weight": 0.3,
+      "driver": {
+        "stiffness_n_m": 1200,
+        "unilateral": true,
+        "displacement": [
+          [
+            0,
+            -3e-05
+          ],
+          [
+            0.2,
+            -3e-05
+          ],
+          [
+            0.45,
+            0.00012
+          ],
+          [
+            1.8,
+            0.00012
+          ],
+          [
+            2.05,
+            -3e-05
+          ],
+          [
+            2.6,
+            -3e-05
+          ],
+          [
+            2.85,
+            0.00012
+          ],
+          [
+            4.7,
+            0.00012
+          ],
+          [
+            4.95,
+            -3e-05
+          ],
+          [
+            6.0,
+            -3e-05
+          ]
+        ]
+      }
+    },
+    {
+      "id": "patch-2",
+      "mass_kg": 2e-05,
+      "k2_n_m": 1900,
+      "k4_n_m3": 844444444.4444444,
+      "damping_n_s_m": 0.05458204833093021,
+      "memory": {
+        "stiffness_n_m": 1140.0,
+        "tau_s": 0.045
+      },
+      "limit_m": 0.0004,
+      "readout_weight": 0.15,
+      "driver": {
+        "stiffness_n_m": 3800,
+        "unilateral": true,
+        "displacement": [
+          [
+            0,
+            -3e-05
+          ],
+          [
+            0.2,
+            -3e-05
+          ],
+          [
+            0.45,
+            0.00012
+          ],
+          [
+            1.8,
+            0.00012
+          ],
+          [
+            2.05,
+            -3e-05
+          ],
+          [
+            2.6,
+            -3e-05
+          ],
+          [
+            2.85,
+            0.00012
+          ],
+          [
+            4.7,
+            0.00012
+          ],
+          [
+            4.95,
+            -3e-05
+          ],
+          [
+            6.0,
+            -3e-05
+          ]
+        ]
+      }
+    }
+  ],
+  "couplings": [],
+  "evidence": {
+    "status": "unmeasured_reduced_model",
+    "limits": "Reduced normal viscoelastic contacts only: not full silicone geometry or a named formulation. Texture motion is prescribed surface height; tangential stick/slip, adhesive peeling, liquid, seal/cavity pressure and microphone capture are not implemented.",
+    "material_note": "SI-valued illustrative reduced parameters; not fitted to a recording or identified commercial material."
+  }
+}
