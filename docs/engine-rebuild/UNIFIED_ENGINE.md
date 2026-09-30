@@ -18,9 +18,12 @@ A new physical phenomenon needs a shared element/constitutive law and evidence.
 Once implemented, it can be composed into many objects without another object
 renderer. Unknown controls (for example an unsupported `wetness`) are rejected.
 
-The existing native fixture, fitted object responses, and statistical ear textures
-are unchanged and stay available as comparison baselines. They have NOT all been
-silently migrated into this new physical graph or relabeled as calibrated Pa.
+The existing native fixture, fitted object responses, and statistical ear-texture
+implementations and parameters are retained. They have NOT all been silently
+migrated into this new physical graph or relabeled as calibrated Pa. Full CI
+regenerates the older previews; retention of source code does not guarantee
+byte-identical statistical waveforms across runs. See the final comparison in
+[MAIN_AND_LIVE_RESULTS.md](../../validation/shared-engine/MAIN_AND_LIVE_RESULTS.md).
 
 ## Public API and dynamic behavior
 
@@ -180,7 +183,10 @@ Browser checks verify generated-file hashes, exact decoded audio, real playback,
 seeking, original downloads, edited JSON, and the explicit no-fake-rerender rule.
 The old site keeps its 80 MiB limit; this allowlisted extension has its own 24 MiB
 maximum, with a combined 104 MiB ceiling. The cap increase is a delivery budget,
-not a relaxed scientific threshold. Existing generated audio remains unchanged.
+not a relaxed scientific threshold. The old implementation and model parameters
+are retained; generated waveform identity must be checked, not inferred from that.
+The final main-run comparison is recorded in
+[MAIN_AND_LIVE_RESULTS.md](../../validation/shared-engine/MAIN_AND_LIVE_RESULTS.md).
 
 ## Reproduce
 
