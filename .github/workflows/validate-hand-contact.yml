@@ -1,0 +1,138 @@
+name: Validate deformable fingertip contact
+on:
+  push:
+    branches: [hand-contact-scene]
+    paths: ['.hand-part5', '.github/workflows/validate-hand-contact.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: hand-contact-validation
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: github.repository == 'parafieldai/Ku100-Sim' && github.ref == 'refs/heads/hand-contact-scene'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify exact tested patch and allowed paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,io,lzma,pathlib,subprocess,json
+          raw=b''.join(pathlib.Path(f'.hand-part{i}').read_bytes() for i in range(1,6))
+          assert len(raw)==58208
+          assert hashlib.sha256(raw).hexdigest()=='199aa830a9295141e70a7692dbe01e117a35ae33d84a3915b9cdc46fbf5749e9'
+          with lzma.LZMAFile(io.BytesIO(raw)) as stream:patch=stream.read(294811)
+          assert len(patch)==294810
+          assert hashlib.sha256(patch).hexdigest()=='bcfe6d2475b0259e5288603e886617b123e725677ec702179e396d021b1b47cc'
+          p=pathlib.Path('/tmp/hand-contact.patch');p.write_bytes(patch)
+          allowed={'.github/workflows/ci.yml','.github/workflows/verify-live-pages.yml','.gitignore','docs/engine-rebuild/FORK_NEAR_FIELD.md','docs/engine-rebuild/HAND_CONTACT.md','ku100sim/binaural.py','ku100sim/compact_radiation.py','ku100sim/solid_scene.py','ku100sim/solid_sound.py','ku100sim/unified.py','models/materials/ecoflex-compression.json','native/solid/engine.cpp','scenes/hand/frictionless.json','scenes/hand/hold.json','scenes/hand/light.json','scenes/hand/nocontact.json','scenes/hand/rate-neutral.json','scenes/hand/rub.json','scripts/browser_contact.mjs','scripts/browser_fork_radiation.py','scripts/build_fork_radiation.py','scripts/build_hand_scene.py','scripts/fit_silicone_compression.py','scripts/make_hand_scenes.py','scripts/package_hand_site.py','scripts/validate_fork_radiation.py','scripts/validate_hand_scene.py','tests/test_compact_radiation.py','tests/test_hand_publication.py','tests/test_solid_scene.py','validation/fork-radiation/numerical.json','validation/hand/ANP_DEVELOPMENT_REFINEMENT.json','validation/hand/initial/element-volume-audio.json','validation/hand/initial/element-volume-refinement.json','web/fork-radiation/app.js','web/fork-radiation/index.html','web/fork-radiation/offline-template.html','web/hand/app.js','web/hand/index.html','web/hand/style.css','web/index.html','web/unified/index.html'}
+          paths={line.split('\t')[-1] for line in subprocess.check_output(['git','apply','--numstat',str(p)],text=True).splitlines()}
+          assert paths==allowed
+          subprocess.run(['git','apply','--check','--index',str(p)],check=True)
+          subprocess.run(['git','apply','--index',str(p)],check=True)
+          subprocess.run(['git','diff','--cached','--check'],check=True)
+          pathlib.Path('/tmp/hand-paths.json').write_text(json.dumps(sorted(allowed)))
+          PY
+          git rm .hand-part1 .hand-part2 .hand-part3 .hand-part4 .hand-part5 .github/workflows/validate-hand-contact.yml
+          mkdir -p validation/local/hand-contact
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install numerical and browser dependencies
+        run: |
+          python -m pip install -r requirements.txt
+          python -m pip install -r requirements-texture.txt
+          npm ci --prefix web
+          npx --prefix web playwright install --with-deps chromium
+      - name: Build original native and measured receiver dependencies
+        run: |
+          python scripts/build_native.py
+          python scripts/prepare_ku100.py --download
+      - name: Run complete regression suite without changing tolerances
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s tests -v 2>&1 | tee validation/local/hand-contact/tests.txt
+          npm --prefix web test 2>&1 | tee validation/local/hand-contact/frontend-tests.txt
+          python scripts/check_research_index.py
+      - name: Restore exact older generated prerequisites from verified main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api repos/parafieldai/Ku100-Sim/actions/runs/36762593351 > validation/local/hand-contact/baseline-run.json
+          jq -e '.head_sha == "51f8390e6687d590ca53c8e9f97221d9d6807f67" and .conclusion == "success"' validation/local/hand-contact/baseline-run.json
+          gh run download 36762593351 --repo "$GITHUB_REPOSITORY" --name ku100-verified-51f8390e6687d590ca53c8e9f97221d9d6807f67 --dir baseline
+          python - <<'PY'
+          import pathlib,shutil
+          root=pathlib.Path('baseline/dist')
+          prefixes=('examples/','target/generated/','source/generated/','long/generated/','objects/generated/','unified/generated/')
+          for p in root.rglob('*'):
+              if p.is_file():
+                  name=p.relative_to(root).as_posix()
+                  if name.startswith(prefixes) or name=='target-study.json':
+                      target=pathlib.Path('web')/name
+                      if not target.exists():target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,target)
+          PY
+      - name: Generate connected fingertip-pad scenes and record unresolved refinement
+        run: |
+          python scripts/build_hand_scene.py --out web/hand/generated
+          python scripts/validate_hand_scene.py --out web/hand/generated/refinement.json
+      - name: Reproduce the preserved fork experiment
+        run: |
+          python scripts/build_fork_radiation.py --out web/fork-radiation/generated
+          python scripts/validate_fork_radiation.py --out validation/local/hand-contact/fork-numerical.json
+      - name: Package generated-only site and test playback plus actual scene motion
+        run: |
+          python scripts/package_hand_site.py
+          node scripts/browser_contact.mjs
+          node scripts/browser_unified.mjs
+      - name: Save exact validated source blobs without altering branch refs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import pathlib,json,hashlib,subprocess,base64
+          rows=[]
+          for name in json.loads(pathlib.Path('/tmp/hand-paths.json').read_text()):
+              content=pathlib.Path(name).read_bytes()
+              expected=hashlib.sha1(b'blob '+str(len(content)).encode()+b'\0'+content).hexdigest()
+              payload=json.dumps({'content':base64.b64encode(content).decode(),'encoding':'base64'})
+              result=json.loads(subprocess.check_output(['gh','api','--method','POST','repos/parafieldai/Ku100-Sim/git/blobs','--input','-'],input=payload,text=True))
+              assert result['sha']==expected
+              rows.append({'path':name,'mode':'100644','type':'blob','sha':expected,'sha256':hashlib.sha256(content).hexdigest(),'bytes':len(content)})
+          pathlib.Path('validation/local/hand-contact/blobs.json').write_text(json.dumps({'base_commit':'56275aa5fc39a0ae1defa26fb4c263f64147926d','files':rows,'refs_changed':False},indent=2)+'\n')
+          PY
+      - name: Preserve expanded source and declared evidence
+        if: always()
+        run: |
+          mkdir -p validation/local/hand-contact/source
+          tree=$(git write-tree)
+          git archive --format=tar "$tree" > validation/local/hand-contact/source/source.tar
+          echo "$tree" > validation/local/hand-contact/source/tree.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hand-contact-validation-${{ github.run_id }}
+          retention-days: 14
+          if-no-files-found: error
+          path: |
+            dist/hand/
+            dist/fork-radiation/
+            validation/local/hand-contact/
+            validation/local/contact-browser/
+            validation/local/unified-browser/
