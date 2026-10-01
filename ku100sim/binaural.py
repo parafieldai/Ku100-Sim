@@ -19,7 +19,7 @@ RATE=48000
 BANK_SHA256='8b781cf38083c47ee4264ca9594289a35dda53b893bd794cba8803d471515712'
 RADII=(.25,.5,.75,1.,1.5)
 _LOCK=threading.Lock()
-DOMAINS=('weighted_surface_velocity_proxy','effective_microphone_response','uncalibrated_modal_response','numerical_test')
+DOMAINS=('weighted_surface_velocity_proxy','effective_microphone_response','uncalibrated_modal_response','numerical_test','surface_flux_derivative_proxy')
 
 
 def _number(x,lo,hi,name):

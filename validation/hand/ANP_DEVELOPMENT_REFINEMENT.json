@@ -1,0 +1,178 @@
+{
+  "schema": "hand-scene-refinement/1",
+  "interval_s": 1.5,
+  "trajectory_note": "A declared 1.5 s diagnostic ending partway through rubbing, not the whole five-second audition",
+  "comparisons": {
+    "time96_192": {
+      "force_relative_l2": [
+        6.390382150852884e-06,
+        5.9901953427510684e-06
+      ],
+      "surface_flux_relative_l2": 0.004328882437089536
+    },
+    "mesh_coarse_default": {
+      "force_relative_l2": [
+        0.06163136954187345,
+        0.049197239042048826
+      ],
+      "surface_flux_relative_l2": 0.900855165404221
+    },
+    "mesh_default_fine": {
+      "force_relative_l2": [
+        0.05168270875288395,
+        0.050262578636689634
+      ],
+      "surface_flux_relative_l2": 0.4156010903143888
+    }
+  },
+  "runs": {
+    "coarse": {
+      "schema": "coupled-solids-result/1",
+      "kernel_sha256": "74f3a964245bf42af7e685b1d1cb523c5d42ab1762c22ed2c2499f40fdd1af5b",
+      "engine": "SimulationEngine",
+      "backend": "tetrahedral finite-strain solid + translating compliant contact actors",
+      "frames_internal": 144000,
+      "internal_rate": 96000,
+      "vertices": 60,
+      "tetrahedra": 144,
+      "surface_triangles": 104,
+      "fingertips": 2,
+      "mass_kg": 0.006984960000000002,
+      "volume_formulation": "averaged_nodal",
+      "peak_normal_forces_n": [
+        1.3847633184410082,
+        1.4312703734282881
+      ],
+      "max_contact_layer_compression_m": 0.0011897159832147128,
+      "min_jacobian": 0.9568065864810373,
+      "max_jacobian": 1.0426988025557562,
+      "energy_j": 0.002076093341475088,
+      "actuator_work_j": 0.003226231048719614,
+      "dissipation_j": 0.0011501701802321624,
+      "max_balance_error_j": 7.288504140859093e-08,
+      "balance_relative_to_net_work": 2.2591389242725387e-05,
+      "render_seconds": 13.422044222000068,
+      "source_domain": "six surface-patch volume velocities m3/s",
+      "recording_input": false,
+      "arbitrary_audio_excitation": false,
+      "water_implemented": false,
+      "human_listening_assessed": false,
+      "scene_sha256": "6a017891f781a589bae6b0ac09551150fcba50a7e6c71a7c9f044e3757271f44",
+      "balance_relative_to_peak_stored_energy": 3.495560076520954e-05
+    },
+    "time_fine": {
+      "schema": "coupled-solids-result/1",
+      "kernel_sha256": "74f3a964245bf42af7e685b1d1cb523c5d42ab1762c22ed2c2499f40fdd1af5b",
+      "engine": "SimulationEngine",
+      "backend": "tetrahedral finite-strain solid + translating compliant contact actors",
+      "frames_internal": 288000,
+      "internal_rate": 192000,
+      "vertices": 60,
+      "tetrahedra": 144,
+      "surface_triangles": 104,
+      "fingertips": 2,
+      "mass_kg": 0.006984960000000002,
+      "volume_formulation": "averaged_nodal",
+      "peak_normal_forces_n": [
+        1.384766425763544,
+        1.4312589233174102
+      ],
+      "max_contact_layer_compression_m": 0.0011897155197103035,
+      "min_jacobian": 0.9568065668113209,
+      "max_jacobian": 1.042698866163873,
+      "energy_j": 0.0020761350228620363,
+      "actuator_work_j": 0.003226234836956554,
+      "dissipation_j": 0.0011501160530379044,
+      "max_balance_error_j": 3.6442855334459755e-08,
+      "balance_relative_to_net_work": 1.1295785079562859e-05,
+      "render_seconds": 25.527910912999914,
+      "source_domain": "six surface-patch volume velocities m3/s",
+      "recording_input": false,
+      "arbitrary_audio_excitation": false,
+      "water_implemented": false,
+      "human_listening_assessed": false,
+      "scene_sha256": "5fe3a58bae7fbad1bd91fd01924096e38e82f7a51d65914996802c815be4b655",
+      "balance_relative_to_peak_stored_energy": 1.74777975367092e-05
+    },
+    "default": {
+      "schema": "coupled-solids-result/1",
+      "kernel_sha256": "74f3a964245bf42af7e685b1d1cb523c5d42ab1762c22ed2c2499f40fdd1af5b",
+      "engine": "SimulationEngine",
+      "backend": "tetrahedral finite-strain solid + translating compliant contact actors",
+      "frames_internal": 144000,
+      "internal_rate": 96000,
+      "vertices": 140,
+      "tetrahedra": 432,
+      "surface_triangles": 216,
+      "fingertips": 2,
+      "mass_kg": 0.006984960000000002,
+      "volume_formulation": "averaged_nodal",
+      "peak_normal_forces_n": [
+        1.3108513621499212,
+        1.3688301612496283
+      ],
+      "max_contact_layer_compression_m": 0.0012144489185187297,
+      "min_jacobian": 0.9247474586339711,
+      "max_jacobian": 1.0599820753196827,
+      "energy_j": 0.0020290424799645317,
+      "actuator_work_j": 0.0030787980467988064,
+      "dissipation_j": 0.0010497785850161448,
+      "max_balance_error_j": 7.604209046122024e-08,
+      "balance_relative_to_net_work": 2.4698628914710833e-05,
+      "render_seconds": 32.73363451199998,
+      "source_domain": "six surface-patch volume velocities m3/s",
+      "recording_input": false,
+      "arbitrary_audio_excitation": false,
+      "water_implemented": false,
+      "human_listening_assessed": false,
+      "scene_sha256": "091d910b2d3f09262785d9695dbc186bd5552e9abb8568914b8b555eaed092f0",
+      "balance_relative_to_peak_stored_energy": 3.6136326726402214e-05
+    },
+    "mesh_fine": {
+      "schema": "coupled-solids-result/1",
+      "kernel_sha256": "74f3a964245bf42af7e685b1d1cb523c5d42ab1762c22ed2c2499f40fdd1af5b",
+      "engine": "SimulationEngine",
+      "backend": "tetrahedral finite-strain solid + translating compliant contact actors",
+      "frames_internal": 144000,
+      "internal_rate": 96000,
+      "vertices": 315,
+      "tetrahedra": 1152,
+      "surface_triangles": 416,
+      "fingertips": 2,
+      "mass_kg": 0.006984960000000002,
+      "volume_formulation": "averaged_nodal",
+      "peak_normal_forces_n": [
+        1.2430054999386375,
+        1.3269000563629867
+      ],
+      "max_contact_layer_compression_m": 0.0011594501449716,
+      "min_jacobian": 0.9097398252356592,
+      "max_jacobian": 1.0707795994153497,
+      "energy_j": 0.001886428714359166,
+      "actuator_work_j": 0.0029337230268290885,
+      "dissipation_j": 0.001047317782065073,
+      "max_balance_error_j": 6.948365104315381e-08,
+      "balance_relative_to_net_work": 2.3684461828100775e-05,
+      "render_seconds": 70.37022424399993,
+      "source_domain": "six surface-patch volume velocities m3/s",
+      "recording_input": false,
+      "arbitrary_audio_excitation": false,
+      "water_implemented": false,
+      "human_listening_assessed": false,
+      "scene_sha256": "71d46e85da0b9b89a52556b780903e80b5f18e6f2ed5e4451316c1bc9a27d415",
+      "balance_relative_to_peak_stored_energy": 3.497024666062685e-05
+    }
+  },
+  "criterion": {
+    "temporal_force_relative_l2": 0.01,
+    "spatial_force_relative_l2": 0.05,
+    "spatial_source_flux_relative_l2": 0.05
+  },
+  "no_fit_gain_or_time_alignment": true,
+  "held_out_recording_prediction": false,
+  "asmr_acceptance": null,
+  "pressure_sensation_established": false,
+  "temporal_force_check_passed": true,
+  "mesh_force_check_passed": false,
+  "mesh_source_check_passed": false
+}

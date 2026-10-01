@@ -1,0 +1,86 @@
+{
+  "schema": "fork-field-numerical-check/1",
+  "passed": true,
+  "runs": [
+    {
+      "frequency_hz": 128,
+      "seconds": 10,
+      "pose_240_to_480_hz_relative_l2": 5.908522795118927e-06,
+      "pose_error_per_ear": [
+        3.984733891463836e-06,
+        5.908523348682654e-06
+      ],
+      "mechanics_192_to_384_khz_relative_l2": 2.569533461053335e-11,
+      "sphere_series_extra_48_terms_relative_l2": 5.488510618647133e-16,
+      "modeled_rotation_magnitude_range_db": [
+        30.502501044479985,
+        43.81910539479463
+      ],
+      "final_energy_balance_j": 5.628666283402834e-19
+    },
+    {
+      "frequency_hz": 256,
+      "seconds": 10,
+      "pose_240_to_480_hz_relative_l2": 5.912656593101033e-06,
+      "pose_error_per_ear": [
+        3.773828243730642e-06,
+        5.912658003595473e-06
+      ],
+      "mechanics_192_to_384_khz_relative_l2": 1.5903601667016673e-11,
+      "sphere_series_extra_48_terms_relative_l2": 4.789760398815436e-16,
+      "modeled_rotation_magnitude_range_db": [
+        18.704432844605897,
+        45.7339536889957
+      ],
+      "final_energy_balance_j": 3.931450485121632e-18
+    },
+    {
+      "frequency_hz": 512,
+      "seconds": 10,
+      "pose_240_to_480_hz_relative_l2": 5.927126835181442e-06,
+      "pose_error_per_ear": [
+        3.328969911270467e-06,
+        5.92713165198029e-06
+      ],
+      "mechanics_192_to_384_khz_relative_l2": 1.2707180734869773e-11,
+      "sphere_series_extra_48_terms_relative_l2": 5.798976813876212e-16,
+      "modeled_rotation_magnitude_range_db": [
+        10.66398545104385,
+        57.113230247868955
+      ],
+      "final_energy_balance_j": -3.86450311855302e-17
+    }
+  ],
+  "free_field_directivity": [
+    {
+      "range_m": 0.05,
+      "frequency_hz": 426,
+      "maxima_per_turn": 4
+    },
+    {
+      "range_m": 2,
+      "frequency_hz": 426,
+      "maxima_per_turn": 2
+    }
+  ],
+  "previous_fork": {
+    "baseline_scene": "scenes/unified/fork-512.json at 51f8390",
+    "decay_per_s": 1.5,
+    "three_second_amplitude_drop_db": 39.08650337129266,
+    "half_amplitude_s": 0.46209812037329684
+  },
+  "new_ring_setting": {
+    "decay_per_s": 0.2,
+    "three_second_amplitude_drop_db": 5.211533782839021,
+    "material_calibrated": false
+  },
+  "criteria": {
+    "max_pose_error_per_ear": 0.001,
+    "max_step_error": 1e-06,
+    "max_series_error": 1e-09
+  },
+  "scope": "Consistency of declared approximations only. No matched fork recording or human listening validation.",
+  "matched_real_recording_validation": false,
+  "asmr_acceptance": null,
+  "haptic_output": false
+}

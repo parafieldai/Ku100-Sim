@@ -109,6 +109,13 @@ jobs:
           KU100_SITE_DIR: verified/dist
           KU100_UNIFIED_REPORT_DIR: validation/local/live-pages/unified
         run: node scripts/browser_unified.mjs
+      - name: Verify connected contact and fork-field pages on public HTTPS
+        if: steps.source.outputs.ready == 'true'
+        env:
+          KU100_CONTACT_URL: https://parafieldai.github.io/Ku100-Sim/
+          KU100_SITE_DIR: verified/dist
+          KU100_CONTACT_REPORT_DIR: validation/local/live-pages/contact
+        run: node scripts/browser_contact.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -1,0 +1,46 @@
+name: Inspect elastomer measurements
+on:
+  push:
+    branches: [hand-contact-scene]
+    paths: ['.github/workflows/inspect-elastomer-data.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Download bounded compression release without executing dataset code
+        run: |
+          python - <<'PY'
+          import urllib.request,hashlib,pathlib,zipfile,io,json
+          out=pathlib.Path('validation/local/elastomer-data');out.mkdir(parents=True)
+          url='https://zenodo.org/records/14983287/files/Uniaxial%20compression.zip?download=1'
+          req=urllib.request.Request(url,headers={'User-Agent':'Ku100-Sim material research'})
+          with urllib.request.urlopen(req,timeout=60) as response:
+              b=response.read(1048577)
+          assert len(b)<=1048576
+          assert hashlib.md5(b).hexdigest()=='1d445b2cc7a2393e62b8017f69710ca0'
+          (out/'compression.zip').write_bytes(b)
+          with zipfile.ZipFile(io.BytesIO(b)) as z:
+              assert z.testzip() is None
+              entries=[{'name':i.filename,'bytes':i.file_size} for i in z.infolist()]
+              selected=[]
+              for info in z.infolist():
+                  if not info.is_dir() and ('eco' in info.filename.lower()) and info.file_size<3000000:
+                      raw=z.read(info);p=out/(hashlib.sha256(info.filename.encode()).hexdigest()[:10]+'-'+pathlib.Path(info.filename).name);p.write_bytes(raw)
+                      selected.append({'name':info.filename,'saved':p.name,'sha256':hashlib.sha256(raw).hexdigest(),'bytes':len(raw)})
+          report={'source':url,'archive_sha256':hashlib.sha256(b).hexdigest(),'entries':entries,'selected':selected,'raw_audio_present':False,'paper':'https://doi.org/10.1002/aisy.202500699'}
+          (out/'receipt.json').write_text(json.dumps(report,indent=2))
+          print(json.dumps(report))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: elastomer-compression-${{ github.run_id }}
+          path: validation/local/elastomer-data/
+          retention-days: 14

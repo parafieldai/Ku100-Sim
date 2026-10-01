@@ -1,0 +1,59 @@
+{
+  "schema": "silicone-compression-fit/1",
+  "formulation": "Ecoflex 00-30",
+  "mu_pa": 52596.06184931944,
+  "fitting_domain": "5-20 percent reported nominal compression",
+  "model": "ideal homogeneous incompressible neo-Hookean nominal stress mu*(lambda^-2-lambda)",
+  "offset_fit": false,
+  "source": "https://zenodo.org/records/14983287",
+  "archive_sha256": "7acde7e17883150264a528a55bced8d1828c8f70179066df81ad4f6545c5b856",
+  "source_files": [
+    {
+      "path": "Uniaxial compression/Ecoflex 00-30 - 1.csv",
+      "sha256": "198089e074441eb7a5a6c0db82b87ef162c03288c232ffca91e00613275a7b77",
+      "rows": 201,
+      "fit_rows": 120,
+      "split": "fit",
+      "stress_relative_l2": 0.026626394141750335
+    },
+    {
+      "path": "Uniaxial compression/Ecoflex 00-30 - 2.csv",
+      "sha256": "b123d6108e36c6cd7e19dec21431b0992cf9e9551d2e91ef7c5a5760e5209126",
+      "rows": 201,
+      "fit_rows": 120,
+      "split": "fit",
+      "stress_relative_l2": 0.046114825336163234
+    },
+    {
+      "path": "Uniaxial compression/Ecoflex 00-30 - 3.csv",
+      "sha256": "76fdb13abaea525a6acc45cf18871f1bcbf2fc54bcfc3bbcf8a250c17d9dbcd6",
+      "rows": 201,
+      "fit_rows": 119,
+      "split": "fit",
+      "stress_relative_l2": 0.043806980747594704
+    },
+    {
+      "path": "Uniaxial compression/Ecoflex 00-30 - 4.csv",
+      "sha256": "5deafccee2277cacfae08d156df469c00d360deead3e30246100e466a1308892",
+      "rows": 201,
+      "fit_rows": 120,
+      "split": "development-evaluation",
+      "stress_relative_l2": 0.048645499209830446
+    },
+    {
+      "path": "Uniaxial compression/Ecoflex 00-30 - 5.csv",
+      "sha256": "b8f82cd69f2d5b8ca14bc0fdd29596b3822b81f4c8a16050d0ccba964f553e5a",
+      "rows": 201,
+      "fit_rows": 120,
+      "split": "development-evaluation",
+      "stress_relative_l2": 0.06751118014634608
+    }
+  ],
+  "caveats": [
+    "Specimen/fixture friction and crosshead processing are not separately identified",
+    "Not an Ogden parameter recovery or multiaxial validation",
+    "Dynamic damping, bulk modulus, finger parameters and skin/silicone friction are not identified here",
+    "No microphone or audio data present; does not establish an ASMR sound"
+  ],
+  "production_material_calibrated": false
+}

@@ -108,6 +108,16 @@ jobs:
         run: python scripts/package_unified_site.py
       - name: Verify common-engine audio, traces and scene export
         run: node scripts/browser_unified.mjs
+      - name: Generate the connected contact scene and preserve fork-field configurations
+        run: |
+          OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python scripts/build_hand_scene.py
+          OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python scripts/validate_hand_scene.py --out web/hand/generated/refinement.json
+          OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python scripts/build_fork_radiation.py --out web/fork-radiation/generated
+          python scripts/validate_fork_radiation.py --out validation/local/fork-radiation.json
+      - name: Package contact research without raw measurement recordings
+        run: python scripts/package_hand_site.py
+      - name: Exercise the new contact and fork pages over ordinary HTTP
+        run: node scripts/browser_contact.mjs
       - name: Retain tested native examples and verification evidence
         uses: actions/upload-artifact@v4
         if: always()

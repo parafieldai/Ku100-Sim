@@ -29,3 +29,10 @@ web/source/.texture-*/
 
 # Generated shared-mechanics audition; scene coefficients are versioned.
 /web/unified/generated/
+
+# Local generated fork-radiation experiments
+web/fork-radiation/generated/
+
+# Contact and fork experiment outputs: generated, not source recordings
+/web/hand/generated/
+/web/fork-radiation/generated/

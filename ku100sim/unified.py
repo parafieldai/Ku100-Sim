@@ -153,6 +153,11 @@ class SimulationEngine:
     No recording, fitted sound buffer, or preset-name lookup enters rendering.
     """
     def __init__(self,scene):
+        self._solid = None
+        if isinstance(scene, dict) and scene.get("schema") == "coupled-solids/1":
+            from .solid_scene import DeformableScene
+            self._solid = DeformableScene(scene)
+            return
         self.scene=json.loads(json.dumps(scene,allow_nan=False))
         self.duration,self.rate,self.params,self.K,self.controls,self.weights,self.exact=validate_scene(self.scene)
         self.n=len(self.params);self.frame=0;self.failed=False;self._handle=None
@@ -167,6 +172,9 @@ class SimulationEngine:
         self._handle=self.lib.unified_create(self.n,self.rate,ptr(self.params),ptr(self.K),ptr(u),ptr(f),ptr(maps),int(self.exact))
         if not self._handle:raise RuntimeError(self.lib.unified_error().decode())
     def close(self):
+        if getattr(self, "_solid", None) is not None:
+            self._solid.close()
+            return
         if getattr(self,"_handle",None):self.lib.unified_destroy(self._handle);self._handle=None
     def __enter__(self):return self
     def __exit__(self,*exc):self.close()
@@ -178,7 +186,13 @@ class SimulationEngine:
             travel=interpolate(curves[2],t)
             for a,w,p in waves:u[:,i]+=a*np.sin(2*np.pi*travel/w+p)
         return u,f
-    def process(self,frames,*,displacement=None,force=None):
+    def process(self,frames,*,displacement=None,force=None,targets=None,target_velocities=None):
+        if self._solid is not None:
+            if displacement is not None or force is not None:
+                raise ValueError("Solid scenes accept target positions/velocities, not scalar-node overrides")
+            return self._solid.process(frames,targets=targets,target_velocities=target_velocities)
+        if targets is not None or target_velocities is not None:
+            raise ValueError("Scalar scenes have no geometric contact actors")
         if self.failed or not self._handle:raise RuntimeError('Engine closed or failed; create a new instance')
         if type(frames) is not int or not 1<=frames<=65536 or self.frame+frames>round(self.duration*self.rate):raise ValueError('Invalid block length')
         t=(self.frame+np.arange(1,frames+1))/self.rate;u,f=self.control_at(t)
@@ -192,8 +206,20 @@ class SimulationEngine:
             self.failed=True;raise RuntimeError(self.lib.unified_error().decode())
         self.frame+=frames
         return out
+    def render_radiated(self, radiation):
+        """Shared compact-array near-field research path for free modal ringing.
+
+        Distinct from measured-only render_binaural(); predicted near-ear fields
+        are explicitly uncalibrated. Unsupported nonlinear/contact scenes fail.
+        """
+        if self._solid is not None:raise ValueError('Free-ring radiation does not accept a deformable contact scene')
+        from ku100sim.compact_radiation import render_radiated
+        return render_radiated(self, radiation)
+
     def render_binaural(self,*,gain=12.,block_frames=2048):
         """Complete object-to-microphone output using the shared receiver."""
+        if self._solid is not None:
+            return self._solid.render_binaural(gain=gain,block_frames=block_frames)
         result=self.render(block_frames=block_frames)
         audio,receiver=preview_audio(result['velocity'],self.rate,gain,
             microphone=self.scene.get('microphone'),return_report=True)
@@ -201,6 +227,8 @@ class SimulationEngine:
         return result
 
     def render(self,*,block_frames=2048):
+        if self._solid is not None:
+            return self._solid.render(block_frames=block_frames)
         if self.frame:raise ValueError('render() requires fresh state; use process() to continue')
         if type(block_frames) is not int or not 1<=block_frames<=65536:raise ValueError('Invalid block size')
         frames=round(self.duration*self.rate);velocity=np.empty(frames);traces=[];stride=self.rate//240;max_balance=0.
